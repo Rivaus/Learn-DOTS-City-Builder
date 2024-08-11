@@ -1,0 +1,51 @@
+.circle-icon-button {
+    width: 30px;
+    height: 30px;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    background-color: var(--city-builder-dark-grey-color);
+    border-top-color: var(--city-builder-yellow-color);
+    border-right-color: var(--city-builder-yellow-color);
+    border-bottom-color: var(--city-builder-yellow-color);
+    border-left-color: var(--city-builder-yellow-color);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle-icon-button > VisualElement {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    min-height: 16px;
+    max-width: 16px;
+    max-height: 16px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.circle-icon-button:hover > VisualElement {
+    -unity-background-image-tint-color: var(--city-builder-yellow-color);
+}
+
+.gameplay-building-button {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.bottom-bar__time-label {
+    width: 200px;
+    -unity-text-align: middle-center;
+}

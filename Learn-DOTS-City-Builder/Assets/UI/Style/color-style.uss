@@ -1,0 +1,14 @@
+:root
+ {
+	--city-builder-yellow-color :#f1c40f;
+	--city-builder-dark-grey-color : #2E3532;
+
+	--city-builder-blue-color:#3498db;
+	--city-builder-blue-hover-color:#2980b9;
+
+	--city-builder-green-color:#2ecc71;
+	--city-builder-green-hover-color:#27ae60;
+
+	--city-builder-red-color:#e74c3c;
+	--city-builder-red-hover-color:#c0392b;
+ }
