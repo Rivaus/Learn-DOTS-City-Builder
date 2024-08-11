@@ -25,6 +25,10 @@
         <ui:VisualElement name="gameplay" style="flex-grow: 1;" />
         <ui:VisualElement name="bottom-bar">
             <ui:Label text="04 september 2024 14:58" name="time-label" class="bottom-bar__time-label" style="color: rgb(255, 255, 255);" />
+            <ui:Button text="x 0" name="time-scale-x0" />
+            <ui:Button text="x 1" name="time-scale-x1" />
+            <ui:Button text="x 10" name="time-scale-x10" />
+            <ui:Button text="x 50" name="time-scale-x50" />
             <quentin.tran.ui.BuildingModeButton name="view-mode-button" icon="project://database/Assets/UI/Icons/mouse-pointer.svg?fileID=7388822144124034973&amp;guid=eeec0178405e4184da5bc0cf4ed6aa3b&amp;type=3#mouse-pointer" color="#FFFFFFFF" selected-color="#F1C40FFF" is-selected="false" />
             <quentin.tran.ui.BuildingModeButton name="build-road-button" icon="project://database/Assets/UI/Icons/car.svg?fileID=7388822144124034973&amp;guid=a63d76d3f04cea6429375dc0ac1e8858&amp;type=3#car" color="#3498DBFF" selected-color="#2980B9FF" is-selected="false" />
             <quentin.tran.ui.BuildingModeButton name="build-building-button" icon="project://database/Assets/UI/Icons/building-2.svg?fileID=7388822144124034973&amp;guid=a279240f9a84f744bac1a1b0cd96e6b5&amp;type=3#building-2" color="#2ECC71FF" selected-color="#27AE60FF" />

@@ -15,7 +15,7 @@ public partial struct TimeManagerSystem : ISystem
     {
         RefRW<TimeManager> manager = SystemAPI.GetSingletonRW<TimeManager>();
 
-        manager.ValueRW.dateTime = manager.ValueRO.dateTime.AddMinutes(SystemAPI.Time.DeltaTime * manager.ValueRO.TimeScale);
+        manager.ValueRW.dateTime = manager.ValueRO.dateTime.AddMinutes(SystemAPI.Time.DeltaTime * manager.ValueRO.timeScale);
     }
 
 }

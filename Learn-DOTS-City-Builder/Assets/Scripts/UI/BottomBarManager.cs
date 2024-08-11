@@ -1,4 +1,5 @@
 
+using quentin.tran.authoring;
 using quentin.tran.gameplay.buildingTool;
 using quentin.tran.simulation;
 using Unity.Entities;
@@ -27,6 +28,10 @@ namespace quentin.tran.ui
             this.destroyBuildingButton.clickable.clicked += SeDestroyBuildingMode;
 
             this.timeLabel = root.Q<Label>("time-label");
+            root.Q<Button>("time-scale-x0").clickable.clicked += () => SetTimeScale(0);
+            root.Q<Button>("time-scale-x1").clickable.clicked += () => SetTimeScale(1);
+            root.Q<Button>("time-scale-x10").clickable.clicked += () => SetTimeScale(10);
+            root.Q<Button>("time-scale-x50").clickable.clicked += () => SetTimeScale(50);
 
             BuilderController.Instance.OnModeChanged += UpdateBuildingButtons;
             UpdateBuildingButtons(BuilderController.Instance.Mode);
@@ -88,6 +93,12 @@ namespace quentin.tran.ui
                 default:
                     break;
             }
+        }
+
+        private void SetTimeScale(int timeScale)
+        {
+            using EntityQuery timeManagerQuery = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(typeof(TimeManager));
+            timeManagerQuery.GetSingletonRW<TimeManager>().ValueRW.timeScale = timeScale;
         }
 
         public void Destroy()

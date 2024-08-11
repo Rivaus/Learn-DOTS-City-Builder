@@ -1,7 +1,7 @@
 using quentin.tran.authoring.building;
+using quentin.tran.authoring.citizen;
 using quentin.tran.debug;
 using Unity.Burst;
-using Unity.Collections;
 using Unity.Entities;
 
 namespace quentin.tran.simulation
@@ -21,6 +21,8 @@ namespace quentin.tran.simulation
             int nbOfFreeHousePlaces = 0;
             int nbOfFreeHouses = 0;
 
+            int nbOfCitizens = 0;
+
             foreach (RefRO<House> house in SystemAPI.Query<RefRO<House>>())
             {
                 nbOfHouses++;
@@ -31,10 +33,16 @@ namespace quentin.tran.simulation
                 }
             }
 
+            foreach (RefRO<Citizen> house in SystemAPI.Query<RefRO<Citizen>>())
+            {
+                nbOfCitizens++;
+            }
+
             HouseAndJobDebug.nbOfHouseBuildings = this.nbOfHouseBuildingsQuery.CalculateEntityCount();
             HouseAndJobDebug.nbOfHouses = nbOfHouses;
             HouseAndJobDebug.nbOfFreeHouses = nbOfFreeHouses;
             HouseAndJobDebug.nbOfFreeHousePlaces = nbOfFreeHousePlaces;
+            HouseAndJobDebug.nbOfCitizens = nbOfCitizens;
         }
 
         [BurstCompile]

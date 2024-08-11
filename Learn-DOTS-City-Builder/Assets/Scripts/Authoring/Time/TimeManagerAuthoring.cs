@@ -16,7 +16,7 @@ namespace quentin.tran.authoring
                 AddComponent(e, new TimeManager()
                 {
                     dateTime = new DateTime(2024, 6, 1, 11, 0, 0),
-                    TimeScale = authoring.timeScale,
+                    timeScale = authoring.timeScale,
                 });
             }
         }
@@ -35,6 +35,6 @@ namespace quentin.tran.authoring
         /// <summary>
         /// TimeScale equals to 0 means 1 second = 1 minute
         /// </summary>
-        public float TimeScale;
+        public float timeScale;
     }
 }
