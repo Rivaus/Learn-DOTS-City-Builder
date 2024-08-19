@@ -1,4 +1,3 @@
-using Unity.Entities;
 using Unity.Mathematics;
 
 namespace quentin.tran.models.grid

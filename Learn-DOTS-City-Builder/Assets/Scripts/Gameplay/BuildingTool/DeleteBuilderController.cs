@@ -24,6 +24,12 @@ namespace quentin.tran.gameplay.buildingTool
             {
                 GridManager.Instance.Destroy(x, y);
 
+                if (RoadGridManager.Instance.IsRoad(x, y))
+                {
+                    RoadGridManager.Instance.Destroy(x, y);
+                    RoadGridManager.Instance.UpdateGraph();
+                }
+
                 this.commandBuffer.Add(new DeleteBuildCellCommand { index = new int2(x, y) });
                 this.roadBuilder.UpdateRoadNeighbours(x, y, this.commandBuffer);
             }

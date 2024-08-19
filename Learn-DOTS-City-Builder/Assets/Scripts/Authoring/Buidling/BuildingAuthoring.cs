@@ -20,7 +20,10 @@ namespace quentin.tran.authoring.building
             public override void Bake(BuildingAuthoring authoring)
             {
                 Entity house = GetEntity(TransformUsageFlags.Dynamic);
-                AddComponent(house, new Building() { nbOfHouses = authoring.nbOfHouses, houseCapacity = authoring.capacity });
+                AddComponent(house, new Building() {
+                    nbOfHouses = authoring.nbOfHouses,
+                    houseCapacity = authoring.capacity
+                });
             }
         }
     }

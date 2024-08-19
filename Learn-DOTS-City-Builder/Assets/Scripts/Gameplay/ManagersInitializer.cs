@@ -13,6 +13,7 @@ namespace quentin.tran.gameplay
         {
             this.managers.Add(new InputManager());
             this.managers.Add(new GridManager());
+            this.managers.Add(new RoadGridManager());
             this.managers.Add(new TimeManagerMonoHandler());
         }
 

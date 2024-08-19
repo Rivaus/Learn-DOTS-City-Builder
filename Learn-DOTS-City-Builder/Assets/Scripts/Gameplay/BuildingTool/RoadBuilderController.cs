@@ -34,12 +34,14 @@ namespace quentin.tran.gameplay.buildingTool
             quaternion rotation;
             float3 position = new float3(x, 0, y) * GridProperties.GRID_CELL_SIZE + new float3(GridProperties.GRID_CELL_SIZE, 0, GridProperties.GRID_CELL_SIZE) / 2f;
 
-            uint roadKey = GetRoadType(x, y, out rotation);
+            (uint roadKey, bool isIntersection) = GetRoadType(x, y, out rotation);
 
             if (roadKey != 0)
             {
                 // 1. Create new road
-                GridManager.Instance.Build(x, y, new GridCellModel { Index = index, Type = GridCellType.Road, Key = roadKey, RotationOffset = rotation });
+                GridCellModel road = new GridCellModel { Index = index, Type = GridCellType.Road, Key = roadKey, RotationOffset = rotation };
+                GridManager.Instance.Build(x, y, road);
+                RoadGridManager.Instance.Build(x, y, isIntersection);
 
                 this.commandBuffer.Add(new CreateBuildCellCommand()
                 {
@@ -53,6 +55,8 @@ namespace quentin.tran.gameplay.buildingTool
                 UpdateRoadNeighbours(x, y, this.commandBuffer);
             }
 
+            RoadGridManager.Instance.UpdateGraph();
+
             return this.commandBuffer;
         }
 
@@ -60,11 +64,12 @@ namespace quentin.tran.gameplay.buildingTool
         {
             quaternion rotation;
             uint roadKey;
+            bool isIntersection;
             float3 position;
 
             foreach (GridCellModel neighbour in GetRoadNeighbours(x, y))
             {
-                roadKey = GetRoadType(neighbour.Index.x, neighbour.Index.y, out rotation);
+                (roadKey, isIntersection) = GetRoadType(neighbour.Index.x, neighbour.Index.y, out rotation);
                 position = new float3(neighbour.Index.x, 0, neighbour.Index.y) * GridProperties.GRID_CELL_SIZE + new float3(GridProperties.GRID_CELL_SIZE, 0, GridProperties.GRID_CELL_SIZE) / 2f;
 
                 if (roadKey != neighbour.Key || !rotation.Equals(neighbour.RotationOffset))
@@ -76,6 +81,7 @@ namespace quentin.tran.gameplay.buildingTool
                     {
                         index = neighbour.Index,
                     });
+                    RoadGridManager.Instance.Destroy(neighbour.Index.x, neighbour.Index.y);
 
                     commands.Add(new CreateBuildCellCommand()
                     {
@@ -84,6 +90,7 @@ namespace quentin.tran.gameplay.buildingTool
                         position = position,
                         rotation = rotation
                     });
+                    RoadGridManager.Instance.Build(neighbour.Index.x, neighbour.Index.y, isIntersection);
                 }
             }
         }
@@ -95,14 +102,14 @@ namespace quentin.tran.gameplay.buildingTool
         /// <param name="y"></param>
         /// <param name="rotation"></param>
         /// <returns></returns>
-        private uint GetRoadType(int x, int y, out quaternion rotation)
+        private (uint roadKey, bool isIntersection) GetRoadType(int x, int y, out quaternion rotation)
         {
             List<GridDirection> directions = GetRoadNeighboursDirection(x, y);
 
             uint roadType = 0;
+            bool isIntersection = false;
 
             rotation = quaternion.identity;
-
 
             switch (directions.Count)
             {
@@ -146,21 +153,25 @@ namespace quentin.tran.gameplay.buildingTool
                     {
                         rotation = quaternion.identity;
                         roadType = GridCellKeys.ROAD_2x2_TURN;
+                        isIntersection = true;
                     }
                     else if (directions[0] == GridDirection.Bottom && directions[1] == GridDirection.Left)
                     {
                         rotation = quaternion.Euler(0, math.radians(90), 0);
                         roadType = GridCellKeys.ROAD_2x2_TURN;
+                        isIntersection = true;
                     }
                     else if (directions[0] == GridDirection.Top && directions[1] == GridDirection.Left)
                     {
                         rotation = quaternion.Euler(0, math.radians(180), 0);
                         roadType = GridCellKeys.ROAD_2x2_TURN;
+                        isIntersection = true;
                     }
                     else if (directions[0] == GridDirection.Top && directions[1] == GridDirection.Right)
                     {
                         rotation = quaternion.Euler(0, math.radians(-90), 0);
                         roadType = GridCellKeys.ROAD_2x2_TURN;
+                        isIntersection = true;
                     }
                     else
                     {
@@ -193,13 +204,16 @@ namespace quentin.tran.gameplay.buildingTool
                         Debug.LogError("Impossible case " + directions[0] + " - " + directions[1] + " - " + directions[2]);
                     }
 
+                    isIntersection = true;
                     break;
                 case 4:
                     roadType = GridCellKeys.ROAD_2x2_CROSSROAD;
+
+                    isIntersection = true;
                     break;
             }
 
-            return roadType;
+            return (roadType, isIntersection);
         }
 
         /// <summary>
@@ -211,26 +225,40 @@ namespace quentin.tran.gameplay.buildingTool
         private List<GridDirection> GetRoadNeighboursDirection(int x, int y)
         {
             List<GridDirection> directions = new();
+            List<GridCellModel> neighbours = new();
 
             // Top
             GridCellModel tmp = GridManager.Instance.GetCell(x, y + 1);
             if (tmp is not null && tmp.Type == GridCellType.Road)
+            {
                 directions.Add(GridDirection.Top);
+                neighbours.Add(tmp);
+            }
+
 
             // Right
             tmp = GridManager.Instance.GetCell(x + 1, y);
             if (tmp is not null && tmp.Type == GridCellType.Road)
+            {
                 directions.Add(GridDirection.Right);
+                neighbours.Add(tmp);
+            }
 
             // Bottom
             tmp = GridManager.Instance.GetCell(x, y - 1);
             if (tmp is not null && tmp.Type == GridCellType.Road)
+            {
                 directions.Add(GridDirection.Bottom);
+                neighbours.Add(tmp);
+            }
 
             // Left
             tmp = GridManager.Instance.GetCell(x - 1, y);
             if (tmp is not null && tmp.Type == GridCellType.Road)
+            {
                 directions.Add(GridDirection.Left);
+                neighbours.Add(tmp);
+            }
 
             return directions;
         }

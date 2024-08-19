@@ -6,9 +6,7 @@ using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-using Unity.VectorGraphics;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 namespace quentin.tran.simulation.system.grid
 {
@@ -22,13 +20,17 @@ namespace quentin.tran.simulation.system.grid
         public void OnCreate(ref SystemState state)
         {
             state.RequireForUpdate<RoadPrefab>();
-            state.RequireForUpdate<HousePrefab>();
+            state.RequireForUpdate<HouseBuildingPrefabs>();
+            state.RequireForUpdate<JobBuildingPrefabs>();
         }
 
         public void OnUpdate(ref SystemState state)
         {
             RoadPrefab roadPrefabs = SystemAPI.GetSingleton<RoadPrefab>();
-            HousePrefab housePrefabs = SystemAPI.GetSingleton<HousePrefab>();
+            HouseBuildingPrefabs housePrefabs = SystemAPI.GetSingleton<HouseBuildingPrefabs>();
+            JobBuildingPrefabs jobBuildingPrefabs = SystemAPI.GetSingleton<JobBuildingPrefabs>();
+
+
             EntityCommandBuffer entityCmdBuffer = new EntityCommandBuffer(Unity.Collections.Allocator.Temp);
 
             while (BuilderController.Instance.commands.Count > 0)
@@ -50,6 +52,9 @@ namespace quentin.tran.simulation.system.grid
                             GridCellKeys.ROAD_2x2_T_TURN => roadPrefabs.road2x2TTurnPrefab,
 
                             GridCellKeys.SIMPLE_HOUSE_01 => housePrefabs.simpleHouse01,
+
+                            GridCellKeys.SIMPLE_JOB_OFFICE_01 => jobBuildingPrefabs.simpleOffice01,
+
                             _ => Entity.Null
                         };
 

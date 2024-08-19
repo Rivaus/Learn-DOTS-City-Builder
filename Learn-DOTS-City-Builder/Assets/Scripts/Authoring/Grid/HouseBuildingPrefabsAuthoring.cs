@@ -6,16 +6,16 @@ namespace quentin.tran.authoring.grid
     /// <summary>
     /// Creates an entity which has all roads prefabs.
     /// </summary>
-    public class HousePrefabAuthoring : MonoBehaviour
+    public class HouseBuildingPrefabsAuthoring : MonoBehaviour
     {
         public GameObject simpleHouse01 = null;
 
-        private class Baker : Baker<HousePrefabAuthoring>
+        private class Baker : Baker<HouseBuildingPrefabsAuthoring>
         {
-            public override void Bake(HousePrefabAuthoring authoring)
+            public override void Bake(HouseBuildingPrefabsAuthoring authoring)
             {
                 Entity e = GetEntity(TransformUsageFlags.None);
-                AddComponent(e, new HousePrefab()
+                AddComponent(e, new HouseBuildingPrefabs()
                 {
                     simpleHouse01 = GetEntity(authoring.simpleHouse01, TransformUsageFlags.Dynamic),
                 });
@@ -23,7 +23,7 @@ namespace quentin.tran.authoring.grid
         }
     }
 
-    public struct HousePrefab : IComponentData
+    public struct HouseBuildingPrefabs : IComponentData
     {
         public Entity simpleHouse01;
     }

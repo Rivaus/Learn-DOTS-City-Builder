@@ -54,7 +54,7 @@ namespace quentin.tran.simulation.system.citizen
         [BurstCompile]
         public void Execute(ref LocalTransform transform, in Target target, Entity e, [ChunkIndexInQuery] int sortKey)
         {
-            float3 direction = target.target - transform.Position;
+            /*float3 direction = target.target - transform.Position;
             float3 movement = math.normalizesafe(direction) * MoveCityEntitySystem.CITIZEN_SPEED * deltaTime * timeScale;
 
             float distanceToTarget = math.length(direction);
@@ -67,7 +67,7 @@ namespace quentin.tran.simulation.system.citizen
             if (math.distancesq(transform.Position, target.target) < .1 *.1)
             {
                 this.cmd.RemoveComponent<Target>(sortKey, e);
-            }
+            }*/
         }
     }
 }

@@ -1,4 +1,5 @@
 using quentin.tran.common;
+using quentin.tran.debug;
 using quentin.tran.simulation.grid;
 using System;
 using System.Collections.Generic;
@@ -49,13 +50,15 @@ namespace quentin.tran.gameplay.buildingTool
             get => mode;
             set
             {
-                if (mode != value)
-                {
-                    this.mode = value;
-                    OnModeChanged?.Invoke(value);
-                }
+                this.mode = value;
+                OnModeChanged?.Invoke(value);
             }
         }
+
+        /// <summary>
+        /// When <see cref="mode"/> is set to <see cref="BuildingMode.Building"/>, this key is used to determine which building to spawn.
+        /// </summary>
+        public uint CurrentBuilding {  get; set; }
 
         /// <summary>
         /// Event raised when <see cref="Mode"/>changes.
@@ -88,7 +91,7 @@ namespace quentin.tran.gameplay.buildingTool
 
             this.gridPlane = new Plane(Vector3.up, Vector3.zero);
 
-            InputManager.OnClick += OnClick;
+            InputManager.OnClick += Build;
 
             Instance = this;
         }
@@ -104,7 +107,7 @@ namespace quentin.tran.gameplay.buildingTool
 
         private void OnDestroy()
         {
-            InputManager.OnClick -= OnClick;
+            InputManager.OnClick -= Build;
         }
 
         private void Update()
@@ -118,6 +121,7 @@ namespace quentin.tran.gameplay.buildingTool
             {
                 Vector3 point = ray.GetPoint(enter);
                 this.hoveredCell = new int2((int)(point.x / GridProperties.GRID_CELL_SIZE), (int)(point.z / GridProperties.GRID_CELL_SIZE));
+                HouseAndJobDebug.currentCellHovered = this.hoveredCell;
 
                 if (this.hoveredCell.x < 0 || this.hoveredCell.y < 0 || this.hoveredCell.x > GridProperties.GRID_SIZE || this.hoveredCell.y > GridProperties.GRID_SIZE)
                 {
@@ -130,7 +134,7 @@ namespace quentin.tran.gameplay.buildingTool
             }
         }
 
-        private void OnClick()
+        private void Build()
         {
             if (this.Mode == BuildingMode.None || this.enabled == false)
                 return;
@@ -146,6 +150,7 @@ namespace quentin.tran.gameplay.buildingTool
                     builder = this.roadBuilder;
                     break;
                 case BuildingMode.Building:
+                    this.buildingBuilder.CurrentBuildingKey = this.CurrentBuilding;
                     builder = this.buildingBuilder;
                     break;
                 case BuildingMode.Delete:

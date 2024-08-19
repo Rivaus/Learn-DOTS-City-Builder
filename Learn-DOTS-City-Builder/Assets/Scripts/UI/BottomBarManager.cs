@@ -1,5 +1,6 @@
 
 using quentin.tran.authoring;
+using quentin.tran.common;
 using quentin.tran.gameplay.buildingTool;
 using quentin.tran.simulation;
 using Unity.Entities;
@@ -10,7 +11,7 @@ namespace quentin.tran.ui
 {
     public class BottomBarManager
     {
-        private BuildingModeButton viewModeButton, buildRoadButton, buildBuildingButton, destroyBuildingButton;
+        private BuildingModeButton viewModeButton, buildRoadButton, buildBuildingButton, buildOfficeButton, destroyBuildingButton;
 
         private Label timeLabel;
 
@@ -24,6 +25,8 @@ namespace quentin.tran.ui
             this.buildRoadButton.clickable.clicked += SetBuildRoadMode;
             this.buildBuildingButton = root.Q<BuildingModeButton>("build-building-button");
             this.buildBuildingButton.clickable.clicked += SetBuildBuildingMode;
+            this.buildOfficeButton = root.Q<BuildingModeButton>("build-office-button");
+            this.buildOfficeButton.clickable.clicked += SetOfficeBuildingMode;
             this.destroyBuildingButton = root.Q<BuildingModeButton>("destroy-building-button");
             this.destroyBuildingButton.clickable.clicked += SeDestroyBuildingMode;
 
@@ -61,6 +64,13 @@ namespace quentin.tran.ui
 
         private void SetBuildBuildingMode()
         {
+            BuilderController.Instance.CurrentBuilding = GridCellKeys.SIMPLE_HOUSE_01;
+            BuilderController.Instance.Mode = BuilderController.BuildingMode.Building;
+        }
+
+        private void SetOfficeBuildingMode()
+        {
+            BuilderController.Instance.CurrentBuilding = GridCellKeys.SIMPLE_JOB_OFFICE_01;
             BuilderController.Instance.Mode = BuilderController.BuildingMode.Building;
         }
 
@@ -74,7 +84,10 @@ namespace quentin.tran.ui
             this.viewModeButton.IsSelected = false;
             this.buildRoadButton.IsSelected = false;
             this.buildBuildingButton.IsSelected = false;
+            this.buildOfficeButton.IsSelected = false;
             this.destroyBuildingButton.IsSelected = false;
+
+            uint key = BuilderController.Instance.CurrentBuilding;
 
             switch (mode)
             {
@@ -85,7 +98,10 @@ namespace quentin.tran.ui
                     this.buildRoadButton.IsSelected = true;
                     break;
                 case BuilderController.BuildingMode.Building:
-                    this.buildBuildingButton.IsSelected = true;
+                    if (key >= 5000 && key < 10000)
+                        this.buildBuildingButton.IsSelected = true;
+                    else if (key >= 10000 && key < 15000)
+                        this.buildOfficeButton.IsSelected = true;
                     break;
                 case BuilderController.BuildingMode.Delete:
                     this.destroyBuildingButton.IsSelected = true;
@@ -109,6 +125,7 @@ namespace quentin.tran.ui
 
             this.viewModeButton.clickable.clicked -= SetViewModeMode;
             this.buildRoadButton.clickable.clicked -= SetBuildRoadMode;
+            this.buildOfficeButton.clickable.clicked -= SetOfficeBuildingMode;
             this.buildBuildingButton.clickable.clicked -= SetBuildBuildingMode;
             this.destroyBuildingButton.clickable.clicked -= SeDestroyBuildingMode;
         }

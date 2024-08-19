@@ -32,6 +32,7 @@
             <quentin.tran.ui.BuildingModeButton name="view-mode-button" icon="project://database/Assets/UI/Icons/mouse-pointer.svg?fileID=7388822144124034973&amp;guid=eeec0178405e4184da5bc0cf4ed6aa3b&amp;type=3#mouse-pointer" color="#FFFFFFFF" selected-color="#F1C40FFF" is-selected="false" />
             <quentin.tran.ui.BuildingModeButton name="build-road-button" icon="project://database/Assets/UI/Icons/car.svg?fileID=7388822144124034973&amp;guid=a63d76d3f04cea6429375dc0ac1e8858&amp;type=3#car" color="#3498DBFF" selected-color="#2980B9FF" is-selected="false" />
             <quentin.tran.ui.BuildingModeButton name="build-building-button" icon="project://database/Assets/UI/Icons/building-2.svg?fileID=7388822144124034973&amp;guid=a279240f9a84f744bac1a1b0cd96e6b5&amp;type=3#building-2" color="#2ECC71FF" selected-color="#27AE60FF" />
+            <quentin.tran.ui.BuildingModeButton name="build-office-button" icon="project://database/Assets/UI/Icons/factory.svg?fileID=7388822144124034973&amp;guid=98fb332c08e98704699453ded3bff02f&amp;type=3#factory" color="#E67E23FF" selected-color="#D35400FF" />
             <quentin.tran.ui.BuildingModeButton name="destroy-building-button" icon="project://database/Assets/UI/Icons/trash-2.svg?fileID=7388822144124034973&amp;guid=52e51da2da99a8743877af87f83a3b09&amp;type=3#trash-2" color="#E74C3CFF" selected-color="#C0392BFF" is-selected="false" />
         </ui:VisualElement>
     </ui:VisualElement>

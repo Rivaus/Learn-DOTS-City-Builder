@@ -12,6 +12,8 @@ namespace quentin.tran.gameplay.buildingTool
     {
         private List<IBuildingCellCommand> commandsBuffer = new();
 
+        public uint CurrentBuildingKey;
+
         IEnumerable<IBuildingCellCommand> IBuilderModule.Handle(int x, int y)
         {
             this.commandsBuffer.Clear();
@@ -21,7 +23,9 @@ namespace quentin.tran.gameplay.buildingTool
                 return this.commandsBuffer;
             }
 
-            if (!IsThereRoadAround(x, y))
+            int roads = GridUtils.GetNeighboursOfTypeCount(x, y, GridCellType.Road);
+
+            if (roads <= 0)
             {
                 Debug.Log($"{ nameof(BuildingBuilderController) }.Handle : buildings must be connect to a road.");
                 return this.commandsBuffer;
@@ -32,50 +36,21 @@ namespace quentin.tran.gameplay.buildingTool
 
             this.commandsBuffer.Add(new CreateBuildCellCommand
             {
-                cellKey = GridCellKeys.SIMPLE_HOUSE_01,
+                cellKey = CurrentBuildingKey,
                 index = new int2(x, y),
                 position = position,
                 rotation = rotation
             });
 
-            GridManager.Instance.Build(x, y, new models.grid.GridCellModel()
+            GridManager.Instance.Build(x, y, new GridCellModel()
             {
                 Index = new int2(x, y),
-                Key = GridCellKeys.SIMPLE_HOUSE_01,
-                Type = models.grid.GridCellType.Building,
+                Key = CurrentBuildingKey,
+                Type = GridCellType.Building,
                 RotationOffset = rotation
             });
 
             return this.commandsBuffer;
         }
-
-        private bool IsThereRoadAround(int x, int y)
-        {
-
-            List<GridCellModel> directions = new();
-
-            // Top
-            GridCellModel tmp = GridManager.Instance.GetCell(x, y + 1);
-            if (tmp is not null && tmp.Type == GridCellType.Road)
-                return true;
-
-            // Right
-            tmp = GridManager.Instance.GetCell(x + 1, y);
-            if (tmp is not null && tmp.Type == GridCellType.Road)
-                return true;
-
-            // Bottom
-            tmp = GridManager.Instance.GetCell(x, y - 1);
-            if (tmp is not null && tmp.Type == GridCellType.Road)
-                return true;
-
-            // Left
-            tmp = GridManager.Instance.GetCell(x - 1, y);
-            if (tmp is not null && tmp.Type == GridCellType.Road)
-                return true;
-
-            return false;
-        }
     }
-
 }

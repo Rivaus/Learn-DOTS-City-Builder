@@ -12,29 +12,17 @@ namespace quentin.tran.simulation.grid
 
         private GridCellModel[,] grid;
 
-        private RoadModel[,] roadGrid;
-
-        private List<RoadIntersectionModel> roadsIntersections = new();
-
-        private List<RoadModel> roads = new();
-
-        public IReadOnlyList<RoadIntersectionModel> RoadsIntersections => this.roadsIntersections;
-
-        public IReadOnlyList<RoadModel> Roads => this.roads;
-
         public GridManager()
         {
             Instance = this;
 
             this.grid = new GridCellModel[GridProperties.GRID_SIZE, GridProperties.GRID_SIZE];
-            this.roadGrid = new RoadModel[GridProperties.GRID_SIZE, GridProperties.GRID_SIZE];
 
             for (int i = 0; i < GridProperties.GRID_SIZE; i++)
             {
                 for (int j = 0; j < GridProperties.GRID_SIZE; j++)
                 {
                     this.grid[i, j] = new GridCellModel() { Index = new(i, j), Type = GridCellType.None };
-                    this.roadGrid[i, j] = null;
                 }
             }
         }
@@ -66,23 +54,6 @@ namespace quentin.tran.simulation.grid
             this.grid[x, y].Type = GridCellType.None;
         }
 
-        public void BuildRoad(RoadModel road)
-        {
-            this.roads.Add(road);
-        }
-
-        public void SetRoad(int x, int y, RoadModel road)
-        {
-            CheckGrid(nameof(SetRoad), x, y);
-
-            this.roadGrid[x, y] = road;
-        }
-
-        public void BuildIntersection(RoadIntersectionModel intersection)
-        {
-            this.roadsIntersections.Add(intersection);
-        }
-
 #nullable enable
         public GridCellModel GetCell(int x, int y)
         {
@@ -96,17 +67,6 @@ namespace quentin.tran.simulation.grid
             }
         }
 
-        public RoadModel? GetRoad(int x, int y)
-        {
-            if (x >= GridProperties.GRID_SIZE || y >= GridProperties.GRID_SIZE || x < 0 || y < 0)
-            {
-                return null;
-            }
-            else
-            {
-                return this.roadGrid[x, y];
-            }
-        }
 #nullable disable
 
         public void Clear()

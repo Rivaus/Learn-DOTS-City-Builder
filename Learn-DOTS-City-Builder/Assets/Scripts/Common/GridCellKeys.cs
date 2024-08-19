@@ -18,9 +18,15 @@ namespace quentin.tran.common
 
         #endregion
 
-        #region Roads 5000 - 9999
+        #region House 5000 - 9999
 
         public const uint SIMPLE_HOUSE_01 = 5000;
+
+        #endregion
+
+        #region Job 10000 - 14999
+
+        public const uint SIMPLE_JOB_OFFICE_01 = 10000;
 
         #endregion
     }
