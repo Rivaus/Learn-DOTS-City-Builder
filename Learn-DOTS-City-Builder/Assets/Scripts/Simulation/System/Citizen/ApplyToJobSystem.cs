@@ -15,7 +15,7 @@ namespace quentin.tran.simulation.system.citizen
     partial struct ApplyToJobSystem : ISystem
     {
         private const int MIN_AGE_TO_WORK = 18;
-        private const int MAX_AGE_TO_WORK = 18;
+        private const int MAX_AGE_TO_WORK = 65;
 
         private Random random;
 
@@ -28,6 +28,7 @@ namespace quentin.tran.simulation.system.citizen
             this.random = new Random(123);
 
             UnityEngine.Debug.LogError("Prevent student from getting a job");
+            UnityEngine.Debug.LogError("Prevent citizens too young or old to loop through update");
         }
 
         [BurstCompile]
@@ -35,10 +36,12 @@ namespace quentin.tran.simulation.system.citizen
         {
             EntityCommandBuffer cmd = new(Unity.Collections.Allocator.Temp);
 
-            foreach((RefRO<Citizen> citizen, Entity citizenEntity) in SystemAPI.Query<RefRO<Citizen>>() .WithAbsent<CitizenJob>().WithEntityAccess())
+            foreach((RefRO<Citizen> citizen, Entity citizenEntity) in SystemAPI.Query<RefRO<Citizen>>().WithAbsent<CitizenJob>().WithEntityAccess())
             {
                 if (citizen.ValueRO.age < MIN_AGE_TO_WORK || citizen.ValueRO.age > MAX_AGE_TO_WORK)
+                {
                     continue;
+                }
 
                 RefRW<OfficeBuilding> officeWithEmploy = default;
                 Entity officeBuilding = Entity.Null;
@@ -67,7 +70,7 @@ namespace quentin.tran.simulation.system.citizen
 
                 CitizenJob job = new CitizenJob()
                 {
-                    salaryPerDay = this.random.NextFloat(officeWithEmploy.ValueRO.salaryRangePerDay.x, officeWithEmploy.ValueRO.salaryRangePerDay.y),
+                    salaryPerDay = this.random.NextInt((int)officeWithEmploy.ValueRO.salaryRangePerDay.x, (int)officeWithEmploy.ValueRO.salaryRangePerDay.y),
                     startHour = officeWithEmploy.ValueRO.startHour,
                     endHour = officeWithEmploy.ValueRO.endHour,
                     officeBuildingIndex = officeIndex,
@@ -83,7 +86,7 @@ namespace quentin.tran.simulation.system.citizen
 
     public struct CitizenJob : IComponentData
     {
-        public float salaryPerDay;
+        public int salaryPerDay;
 
         public int startHour, endHour;
 

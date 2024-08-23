@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace quentin.tran.debug
@@ -11,6 +12,8 @@ namespace quentin.tran.debug
 
         public static int nbOfCitizens = 0;
 
+        public static int2 currentCellHovered = 0;
+
         private void OnGUI()
         {
             GUI.Box(new Rect(0, 0, 300, 100), "");
@@ -20,6 +23,7 @@ namespace quentin.tran.debug
             GUI.Label(new Rect(0, 30, 300, 20), $"Number of free houses { nbOfFreeHouses }");
             GUI.Label(new Rect(0, 45, 300, 20), $"Number of free places (in free houses) { nbOfFreeHousePlaces }");
             GUI.Label(new Rect(0, 60, 300, 20), $"Citizens { nbOfCitizens }");
+            GUI.Label(new Rect(0, 75, 300, 20), $"Cell {currentCellHovered}");
         }
     }
 }

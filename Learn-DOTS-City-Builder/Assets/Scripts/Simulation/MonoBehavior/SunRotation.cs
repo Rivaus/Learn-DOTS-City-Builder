@@ -1,4 +1,5 @@
 using quentin.tran.authoring;
+using System;
 using UnityEngine;
 
 namespace quentin.tran.simulation.monobehavior
@@ -7,9 +8,9 @@ namespace quentin.tran.simulation.monobehavior
     {
         void Update()
         {
-            TimeManager time = TimeManagerMonoHandler.time;
+            DateTime time = TimeManagerMonoHandler.time.dateTime;
 
-            float angle = -90 + (360 / 24) * (time.dateTime.Hour + time.dateTime.Minute / 60f);
+            float angle = -90 + (360 / 24) * (time.Hour + time.Minute / 60f);
 
             this.transform.localRotation = Quaternion.Euler(angle, -30, 0);
         }

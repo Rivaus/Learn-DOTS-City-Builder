@@ -1,4 +1,5 @@
 using quentin.tran.authoring;
+using System;
 using Unity.Burst;
 using Unity.Entities;
 
@@ -11,6 +12,7 @@ public partial struct TimeManagerSystem : ISystem
         state.RequireForUpdate<TimeManager>();
     }
 
+    //[BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         RefRW<TimeManager> manager = SystemAPI.GetSingletonRW<TimeManager>();
