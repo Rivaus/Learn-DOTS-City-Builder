@@ -38,10 +38,10 @@
     margin-left: 10px;
     margin-bottom: 10px;
     margin-right: 10px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    border-bottom-left-radius: 15px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
     background-color: var(--city-builder-dark-grey-color);
     height: 50px;
     justify-content: flex-start;

@@ -1,7 +1,11 @@
 :root
  {
 	--city-builder-yellow-color :#f1c40f;
-	--city-builder-dark-grey-color : #2E3532;
+	--city-builder-yellow-hover-color :#f39c12;
+
+	--city-builder-very-dark-grey-color : #1c2833;
+	--city-builder-dark-grey-color : #2c3e50;
+	--city-builder-light-grey-color : #34495e;
 
 	--city-builder-blue-color:#3498db;
 	--city-builder-blue-hover-color:#2980b9;
