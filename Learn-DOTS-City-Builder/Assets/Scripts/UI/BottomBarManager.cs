@@ -3,6 +3,7 @@ using quentin.tran.authoring;
 using quentin.tran.common;
 using quentin.tran.gameplay.buildingTool;
 using quentin.tran.simulation;
+using quentin.tran.ui.popup;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -28,7 +29,9 @@ namespace quentin.tran.ui
             this.buildOfficeButton = root.Q<BuildingModeButton>("build-office-button");
             this.buildOfficeButton.clickable.clicked += SetOfficeBuildingMode;
             this.destroyBuildingButton = root.Q<BuildingModeButton>("destroy-building-button");
-            this.destroyBuildingButton.clickable.clicked += SeDestroyBuildingMode;
+            this.destroyBuildingButton.clickable.clicked += SetDestroyBuildingMode;            
+            var statisticsButton = root.Q<BuildingModeButton>("statistics-button");
+            statisticsButton.clickable.clicked += () => PopupsManager.Instance.OpenPopup(PopupsManager.PopupType.Statistics);
 
             this.timeLabel = root.Q<Label>("time-label");
             root.Q<Button>("time-scale-x0").clickable.clicked += () => SetTimeScale(0);
@@ -74,7 +77,7 @@ namespace quentin.tran.ui
             BuilderController.Instance.Mode = BuilderController.BuildingMode.Building;
         }
 
-        private void SeDestroyBuildingMode()
+        private void SetDestroyBuildingMode()
         {
             BuilderController.Instance.Mode = BuilderController.BuildingMode.Delete;
         }
@@ -127,7 +130,7 @@ namespace quentin.tran.ui
             this.buildRoadButton.clickable.clicked -= SetBuildRoadMode;
             this.buildOfficeButton.clickable.clicked -= SetOfficeBuildingMode;
             this.buildBuildingButton.clickable.clicked -= SetBuildBuildingMode;
-            this.destroyBuildingButton.clickable.clicked -= SeDestroyBuildingMode;
+            this.destroyBuildingButton.clickable.clicked -= SetDestroyBuildingMode;
         }
     }
 }

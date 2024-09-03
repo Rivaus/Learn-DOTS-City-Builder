@@ -14,8 +14,8 @@ namespace quentin.tran.simulation.system.citizen
     [UpdateAfter(typeof(SpawnCitizenSystem))]
     partial struct ApplyToJobSystem : ISystem
     {
-        private const int MIN_AGE_TO_WORK = 18;
-        private const int MAX_AGE_TO_WORK = 65;
+        public const int MIN_AGE_TO_WORK = 18;
+        public const int MAX_AGE_TO_WORK = 65;
 
         private Random random;
 

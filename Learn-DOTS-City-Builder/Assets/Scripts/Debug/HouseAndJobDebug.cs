@@ -1,3 +1,7 @@
+using quentin.tran.authoring;
+using quentin.tran.authoring.citizen;
+using quentin.tran.simulation;
+using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -10,9 +14,32 @@ namespace quentin.tran.debug
         public static int nbOfFreeHouses = 0;
         public static int nbOfFreeHousePlaces = 0;
 
-        public static int nbOfCitizens = 0;
+        private int nbOfCitizens = 0;
 
         public static int2 currentCellHovered = 0;
+
+        private EntityQuery nbCitizensQuery;
+
+        private async void Start()
+        {
+            this.nbCitizensQuery = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(typeof(Citizen));
+
+            float timeScale;
+
+            while (true)
+            {
+                timeScale = TimeManagerMonoHandler.time.timeScale;
+
+                await Awaitable.WaitForSecondsAsync(timeScale == 0 ? 2f : (5f / timeScale));
+
+                this.nbOfCitizens = this.nbCitizensQuery.CalculateEntityCount();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            this.nbCitizensQuery.Dispose();
+        }
 
         private void OnGUI()
         {

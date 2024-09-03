@@ -14,6 +14,35 @@
     background-color: var(--city-builder-light-grey-color);
 }
 
+#main-section {
+    margin-top: 5px;
+}
+
+.popup-header {
+    width: 100%;
+    height: 40px;
+    background-color: rgb(52, 73, 94);
+    justify-content: center;
+}
+
+.popup-header__label {
+    -unity-font-style: normal;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    -unity-text-align: middle-center;
+}
+
+.popup__section__header {
+    color: rgb(255, 255, 255);
+    border-bottom-width: 2px;
+    border-bottom-color: var(--city-builder-light-grey-color);
+    margin-left: 10px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    width: 90%;
+    padding-bottom: 10px;
+}
+
 .popup__tab-button {
     width: 50px;
     height: 50px;
@@ -58,4 +87,18 @@
 
 .popup__tab-button--selected:hover {
     background-color: var(--city-builder-very-dark-grey-color);
+}
+
+.popup__close-button {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-image: url("project://database/Assets/UI/Icons/close.svg?fileID=7388822144124034973&guid=c0d93fb91f45c864eb8ff97148a3d3f0&type=3#close");
+    background-color: rgba(0, 0, 0, 0);
+    right: 8px;
+    top: 8px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
 }

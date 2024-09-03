@@ -37,5 +37,5 @@
             <quentin.tran.ui.BuildingModeButton name="statistics-button" icon="project://database/Assets/UI/Icons/chart-column.svg?fileID=7388822144124034973&amp;guid=a1fe1be7a58914f41809224bf7124c5a&amp;type=3#chart-column" color="#FADB00FF" selected-color="#782323FF" is-selected="false" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <quentin.tran.ui.popup.StatisticsPopup style="position: absolute; width: 600px; align-self: center;" />
+    <ui:VisualElement name="popups" picking-mode="Ignore" style="flex-grow: 1; position: absolute; align-items: center; justify-content: center; width: 100%; height: 100%;" />
 </ui:UXML>
