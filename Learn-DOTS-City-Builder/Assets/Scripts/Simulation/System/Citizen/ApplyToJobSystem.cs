@@ -26,6 +26,7 @@ namespace quentin.tran.simulation.system.citizen
             this.random = new Random(123);
 
             UnityEngine.Debug.LogError("Prevent student from getting a job");
+            UnityEngine.Debug.LogError("Find closest job");
         }
 
         [BurstCompile]
