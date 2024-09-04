@@ -27,7 +27,7 @@ namespace quentin.tran.gameplay.buildingTool
 
             if (roads <= 0)
             {
-                Debug.Log($"{ nameof(BuildingBuilderController) }.Handle : buildings must be connect to a road.");
+                Debug.Log($"{nameof(BuildingBuilderController)}.Handle : buildings must be connect to a road.");
                 return this.commandsBuffer;
             }
 

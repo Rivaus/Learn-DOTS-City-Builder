@@ -1,10 +1,10 @@
 using quentin.tran.common;
 using quentin.tran.models.grid;
 using quentin.tran.simulation.grid;
-using static quentin.tran.gameplay.buildingTool.BuilderController;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using static quentin.tran.gameplay.buildingTool.BuilderController;
 
 namespace quentin.tran.gameplay.buildingTool
 {

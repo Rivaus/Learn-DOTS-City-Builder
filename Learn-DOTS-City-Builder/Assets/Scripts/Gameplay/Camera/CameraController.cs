@@ -21,7 +21,7 @@ namespace quentin.tran.gameplay.camera
         [SerializeField]
         private float rotationSpeed = 360f;
 
-        private void Start ()
+        private void Start()
         {
             this.transform.position = this.focusPoint.transform.position + this.defaultOffset;
             this.transform.LookAt(this.focusPoint.position);
@@ -56,7 +56,7 @@ namespace quentin.tran.gameplay.camera
             if (distanceFromFocus < 1 && zoomInput > 0)
                 return;
 
-            Vector3 zoom = - offset.normalized * distanceFromFocus * 0.1f * zoomInput;
+            Vector3 zoom = -offset.normalized * distanceFromFocus * 0.1f * zoomInput;
             transform.position += zoom;
         }
     }

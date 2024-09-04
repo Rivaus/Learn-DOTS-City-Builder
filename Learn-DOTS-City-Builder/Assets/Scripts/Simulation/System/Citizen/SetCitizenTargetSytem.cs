@@ -1,17 +1,17 @@
-using quentin.tran.authoring.citizen;
 using quentin.tran.authoring;
-using Unity.Burst;
-using Unity.Entities;
 using quentin.tran.authoring.building;
-using Unity.Mathematics;
-using Unity.Collections;
+using quentin.tran.authoring.citizen;
+using quentin.tran.models.grid;
 using quentin.tran.simulation.grid;
 using quentin.tran.simulation.system.grid;
-using quentin.tran.models.grid;
 using System.Collections.Generic;
+using Unity.Burst;
+using Unity.Collections;
+using Unity.Entities;
+using Unity.Jobs;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = Unity.Mathematics.Random;
-using Unity.Jobs;
 
 namespace quentin.tran.simulation.system.citizen
 {

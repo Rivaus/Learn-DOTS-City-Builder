@@ -30,7 +30,7 @@ namespace quentin.tran.ui
             this.buildOfficeButton = root.Q<BuildingModeButton>("build-office-button");
             this.buildOfficeButton.clickable.clicked += SetOfficeBuildingMode;
             this.destroyBuildingButton = root.Q<BuildingModeButton>("destroy-building-button");
-            this.destroyBuildingButton.clickable.clicked += SetDestroyBuildingMode;            
+            this.destroyBuildingButton.clickable.clicked += SetDestroyBuildingMode;
             var statisticsButton = root.Q<BuildingModeButton>("statistics-button");
             statisticsButton.clickable.clicked += () => PopupsManager.Instance.OpenPopup(PopupsManager.PopupType.Statistics);
 

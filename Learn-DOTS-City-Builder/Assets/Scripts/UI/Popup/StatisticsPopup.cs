@@ -1,6 +1,5 @@
 using quentin.tran.common;
 using quentin.tran.simulation;
-using quentin.tran.simulation.system.citizen;
 using quentin.tran.ui.customElements;
 using quentin.tran.ui.manipulator;
 using System;
@@ -66,7 +65,7 @@ namespace quentin.tran.ui.popup
             tabs.Add(this.budgetTabButton);
 
 
-            foreach(TabButtonElement tabButton in tabs)
+            foreach (TabButtonElement tabButton in tabs)
             {
                 tabButton.SelectClass = "popup__tab-button--selected";
                 tabButton.OtherTabButtons.AddRange(tabs);
@@ -177,7 +176,7 @@ namespace quentin.tran.ui.popup
             /// </summary>
             private async void UpdateDataLoop()
             {
-                while(true)
+                while (true)
                 {
                     await Awaitable.WaitForSecondsAsync(.5f);
 
@@ -194,7 +193,7 @@ namespace quentin.tran.ui.popup
                 {
                     Statistics.CitizenStatistics stats = StatisticsManager.Instance.Statistics.citizenStatistics;
 
-                    if (stats.Equals(previous)) 
+                    if (stats.Equals(previous))
                         return;
 
                     this.previous = stats.Copy();

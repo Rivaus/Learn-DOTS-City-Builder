@@ -89,7 +89,7 @@ namespace quentin.tran.simulation.system.citizen
                 int tmp;
                 int2 res = new(-1, -1);
 
-                foreach(int2 direction in directions)
+                foreach (int2 direction in directions)
                 {
                     tmp = IndexToArrayIndex(officeIndex + direction);
 

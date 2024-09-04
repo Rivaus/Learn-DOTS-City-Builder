@@ -59,8 +59,8 @@ namespace quentin.tran.simulation
 
                 if (other.NumberOfCitizens != NumberOfCitizens) return false;
                 else if (other.NumberOfBabies != NumberOfBabies) return false;
-                else if(other.NumberOfChildren != NumberOfChildren) return false;
-                else if(other.NumberOfTeenagers != NumberOfTeenagers) return false;
+                else if (other.NumberOfChildren != NumberOfChildren) return false;
+                else if (other.NumberOfTeenagers != NumberOfTeenagers) return false;
                 else if (other.NumberOfAdults != NumberOfAdults) return false;
                 else if (other.NumberOfSeniors != NumberOfSeniors) return false;
 

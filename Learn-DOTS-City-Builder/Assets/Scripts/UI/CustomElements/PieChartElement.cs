@@ -150,7 +150,7 @@ namespace quentin.tran.ui.customElements
             float previousAngle = 0;
             for (int i = 0; i < this.categories.Count; i++)
             {
-                float rate = ((float)this.categories[i].count) / ((float) (max == 0 ? Mathf.Infinity : max));
+                float rate = ((float)this.categories[i].count) / ((float)(max == 0 ? Mathf.Infinity : max));
                 float arcLength = rate * 360;
 
                 if (i >= this.labels.Count)

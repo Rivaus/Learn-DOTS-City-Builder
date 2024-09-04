@@ -83,7 +83,7 @@ namespace quentin.tran.simulation.grid
 
         private class GridOutOfRangeException : Exception
         {
-            public GridOutOfRangeException(string methodName, int x, int y) : base($"GridOutOfRange.{ methodName } : { x }; { y } for { GridProperties.GRID_SIZE }; { GridProperties.GRID_SIZE } ")
+            public GridOutOfRangeException(string methodName, int x, int y) : base($"GridOutOfRange.{methodName} : {x}; {y} for {GridProperties.GRID_SIZE}; {GridProperties.GRID_SIZE} ")
             {
 
             }

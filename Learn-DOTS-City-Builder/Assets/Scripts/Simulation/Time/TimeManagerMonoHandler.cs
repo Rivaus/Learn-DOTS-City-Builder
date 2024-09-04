@@ -4,7 +4,7 @@ using Unity.Entities;
 
 namespace quentin.tran.simulation
 {
-    public class TimeManagerMonoHandler: ISingleton<TimeManagerMonoHandler>, IUpdatable
+    public class TimeManagerMonoHandler : ISingleton<TimeManagerMonoHandler>, IUpdatable
     {
         public static TimeManagerMonoHandler Instance { get; private set; }
 

@@ -1,6 +1,3 @@
-using quentin.tran.models.grid;
-using quentin.tran.simulation.grid;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace quentin.tran.debug

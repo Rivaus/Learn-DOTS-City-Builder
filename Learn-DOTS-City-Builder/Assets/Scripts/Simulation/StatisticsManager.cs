@@ -1,6 +1,5 @@
 using quentin.tran.authoring.building;
 using quentin.tran.authoring.citizen;
-using quentin.tran.common;
 using quentin.tran.gameplay;
 using quentin.tran.simulation.system.citizen;
 using Unity.Collections;
@@ -56,7 +55,7 @@ namespace quentin.tran.simulation
 
             while (true)
             {
-                await Awaitable.WaitForSecondsAsync(1/10f);
+                await Awaitable.WaitForSecondsAsync(1 / 10f);
 
                 ComputeCitizensData();
                 ComputeHousesData();
@@ -107,7 +106,7 @@ namespace quentin.tran.simulation
         private void ComputeJobData()
         {
             Statistics.NumberOfJobBuildings = this.jobBuildingsQuery.CalculateEntityCount();
-            
+
             using NativeArray<OfficeBuilding> offices = this.jobBuildingsQuery.ToComponentDataArray<OfficeBuilding>(Allocator.Temp);
 
             int nbAvailableJobs = 0;

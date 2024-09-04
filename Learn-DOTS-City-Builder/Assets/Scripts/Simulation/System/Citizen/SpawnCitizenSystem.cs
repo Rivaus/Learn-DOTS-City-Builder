@@ -68,7 +68,7 @@ namespace quentin.tran.simulation.system.citizen
                         var buildingTransform = SystemAPI.GetComponentRO<LocalTransform>(house.ValueRO.building);
 
                         int nbResidents = 0;
-                        
+
                         if (random.NextInt(0, 100) < 65) // chance to be a couple
                         {
                             // First 

@@ -4,7 +4,6 @@ using quentin.tran.models.grid;
 using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Profiling;
 
 namespace quentin.tran.simulation.grid
 {
@@ -33,7 +32,7 @@ namespace quentin.tran.simulation.grid
             this.roadGridArray = new(this.roadGrid.Length, Allocator.Persistent);
             this.movementDirections = new(4, Allocator.Persistent);
 
-            for(int i = 0; i < this.movementDirections.Length; i++)
+            for (int i = 0; i < this.movementDirections.Length; i++)
             {
                 this.movementDirections[i] = GridUtils.CARDINAL_DIRECTION[i];
             }

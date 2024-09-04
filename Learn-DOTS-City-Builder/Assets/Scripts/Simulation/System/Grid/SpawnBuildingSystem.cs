@@ -93,7 +93,7 @@ namespace quentin.tran.simulation.system.grid
                         break;
                     case DeleteBuildCellCommand deleteCmd:
 
-                        foreach((var gridCell, var e) in SystemAPI.Query<RefRO<GridCellComponent>>().WithEntityAccess())
+                        foreach ((var gridCell, var e) in SystemAPI.Query<RefRO<GridCellComponent>>().WithEntityAccess())
                         {
                             if (gridCell.ValueRO.index.Equals(deleteCmd.index))
                             {
@@ -107,7 +107,7 @@ namespace quentin.tran.simulation.system.grid
                                 break;
                             }
                         }
-                        
+
                         break;
                     default:
                         Debug.LogError("SpawnBuildingSystem : Command unknown ");

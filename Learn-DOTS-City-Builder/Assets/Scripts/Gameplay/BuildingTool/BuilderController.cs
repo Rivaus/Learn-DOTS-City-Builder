@@ -1,6 +1,4 @@
 using quentin.tran.common;
-using quentin.tran.debug;
-using quentin.tran.simulation.grid;
 using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -58,7 +56,7 @@ namespace quentin.tran.gameplay.buildingTool
         /// <summary>
         /// When <see cref="mode"/> is set to <see cref="BuildingMode.Building"/>, this key is used to determine which building to spawn.
         /// </summary>
-        public uint CurrentBuilding {  get; set; }
+        public uint CurrentBuilding { get; set; }
 
         /// <summary>
         /// Event raised when <see cref="Mode"/>changes.
@@ -129,7 +127,7 @@ namespace quentin.tran.gameplay.buildingTool
                 }
 
                 this.cellGridSelectedFeedback.gameObject.SetActive(true);
-                this.cellGridSelectedFeedback.position = new Vector3(this.hoveredCell.x, 0, this.hoveredCell.y) * GridProperties.GRID_CELL_SIZE;          
+                this.cellGridSelectedFeedback.position = new Vector3(this.hoveredCell.x, 0, this.hoveredCell.y) * GridProperties.GRID_CELL_SIZE;
             }
         }
 
@@ -161,14 +159,14 @@ namespace quentin.tran.gameplay.buildingTool
 
             if (builder is null)
             {
-                Debug.LogError($"No builder found for { this.Mode }");
+                Debug.LogError($"No builder found for {this.Mode}");
                 return;
             }
 
-            foreach(IBuildingCellCommand buildCommand in builder.Handle(this.hoveredCell.x, this.hoveredCell.y))
+            foreach (IBuildingCellCommand buildCommand in builder.Handle(this.hoveredCell.x, this.hoveredCell.y))
             {
                 this.commands.Enqueue(buildCommand);
-            }           
+            }
         }
 
         public void Enable()

@@ -34,7 +34,7 @@ namespace quentin.tran.simulation.system.citizen
         {
             EntityCommandBuffer cmd = new(Unity.Collections.Allocator.Temp);
 
-            foreach((RefRO<CitizenAdult> citizen, Entity citizenEntity) in SystemAPI.Query<RefRO<CitizenAdult>>().WithAbsent<CitizenJob>().WithEntityAccess())
+            foreach ((RefRO<CitizenAdult> citizen, Entity citizenEntity) in SystemAPI.Query<RefRO<CitizenAdult>>().WithAbsent<CitizenJob>().WithEntityAccess())
             {
                 RefRW<OfficeBuilding> officeWithEmploy = default;
                 Entity officeBuilding = Entity.Null;

@@ -19,7 +19,7 @@ namespace quentin.tran.ui.customElements
         {
             this.RegisterCallback<MouseDownEvent>(e =>
             {
-                if (e.button == (int) MouseButton.LeftMouse && e.clickCount ==1)
+                if (e.button == (int)MouseButton.LeftMouse && e.clickCount == 1)
                 {
                     Select();
                     e.StopPropagation();

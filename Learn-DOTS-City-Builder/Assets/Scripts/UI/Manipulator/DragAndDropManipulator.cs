@@ -44,7 +44,7 @@ namespace quentin.tran.ui.manipulator
             if (!this.isActive)
                 return;
 
-            this.root.transform.position += (Vector3) e.mouseDelta;
+            this.root.transform.position += (Vector3)e.mouseDelta;
         }
 
         private void MouseUp(MouseUpEvent _)

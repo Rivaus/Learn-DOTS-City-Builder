@@ -1,13 +1,11 @@
 using quentin.tran.models.grid;
 using quentin.tran.simulation.grid;
-using System;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Profiling;
 
 namespace quentin.tran.debug
 {

@@ -1,5 +1,4 @@
 using quentin.tran.authoring;
-using System;
 using Unity.Burst;
 using Unity.Entities;
 

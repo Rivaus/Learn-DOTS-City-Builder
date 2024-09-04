@@ -12,8 +12,8 @@ namespace quentin.tran.mono.grid
         {
             this.filter = GetComponent<MeshFilter>();
 
-            Vector3[] vertices = new Vector3[ 2 * GridProperties.GRID_SIZE];
-            int[] indices = new int[ 2 * GridProperties.GRID_SIZE ];
+            Vector3[] vertices = new Vector3[2 * GridProperties.GRID_SIZE];
+            int[] indices = new int[2 * GridProperties.GRID_SIZE];
 
             for (int i = 0; i < GridProperties.GRID_SIZE; i += 2)
             {
