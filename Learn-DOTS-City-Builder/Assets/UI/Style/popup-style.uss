@@ -136,9 +136,20 @@
 
 .popup-scrollview .unity-scroll-view__vertical-scroller #unity-dragger {
     background-color: var(--city-builder-very-dark-grey-color);
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
 .popup-scrollview #unity-content-container {
     padding-left: 20px;
     padding-right: 20px;
+}
+
+.popup-scrollview .unity-repeat-button {
+    background-color: var(--city-builder-very-dark-grey-color);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
 }
