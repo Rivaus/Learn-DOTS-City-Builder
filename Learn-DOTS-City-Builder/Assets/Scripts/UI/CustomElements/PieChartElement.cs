@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -65,7 +66,7 @@ namespace quentin.tran.ui.customElements
             this.chartElement.generateVisualContent += GenerateVisualContent;
             DisplayCaption();
 
-            this.captionElement.RegisterCallback<GeometryChangedEvent>(DisplayChartLabels);
+            this.chartElement.RegisterCallback<GeometryChangedEvent>(DisplayChartLabels);
         }
 
         /// <summary>
@@ -74,50 +75,65 @@ namespace quentin.tran.ui.customElements
         /// <param name="entries"></param>
         public void SetCategories(params PieChartCategory[] entries)
         {
-            categories.Clear();
-            categories.AddRange(entries);
+            try
+            {
+                categories.Clear();
+                categories.AddRange(entries);
 
-            DisplayCaption();
+                DisplayCaption();
+                DisplayChartLabels(null);
 
-            MarkDirtyRepaint();
+                this.chartElement.MarkDirtyRepaint();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+            }
         }
 
         private void GenerateVisualContent(MeshGenerationContext context)
         {
-            float size = System.Math.Min(this.chartElement.contentRect.width, this.chartElement.contentRect.height);
-
-            Painter2D painter = context.painter2D;
-            painter.lineWidth = BorderWidth;
-            if (painter.lineWidth == 0)
-                painter.lineWidth = 1f;
-
-            painter.fillColor = Color.red;
-            painter.strokeColor = Color.blue;
-
-            int max = categories.Sum(c => c.count);
-
-            if (max == 0)
+            try
             {
-                painter.strokeColor = Color.gray;
-                painter.BeginPath();
-                painter.Arc(Vector2.one * size * .5f, size * .5f - painter.lineWidth * .5f, 0, 360);
-                painter.Stroke();
-            }
-            else
-            {
-                float previousAngle = 0;
+                float size = Math.Min(this.chartElement.contentRect.width, this.chartElement.contentRect.height);
 
-                for (int i = 0; i < this.categories.Count; i++)
+                Painter2D painter = context.painter2D;
+                painter.lineWidth = BorderWidth;
+                if (painter.lineWidth == 0)
+                    painter.lineWidth = 1f;
+
+                painter.fillColor = Color.red;
+                painter.strokeColor = Color.blue;
+
+                int max = categories.Sum(c => c.count);
+
+                if (max == 0)
                 {
-                    float arcLength = ((float)this.categories[i].count) / ((float)max);
-                    arcLength *= 360;
-                    painter.strokeColor = PIE_COLORS[i];
-                    painter.fillColor = PIE_COLORS[i];
+                    painter.strokeColor = Color.gray;
                     painter.BeginPath();
-                    painter.Arc(Vector2.one * size * .5f, size * .5f - painter.lineWidth * .5f, previousAngle, previousAngle + arcLength);
+                    painter.Arc(Vector2.one * size * .5f, size * .5f - painter.lineWidth * .5f, 0, 360);
                     painter.Stroke();
-                    previousAngle = previousAngle + arcLength;
                 }
+                else
+                {
+                    float previousAngle = 0;
+
+                    for (int i = 0; i < this.categories.Count; i++)
+                    {
+                        float arcLength = ((float)this.categories[i].count) / ((float)max);
+                        arcLength *= 360;
+                        painter.strokeColor = PIE_COLORS[i];
+                        painter.fillColor = PIE_COLORS[i];
+                        painter.BeginPath();
+                        painter.Arc(Vector2.one * size * .5f, size * .5f - painter.lineWidth * .5f, previousAngle, previousAngle + arcLength);
+                        painter.Stroke();
+                        previousAngle = previousAngle + arcLength;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
             }
         }
 
@@ -134,7 +150,7 @@ namespace quentin.tran.ui.customElements
             float previousAngle = 0;
             for (int i = 0; i < this.categories.Count; i++)
             {
-                float rate = ((float)this.categories[i].count) / ((float)max);
+                float rate = ((float)this.categories[i].count) / ((float) (max == 0 ? Mathf.Infinity : max));
                 float arcLength = rate * 360;
 
                 if (i >= this.labels.Count)
@@ -148,6 +164,13 @@ namespace quentin.tran.ui.customElements
 
                 rate *= 100;
                 label = this.labels[i];
+
+                if (rate == 0)
+                {
+                    label.RemoveFromHierarchy();
+                    continue;
+                }
+
                 this.chartElement.Add(label);
                 label = this.labels[i];
                 label.text = $" {System.Math.Round(rate, 0)}%\n ({this.categories[i].count})";
@@ -157,9 +180,7 @@ namespace quentin.tran.ui.customElements
                 Vector2 pos = Vector2.one * size * .5f + direction * size * .5f;
 
                 if (angle > Mathf.PI)
-                {
                     pos += direction * 30;
-                }
 
                 label.style.translate = new Translate(pos.x, pos.y);
 

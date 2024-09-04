@@ -19,8 +19,8 @@ namespace quentin.tran.authoring.building
                 Entity e = GetEntity(TransformUsageFlags.None);
                 AddComponent(e, new OfficeBuilding()
                 {
-                    nbJob = authoring.nbJob,
-                    numberOfFreeJob = 0,
+                    nbJobs = authoring.nbJob,
+                    nbOfAvailableJob = authoring.nbJob,
                     startHour = authoring.startHour,
                     endHour = authoring.endHour,
                     salaryRangePerDay = new float2(authoring.salaryRangePerDay),
@@ -32,9 +32,12 @@ namespace quentin.tran.authoring.building
 
     public struct OfficeBuilding : IComponentData
     {
-        public int nbJob;
+        /// <summary>
+        /// Total of jobs (available + employed)
+        /// </summary>
+        public int nbJobs;
 
-        public int numberOfFreeJob;
+        public int nbOfAvailableJob;
 
         public int startHour, endHour;
 

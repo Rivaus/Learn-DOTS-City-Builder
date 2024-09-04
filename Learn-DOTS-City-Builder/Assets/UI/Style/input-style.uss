@@ -44,8 +44,3 @@
     margin-left: 10px;
     margin-right: 10px;
 }
-
-.bottom-bar__time-label {
-    width: 200px;
-    -unity-text-align: middle-center;
-}

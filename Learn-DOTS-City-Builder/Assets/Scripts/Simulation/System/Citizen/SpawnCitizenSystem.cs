@@ -37,7 +37,7 @@ namespace quentin.tran.simulation.system.citizen
             this.currentDay = dateTime.Day;
             this.currentHour = dateTime.Hour - 2;
 
-            this.random = Random.CreateFromIndex((uint)(this.currentHour + this.currentDay + dateTime.Year));
+            this.random = Random.CreateFromIndex((uint)(this.currentHour + this.currentDay + dateTime.Year + dateTime.Second));
         }
 
         public void OnStopRunning(ref SystemState state)

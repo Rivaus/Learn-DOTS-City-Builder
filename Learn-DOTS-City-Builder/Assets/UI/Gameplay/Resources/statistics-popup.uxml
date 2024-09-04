@@ -1,9 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Style/popup-style.uss?fileID=7433441132597879392&amp;guid=fe9d002a0ba829a4089c253d365e78f8&amp;type=3#popup-style" />
-    <ui:VisualElement name="body" class="popup" style="flex-grow: 1;">
+    <ui:VisualElement name="body" class="popup" style="transition-property: display; transition-duration: 1s; width: 750px; height: 500px;">
         <ui:VisualElement name="header" class="popup-header">
+            <ui:Label text="Statistics" name="header-label" class="popup-header__label" />
             <ui:Button name="close-button" class="popup__close-button" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
-            <ui:Label text="Statistics" class="popup-header__label" />
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
             <ui:VisualElement name="side-container" style="width: 50px; height: 100%;">
@@ -26,9 +26,26 @@
                     <ui:VisualElement class="popup__tab-button__icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/UI/Icons/users-round.svg?fileID=7388822144124034973&amp;guid=8c1823bc39af9534b86a6b5f9bfa06b2&amp;type=3#users-round&quot;);" />
                 </quentin.tran.ui.customElements.TabButtonElement>
             </ui:VisualElement>
-            <ui:VisualElement name="main-section" style="flex-grow: 1; min-width: 500px;">
+            <ui:ScrollView name="main-section" vertical-scroller-visibility="AlwaysVisible" class="popup-scrollview" style="flex-grow: 1;">
                 <ui:Label text="Label" class="popup__section__header" />
-            </ui:VisualElement>
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+                <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
+            </ui:ScrollView>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

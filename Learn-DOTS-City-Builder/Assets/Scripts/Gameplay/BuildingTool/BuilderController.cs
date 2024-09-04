@@ -121,7 +121,6 @@ namespace quentin.tran.gameplay.buildingTool
             {
                 Vector3 point = ray.GetPoint(enter);
                 this.hoveredCell = new int2((int)(point.x / GridProperties.GRID_CELL_SIZE), (int)(point.z / GridProperties.GRID_CELL_SIZE));
-                HouseAndJobDebug.currentCellHovered = this.hoveredCell;
 
                 if (this.hoveredCell.x < 0 || this.hoveredCell.y < 0 || this.hoveredCell.x > GridProperties.GRID_SIZE || this.hoveredCell.y > GridProperties.GRID_SIZE)
                 {

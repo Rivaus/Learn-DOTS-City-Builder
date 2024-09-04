@@ -7,6 +7,7 @@ using quentin.tran.ui.popup;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static quentin.tran.simulation.Statistics;
 
 namespace quentin.tran.ui
 {
@@ -41,6 +42,14 @@ namespace quentin.tran.ui
 
             BuilderController.Instance.OnModeChanged += UpdateBuildingButtons;
             UpdateBuildingButtons(BuilderController.Instance.Mode);
+
+            Label citizensCount = root.Q<Label>("citizens-count");
+            citizensCount.dataSource = StatisticsManager.Instance.Statistics.citizenStatistics;
+            citizensCount.SetBinding("text", new DataBinding()
+            {
+                dataSourcePath = new Unity.Properties.PropertyPath(nameof(CitizenStatistics.NumberOfCitizens)),
+                bindingMode = BindingMode.ToTarget
+            });
 
             Update();
         }

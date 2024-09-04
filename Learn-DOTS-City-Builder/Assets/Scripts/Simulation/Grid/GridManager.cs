@@ -2,7 +2,6 @@ using quentin.tran.common;
 using quentin.tran.gameplay;
 using quentin.tran.models.grid;
 using System;
-using System.Collections.Generic;
 
 namespace quentin.tran.simulation.grid
 {

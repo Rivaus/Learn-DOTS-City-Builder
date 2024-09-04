@@ -51,3 +51,12 @@
     padding-left: 10px;
     flex-direction: row;
 }
+
+.bottom-bar__time-label {
+    width: 200px;
+    -unity-text-align: middle-center;
+}
+
+.bottom-bar__separator {
+    background-color: var(--city-builder-light-grey-color);
+}

@@ -13,6 +13,7 @@ namespace quentin.tran.gameplay
         {
             this.managers.Add(new InputManager());
             this.managers.Add(new GridManager());
+            this.managers.Add(new StatisticsManager());
             this.managers.Add(new RoadGridManager());
             this.managers.Add(new TimeManagerMonoHandler());
         }
@@ -42,7 +43,7 @@ namespace quentin.tran.gameplay
 
     public interface ISingleton<T> : ISingleton
     {
-        public static T Value { get; }
+        static T Instance { get; }
     }
 
     public interface IUpdatable

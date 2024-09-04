@@ -1,9 +1,10 @@
+using quentin.tran.gameplay;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace quentin.tran.ui.popup
 {
-    public class PopupsManager : MonoBehaviour
+    public class PopupsManager : MonoBehaviour, ISingleton<PopupsManager>
     {
         public static PopupsManager Instance { get; private set; }
 
@@ -38,6 +39,10 @@ namespace quentin.tran.ui.popup
                 default:
                     break;
             }
+        }
+
+        public void Clear()
+        {
         }
 
         public enum PopupType { Statistics }

@@ -48,9 +48,9 @@ namespace quentin.tran.simulation.system.citizen
 
                 foreach ((RefRW<OfficeBuilding> office, Entity officeEntity) in SystemAPI.Query<RefRW<OfficeBuilding>>().WithEntityAccess())
                 {
-                    if (office.ValueRO.nbJob > 0)
+                    if (office.ValueRO.nbOfAvailableJob > 0)
                     {
-                        office.ValueRW.nbJob--;
+                        office.ValueRW.nbOfAvailableJob--;
                         officeWithEmploy = office;
                         officeBuilding = officeEntity;
                     }
@@ -58,7 +58,6 @@ namespace quentin.tran.simulation.system.citizen
 
                 if (!officeWithEmploy.IsValid || officeBuilding == Entity.Null)
                 {
-                    UnityEngine.Debug.Log("No employ available in town");
                     return;
                 }
 
