@@ -26,7 +26,6 @@ namespace quentin.tran.simulation.system.citizen
             this.random = new Random(123);
 
             UnityEngine.Debug.LogError("Prevent student from getting a job");
-            UnityEngine.Debug.LogError("Prevent citizens too young or old to loop through update");
         }
 
         [BurstCompile]
@@ -82,6 +81,8 @@ namespace quentin.tran.simulation.system.citizen
         public int startHour, endHour;
 
         public int2 officeBuildingIndex;
+
+        public int lastDayWentToOffice;
     }
 }
 

@@ -42,7 +42,7 @@ namespace quentin.tran.debug
             DynamicBuffer<Waypoint> result = World.DefaultGameObjectInjectionWorld.EntityManager.AddBuffer<Waypoint>(debugEntity);
             manager.GetGraphNode(nodes);
 
-            RoadPathfinderJob job = new()
+            RoadPathFindingJob job = new()
             {
                 startIndex = startIndex,
                 endIndex = endIndex,
@@ -68,7 +68,6 @@ namespace quentin.tran.debug
                     .Add(go);
             }
 
-            nodes.Dispose();
         }
     }
 }

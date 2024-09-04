@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using Unity.Properties;
 
 namespace quentin.tran.simulation
@@ -7,6 +8,9 @@ namespace quentin.tran.simulation
     /// </summary>
     public class Statistics
     {
+        [CreateProperty]
+        public int2 HoveredCell { get; set; }
+
         #region Houses
 
         [CreateProperty]

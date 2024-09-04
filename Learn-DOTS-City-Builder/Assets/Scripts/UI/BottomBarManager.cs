@@ -51,6 +51,14 @@ namespace quentin.tran.ui
                 bindingMode = BindingMode.ToTarget
             });
 
+            Label hoveredCell = root.Q<Label>("hovered-cell");
+            hoveredCell.dataSource = StatisticsManager.Instance.Statistics;
+            hoveredCell.SetBinding("text", new DataBinding()
+            {
+                dataSourcePath = new Unity.Properties.PropertyPath(nameof(Statistics.HoveredCell)),
+                bindingMode = BindingMode.ToTarget
+            });
+
             Update();
         }
 

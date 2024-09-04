@@ -7,7 +7,6 @@
   - Get Tax System
   - Compute Happyness and City Attraction System
 - SpawnBuilding System : Spawn buildings
-- Debug System : Get data for debug mode
 - **Citizen System Group**
   - Spawn Citizen System : creating new citizens depending on free houses, level of city attraction
   - Apply To Job System : unemployed citizens, not student, in range 18 -> 65 years old try to get a job
@@ -16,4 +15,5 @@
   - Go Back Home System : in the afternoon, make citizens go back to their home
   - Go To Entertainment System : at evening or weekends, inhabitants can go to the theatre, concert, etc if they are close enough to.
   - Manager Citizen Health System : citizens can get sick (4 levels of sickness)
+  - Citizen Path Finder System : compute path from pathfinding requests added from (go to daily life and go back home system)
   - Move City Entities : move cars and inhabitants if they have a target

@@ -63,6 +63,7 @@ namespace quentin.tran.simulation.system.citizen
 
     [BurstCompile]
     [WithAbsent(typeof(PathFindingRequest))]
+    [WithAbsent(typeof(HasPathFindingPath))]
     public partial struct SetJobTargetJob : IJobEntity
     {
         [ReadOnly]
@@ -77,17 +78,18 @@ namespace quentin.tran.simulation.system.citizen
         [ReadOnly]
         public NativeArray<int2> directions;
 
+        [WriteOnly]
         public EntityCommandBuffer.ParallelWriter cmd;
 
         [BurstCompile]
-        public void Execute(Entity citizenEntity, in CitizenJob job, [ChunkIndexInQuery] int sortKey)
+        public void Execute(Entity citizenEntity, ref CitizenJob job, [ChunkIndexInQuery] int sortKey)
         {
-            if (hour > job.startHour)
+            if (hour > job.startHour && job.lastDayWentToOffice != day)
             {
                 int2 officeIndex = job.officeBuildingIndex;
 
                 int tmp;
-                int2 res = new(-1, -1);
+                int res = -1;
 
                 foreach (int2 direction in directions)
                 {
@@ -101,25 +103,27 @@ namespace quentin.tran.simulation.system.citizen
                     }
                 }
 
-                if (res.x == -1)
+                if (res == -1)
                 {
                     UnityEngine.Debug.LogError("SetJobTargetJob : office without road around");
                     return;
                 }
 
-                UnityEngine.Debug.Log("GO JOB");
-                cmd.AddComponent(sortKey, citizenEntity, new PathFindingRequest() { roadTarget = res, target = officeIndex });
+                job.lastDayWentToOffice = day;
+                cmd.AddComponent(sortKey, citizenEntity, new PathFindingRequest() { roadTarget = ArrayIndexToIndex(res), target = officeIndex });
             }
         }
 
         [BurstCompile]
         private int IndexToArrayIndex(int2 index) => index.x + index.y * GridProperties.GRID_SIZE;
-    }
 
-    public struct PathFindingRequest : IComponentData
-    {
-        public int2 roadTarget;
+        [BurstCompile]
+        private int2 ArrayIndexToIndex(int index)
+        {
+            int y = index / GridProperties.GRID_SIZE;
+            int x = index - (y * GridProperties.GRID_SIZE);
 
-        public int2 target;
+            return new int2(x, y);
+        }
     }
 }

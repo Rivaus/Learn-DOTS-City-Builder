@@ -1,4 +1,5 @@
 using quentin.tran.common;
+using quentin.tran.simulation;
 using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -78,6 +79,8 @@ namespace quentin.tran.gameplay.buildingTool
         /// </summary>
         private BuildingBuilderController buildingBuilder;
 
+        private Statistics statistics;
+
         #endregion
 
         #region Methods
@@ -101,6 +104,8 @@ namespace quentin.tran.gameplay.buildingTool
             this.roadBuilder = new();
             this.buildingBuilder = new();
             this.deleteBuilder = new DeleteBuilderController(this.roadBuilder);
+
+            this.statistics = StatisticsManager.Instance.Statistics;
         }
 
         private void OnDestroy()
@@ -119,6 +124,7 @@ namespace quentin.tran.gameplay.buildingTool
             {
                 Vector3 point = ray.GetPoint(enter);
                 this.hoveredCell = new int2((int)(point.x / GridProperties.GRID_CELL_SIZE), (int)(point.z / GridProperties.GRID_CELL_SIZE));
+                statistics.HoveredCell = this.hoveredCell;
 
                 if (this.hoveredCell.x < 0 || this.hoveredCell.y < 0 || this.hoveredCell.x > GridProperties.GRID_SIZE || this.hoveredCell.y > GridProperties.GRID_SIZE)
                 {
@@ -128,6 +134,10 @@ namespace quentin.tran.gameplay.buildingTool
 
                 this.cellGridSelectedFeedback.gameObject.SetActive(true);
                 this.cellGridSelectedFeedback.position = new Vector3(this.hoveredCell.x, 0, this.hoveredCell.y) * GridProperties.GRID_CELL_SIZE;
+            }
+            else
+            {
+                statistics.HoveredCell = int2.zero;
             }
         }
 

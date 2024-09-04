@@ -9,7 +9,7 @@ using UnityEngine;
 namespace quentin.tran.simulation.grid
 {
     [BurstCompile]
-    public partial struct RoadPathfinderJob : IJob
+    public partial struct RoadPathFindingJob : IJob
     {
         [ReadOnly]
         public int2 startIndex;
@@ -31,7 +31,8 @@ namespace quentin.tran.simulation.grid
 
         /// <summary>
         /// All graph nodes
-        /// </summary>
+        /// </summary
+        [DeallocateOnJobCompletion]
         public NativeArray<PathFindingNode> nodes;
 
         /// <summary>
@@ -134,15 +135,23 @@ namespace quentin.tran.simulation.grid
 
             if (endNode.Previous.x == -1)
             {
+                Debug.Log("PATHFINDING FAILED");
             }
             else
             {
                 int2 tmpIndex = endIndex;
 
+                int i = 0;
+
                 while (!tmpIndex.Equals(startIndex))
                 {
                     result.Add(new Waypoint() { cellIndex = tmpIndex });
                     tmpIndex = nodes[GridIndexToArrayIndex(tmpIndex)].Previous;
+
+                    i++;
+
+                    if (i > 20)
+                        break;
                 }
 
                 result.Add(new Waypoint() { cellIndex = startIndex });

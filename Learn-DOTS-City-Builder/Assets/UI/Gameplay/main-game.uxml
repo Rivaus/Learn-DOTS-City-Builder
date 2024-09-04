@@ -37,10 +37,12 @@
             <ui:VisualElement name="separator" class="bottom-bar__separator" style="width: 2px;" />
             <quentin.tran.ui.BuildingModeButton name="statistics-button" icon="project://database/Assets/UI/Icons/chart-column.svg?fileID=7388822144124034973&amp;guid=a1fe1be7a58914f41809224bf7124c5a&amp;type=3#chart-column" color="#FADB00FF" selected-color="#782323FF" is-selected="false" />
             <ui:VisualElement name="separator" class="bottom-bar__separator" style="width: 2px;" />
-            <ui:VisualElement name="citizen-container" style="flex-grow: 1; flex-direction: row; margin-left: 10px; margin-right: 10px;">
+            <ui:VisualElement name="citizen-container" style="flex-direction: row; margin-left: 10px; margin-right: 10px;">
                 <ui:VisualElement style="background-image: url(&quot;project://database/Assets/UI/Icons/users-round.svg?fileID=7388822144124034973&amp;guid=8c1823bc39af9534b86a6b5f9bfa06b2&amp;type=3#users-round&quot;); -unity-background-scale-mode: scale-to-fit; height: 100%; width: 20px; margin-left: 5px; margin-right: 5px;" />
                 <ui:Label text="200 453" name="citizens-count" style="color: rgb(255, 255, 255);" />
             </ui:VisualElement>
+            <ui:VisualElement name="separator" class="bottom-bar__separator" style="width: 2px;" />
+            <ui:Label text="125;456" name="hovered-cell" style="color: rgb(255, 255, 255);" />
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="popups" picking-mode="Ignore" style="flex-grow: 1; position: absolute; align-items: center; justify-content: center; width: 100%; height: 100%;" />

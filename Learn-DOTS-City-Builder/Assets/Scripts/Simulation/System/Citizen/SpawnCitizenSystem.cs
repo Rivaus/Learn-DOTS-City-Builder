@@ -2,6 +2,7 @@ using quentin.tran.authoring;
 using quentin.tran.authoring.building;
 using quentin.tran.authoring.citizen;
 using quentin.tran.common;
+using quentin.tran.simulation.grid;
 using System;
 using Unity.Burst;
 using Unity.Collections;
@@ -155,6 +156,8 @@ namespace quentin.tran.simulation.system.citizen
                     break;
                 default:
             }
+
+            cmd.AddBuffer<Waypoint>(citizen);
         }
     }
 }
