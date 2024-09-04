@@ -1,6 +1,7 @@
 using quentin.tran.authoring;
 using quentin.tran.authoring.building;
 using quentin.tran.authoring.citizen;
+using quentin.tran.common;
 using System;
 using Unity.Burst;
 using Unity.Collections;
@@ -134,6 +135,26 @@ namespace quentin.tran.simulation.system.citizen
                 Rotation = rot,
                 Scale = scale
             });
+
+            switch (age)
+            {
+                case < CitizenConsts.MIN_AGE_CHILD:
+                    cmd.AddComponent<CitizenBaby>(citizen);
+                    break;
+                case >= CitizenConsts.MIN_AGE_CHILD and < CitizenConsts.MIN_AGE_TEENAGER:
+                    cmd.AddComponent<CitizenBaby>(citizen);
+                    break;
+                case >= CitizenConsts.MIN_AGE_TEENAGER and < CitizenConsts.MIN_AGE_ADULT:
+                    cmd.AddComponent<CitizenTeenager>(citizen);
+                    break;
+                case >= CitizenConsts.MIN_AGE_ADULT and < CitizenConsts.MIN_AGE_RETIRED:
+                    cmd.AddComponent<CitizenAdult>(citizen);
+                    break;
+                case >= CitizenConsts.MIN_AGE_RETIRED:
+                    cmd.AddComponent<CitizenSenior>(citizen);
+                    break;
+                default:
+            }
         }
     }
 }

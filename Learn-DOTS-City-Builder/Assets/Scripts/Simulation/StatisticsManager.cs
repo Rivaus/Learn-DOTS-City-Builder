@@ -1,5 +1,6 @@
 using quentin.tran.authoring.building;
 using quentin.tran.authoring.citizen;
+using quentin.tran.common;
 using quentin.tran.gameplay;
 using quentin.tran.simulation.system.citizen;
 using Unity.Collections;
@@ -20,7 +21,9 @@ namespace quentin.tran.simulation
 
         #region Queries
 
-        private EntityQuery citizensQuery, nbOfHouseBuildingsQuery, housesQuery, jobBuildingsQuery, workersQuery;
+        private EntityQuery citizensQuery, babiesQuery, childrenQuery, teenagersQuery, adultsQuery, seniorsQuery;
+
+        private EntityQuery nbOfHouseBuildingsQuery, housesQuery, jobBuildingsQuery, workersQuery;
 
         #endregion
 
@@ -33,6 +36,12 @@ namespace quentin.tran.simulation
             var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
             this.citizensQuery = entityManager.CreateEntityQuery(typeof(Citizen));
+            this.babiesQuery = entityManager.CreateEntityQuery(typeof(CitizenBaby));
+            this.childrenQuery = entityManager.CreateEntityQuery(typeof(CitizenBaby));
+            this.teenagersQuery = entityManager.CreateEntityQuery(typeof(CitizenTeenager));
+            this.adultsQuery = entityManager.CreateEntityQuery(typeof(CitizenAdult));
+            this.seniorsQuery = entityManager.CreateEntityQuery(typeof(CitizenSenior));
+
             this.nbOfHouseBuildingsQuery = entityManager.CreateEntityQuery(typeof(Building));
             this.housesQuery = entityManager.CreateEntityQuery(typeof(House));
             this.jobBuildingsQuery = entityManager.CreateEntityQuery(typeof(OfficeBuilding));
@@ -64,35 +73,11 @@ namespace quentin.tran.simulation
             CitizenStatistics stats = this.Statistics.citizenStatistics;
             stats.NumberOfCitizens = citizens.Length;
 
-            int babies = 0, children = 0, teens = 0, adults = 0, retired = 0;
-
-            for (int i = 0; i < citizens.Length; i++)
-            {
-                switch (citizens[i].age)
-                {
-                    case <= 2:
-                        babies++;
-                        break;
-                    case > 2 and <= 10:
-                        children++;
-                        break;
-                    case > 10 and <= 18:
-                        teens++;
-                        break;
-                    case > 18 and <= 65:
-                        adults++;
-                        break;
-                    case > 65:
-                        retired++;
-                        break;
-                }
-            }
-
-            stats.NumberOfBabies = babies;
-            stats.NumberOfChildren = children;
-            stats.NumberOfTeenagers = teens;
-            stats.NumberOfAdults = adults;
-            stats.NumberOfRetirees = retired;
+            stats.NumberOfBabies = this.babiesQuery.CalculateEntityCount();
+            stats.NumberOfChildren = this.childrenQuery.CalculateEntityCount();
+            stats.NumberOfTeenagers = this.teenagersQuery.CalculateEntityCount();
+            stats.NumberOfAdults = this.adultsQuery.CalculateEntityCount();
+            stats.NumberOfSeniors = this.seniorsQuery.CalculateEntityCount();
         }
 
         private void ComputeHousesData()
@@ -141,6 +126,12 @@ namespace quentin.tran.simulation
             Instance = null;
 
             this.citizensQuery.Dispose();
+            this.babiesQuery.Dispose();
+            this.childrenQuery.Dispose();
+            this.teenagersQuery.Dispose();
+            this.adultsQuery.Dispose();
+            this.seniorsQuery.Dispose();
+
             this.nbOfHouseBuildingsQuery.Dispose();
             this.housesQuery.Dispose();
             this.jobBuildingsQuery.Dispose();

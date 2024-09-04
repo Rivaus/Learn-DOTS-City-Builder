@@ -31,6 +31,17 @@ namespace quentin.tran.authoring.citizen
         public float happiness;
     }
 
+    public struct CitizenBaby : IComponentData { }
+
+    public struct CitizenChild : IComponentData { }
+
+    public struct CitizenTeenager : IComponentData { }
+
+    public struct CitizenAdult : IComponentData { }
+
+    public struct CitizenSenior : IComponentData { }
+
+
     public enum CitizenGender
     {
         Male, Female

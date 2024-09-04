@@ -29,30 +29,15 @@ namespace quentin.tran.simulation
             [CreateProperty]
             public int NumberOfCitizens { get; set; }
 
-            /// <summary>
-            /// Babies : 0 -> 2 years old
-            /// </summary>
             public int NumberOfBabies { get; set; }
 
-            /// <summary>
-            /// Children : 3 -> 10 years old
-            /// </summary>
             public int NumberOfChildren { get; set; }
 
-            /// <summary>
-            /// Teenagers : 11 -> 18 years old
-            /// </summary>
             public int NumberOfTeenagers { get; set; }
 
-            /// <summary>
-            /// Adults : 19 -> 65 years old
-            /// </summary>
             public int NumberOfAdults { get; set; }
 
-            /// <summary>
-            /// Retired : 65 years old or +
-            /// </summary>
-            public int NumberOfRetirees { get; set; }
+            public int NumberOfSeniors { get; set; }
 
             public CitizenStatistics Copy()
             {
@@ -63,7 +48,7 @@ namespace quentin.tran.simulation
                     NumberOfChildren = NumberOfChildren,
                     NumberOfTeenagers = NumberOfTeenagers,
                     NumberOfAdults = NumberOfAdults,
-                    NumberOfRetirees = NumberOfRetirees
+                    NumberOfSeniors = NumberOfSeniors
                 };
             }
 
@@ -77,7 +62,7 @@ namespace quentin.tran.simulation
                 else if(other.NumberOfChildren != NumberOfChildren) return false;
                 else if(other.NumberOfTeenagers != NumberOfTeenagers) return false;
                 else if (other.NumberOfAdults != NumberOfAdults) return false;
-                else if (other.NumberOfRetirees != NumberOfRetirees) return false;
+                else if (other.NumberOfSeniors != NumberOfSeniors) return false;
 
                 return true;
             }

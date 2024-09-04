@@ -1,3 +1,4 @@
+using quentin.tran.common;
 using quentin.tran.simulation;
 using quentin.tran.simulation.system.citizen;
 using quentin.tran.ui.customElements;
@@ -108,11 +109,11 @@ namespace quentin.tran.ui.popup
             {
                 this.categories = new PieChartElement.PieChartCategory[]
                 {
-                    new PieChartElement.PieChartCategory { title = "Babies (1 - 2 yo)", count = 0},
-                    new PieChartElement.PieChartCategory { title = "Children (3 - 10 yo)", count = 2},
-                    new PieChartElement.PieChartCategory { title = "Teenagers (11 - 17 yo)", count = 0},
-                    new PieChartElement.PieChartCategory { title = $"Adults ({ApplyToJobSystem.MIN_AGE_TO_WORK} - {ApplyToJobSystem.MAX_AGE_TO_WORK} yo)", count = 5},
-                    new PieChartElement.PieChartCategory { title = $"Retirees ({ApplyToJobSystem.MAX_AGE_TO_WORK + 1} -)", count = 0},
+                    new PieChartElement.PieChartCategory { title = $"Babies (0 - { CitizenConsts.MIN_AGE_CHILD - 1 } yo)", count = 0},
+                    new PieChartElement.PieChartCategory { title = $"Children ({ CitizenConsts.MIN_AGE_CHILD } - { CitizenConsts.MIN_AGE_TEENAGER - 1 } yo)", count = 2},
+                    new PieChartElement.PieChartCategory { title = $"Teenagers ({ CitizenConsts.MIN_AGE_TEENAGER } - { CitizenConsts.MIN_AGE_ADULT - 1} yo)", count = 0},
+                    new PieChartElement.PieChartCategory { title = $"Adults ({ CitizenConsts.MIN_AGE_ADULT } - { CitizenConsts.MIN_AGE_RETIRED - 1 } yo)", count = 5},
+                    new PieChartElement.PieChartCategory { title = $"Senior ({ CitizenConsts.MIN_AGE_RETIRED } -)", count = 0},
                 };
 
                 VisualElement section = new() { name = "population-section" };
@@ -202,7 +203,7 @@ namespace quentin.tran.ui.popup
                     this.categories[1].count = stats.NumberOfChildren;
                     this.categories[2].count = stats.NumberOfTeenagers;
                     this.categories[3].count = stats.NumberOfAdults;
-                    this.categories[4].count = stats.NumberOfRetirees;
+                    this.categories[4].count = stats.NumberOfSeniors;
 
                     this.populationByAgeChart.SetCategories(this.categories);
                 }

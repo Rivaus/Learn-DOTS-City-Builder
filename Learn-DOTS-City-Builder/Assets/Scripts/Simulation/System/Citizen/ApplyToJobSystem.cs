@@ -14,15 +14,13 @@ namespace quentin.tran.simulation.system.citizen
     [UpdateAfter(typeof(SpawnCitizenSystem))]
     partial struct ApplyToJobSystem : ISystem
     {
-        public const int MIN_AGE_TO_WORK = 18;
-        public const int MAX_AGE_TO_WORK = 65;
-
         private Random random;
 
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
             state.RequireForUpdate<Citizen>();
+            state.RequireForUpdate<CitizenAdult>();
             state.RequireForUpdate<OfficeBuilding>();
 
             this.random = new Random(123);
@@ -36,13 +34,8 @@ namespace quentin.tran.simulation.system.citizen
         {
             EntityCommandBuffer cmd = new(Unity.Collections.Allocator.Temp);
 
-            foreach((RefRO<Citizen> citizen, Entity citizenEntity) in SystemAPI.Query<RefRO<Citizen>>().WithAbsent<CitizenJob>().WithEntityAccess())
+            foreach((RefRO<CitizenAdult> citizen, Entity citizenEntity) in SystemAPI.Query<RefRO<CitizenAdult>>().WithAbsent<CitizenJob>().WithEntityAccess())
             {
-                if (citizen.ValueRO.age < MIN_AGE_TO_WORK || citizen.ValueRO.age > MAX_AGE_TO_WORK)
-                {
-                    continue;
-                }
-
                 RefRW<OfficeBuilding> officeWithEmploy = default;
                 Entity officeBuilding = Entity.Null;
 
