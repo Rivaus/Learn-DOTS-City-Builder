@@ -58,7 +58,7 @@ namespace quentin.tran.simulation.system.citizen
 
                 if (!officeWithEmploy.IsValid || officeBuilding == Entity.Null)
                 {
-                    return;
+                    break;
                 }
 
                 if (!SystemAPI.HasComponent<GridCellComponent>(officeBuilding))
@@ -66,7 +66,6 @@ namespace quentin.tran.simulation.system.citizen
                     UnityEngine.Debug.LogError("ApplyToJobSystem.OnUpdate : internal error");
                 }
                 int2 officeIndex = SystemAPI.GetComponentRO<GridCellComponent>(officeBuilding).ValueRO.index;
-
                 CitizenJob job = new CitizenJob()
                 {
                     salaryPerDay = this.random.NextInt((int)officeWithEmploy.ValueRO.salaryRangePerDay.x, (int)officeWithEmploy.ValueRO.salaryRangePerDay.y),

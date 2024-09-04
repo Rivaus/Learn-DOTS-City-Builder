@@ -129,7 +129,7 @@ namespace quentin.tran.ui.popup
 
                 this.populationByAgeChart = new() { name = "population-section__by-age-chart", BorderWidth = 20 };
                 this.populationByAgeChart.style.alignSelf = Align.Center;
-                this.populationByAgeChart.style.width = 350;
+                this.populationByAgeChart.style.width = 400;
                 this.populationByAgeChart.style.height = 150;
                 this.populationByAgeChart.style.marginTop = 15;
                 this.populationByAgeChart.style.marginBottom = 25;
@@ -172,7 +172,7 @@ namespace quentin.tran.ui.popup
             }
 
             /// <summary>
-            /// A loop to resfresh <see cref="populationByAgeChart"/> if data has changed.
+            /// A loop to refresh <see cref="populationByAgeChart"/> if data has changed.
             /// </summary>
             private async void UpdateDataLoop()
             {
