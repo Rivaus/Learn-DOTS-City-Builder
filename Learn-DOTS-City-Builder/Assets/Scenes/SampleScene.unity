@@ -271,7 +271,8 @@ MonoBehaviour:
   focusPoint: {fileID: 834283386}
   defaultOffset: {x: 0, y: 7, z: -3}
   moveSpeed: 15
-  rotationSpeed: 100
+  rotationSpeed: 15
+  zoomSpeed: 15
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0

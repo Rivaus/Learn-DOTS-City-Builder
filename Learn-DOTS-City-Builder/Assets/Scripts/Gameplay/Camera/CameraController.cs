@@ -21,8 +21,14 @@ namespace quentin.tran.gameplay.camera
         [SerializeField]
         private float rotationSpeed = 360f;
 
+        [SerializeField]
+        private float zoomSpeed = 10f;
+
         private void Start()
         {
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 60;
+
             this.transform.position = this.focusPoint.transform.position + this.defaultOffset;
             this.transform.LookAt(this.focusPoint.position);
         }
@@ -56,7 +62,13 @@ namespace quentin.tran.gameplay.camera
             if (distanceFromFocus < 1 && zoomInput > 0)
                 return;
 
-            Vector3 zoom = -offset.normalized * distanceFromFocus * 0.1f * zoomInput;
+            if (distanceFromFocus > 50 && zoomInput < 0)
+                return;
+
+            float maxZoom = Mathf.Abs(distanceFromFocus * 0.1f * zoomInput);
+
+            float speedZoom = Mathf.Clamp(distanceFromFocus * zoomInput * Time.deltaTime * zoomSpeed, -maxZoom, maxZoom);
+            Vector3 zoom = -offset.normalized * speedZoom;
             transform.position += zoom;
         }
     }
