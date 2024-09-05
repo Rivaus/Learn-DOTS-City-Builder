@@ -61,7 +61,9 @@ namespace quentin.tran.simulation.system.citizen
                     gridWidth = manager.GetGridSize().x,
                     directions = manager.MovementDirections,
                     nodes = nodes,
-                    result = waypoints
+                    result = waypoints,
+                    addExtraWaypoint = true,
+                    extraWaypoint = pathFindingRequest.ValueRO.target
                 };
                 pathFinder.Schedule().Complete();
             }

@@ -41,6 +41,15 @@ namespace quentin.tran.simulation.grid
         [WriteOnly]
         public DynamicBuffer<Waypoint> result;
 
+        [ReadOnly]
+        public bool addExtraWaypoint;
+
+        /// <summary>
+        /// Extra waypoint added at the end of the path (so after <see cref="endIndex"/>) if <see cref="addExtraWaypoint"/> is set to true.
+        /// </summary>
+        [ReadOnly]
+        public int2 extraWaypoint;
+
         [BurstCompile]
         public void Execute()
         {
@@ -142,6 +151,9 @@ namespace quentin.tran.simulation.grid
                 int2 tmpIndex = endIndex;
 
                 int i = 0;
+
+                if (addExtraWaypoint)
+                    result.Add(new Waypoint() { cellIndex = extraWaypoint });
 
                 while (!tmpIndex.Equals(startIndex))
                 {

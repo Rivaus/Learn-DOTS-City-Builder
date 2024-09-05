@@ -7,7 +7,7 @@ namespace quentin.tran.simulation.system.citizen
     /// Go Back Home System : in the afternoon, make citizens go back to their home
     /// </summary>
     [UpdateInGroup(typeof(CitizenSystemGroup))]
-    [UpdateAfter(typeof(CitizenGoToDailyLifeSystem))]
+    [UpdateAfter(typeof(CitizenGoToJobDailyLifeSystem))]
     partial struct CitizenGoBackHomeSystem : ISystem
     {
         [BurstCompile]

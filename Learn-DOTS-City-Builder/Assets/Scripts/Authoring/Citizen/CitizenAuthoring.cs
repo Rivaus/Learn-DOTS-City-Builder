@@ -29,7 +29,10 @@ namespace quentin.tran.authoring.citizen
         /// In range 0:100
         /// </summary>
         public float happiness;
+
+        public CitizenActivity activty;
     }
+
 
     public struct CitizenBaby : IComponentData { }
 
@@ -45,6 +48,11 @@ namespace quentin.tran.authoring.citizen
     public enum CitizenGender
     {
         Male, Female
+    }
+
+    public enum CitizenActivity
+    {
+        AtHome, AtOffice, AtSchool, AtEntertainment
     }
 }
 

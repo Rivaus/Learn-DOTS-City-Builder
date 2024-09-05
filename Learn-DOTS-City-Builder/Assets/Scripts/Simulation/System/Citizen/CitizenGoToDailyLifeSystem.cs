@@ -1,6 +1,9 @@
 using quentin.tran.authoring;
+using quentin.tran.authoring.building;
+using quentin.tran.authoring.citizen;
 using quentin.tran.common;
 using quentin.tran.simulation.grid;
+using quentin.tran.simulation.system.grid;
 using System;
 using Unity.Burst;
 using Unity.Collections;
@@ -10,13 +13,16 @@ using Unity.Mathematics;
 namespace quentin.tran.simulation.system.citizen
 {
     /// <summary>
-    /// Citizen Go To DailyLife System : in the morning, set a citizen target if their are students or employed
+    /// Citizen Go To Job DailyLife System : in the morning, set employed citizens their office as a target. In the evening, make them go back home.
     /// </summary>
     [UpdateInGroup(typeof(CitizenSystemGroup))]
     [UpdateAfter(typeof(ApplyToJobSystem))]
-    partial struct CitizenGoToDailyLifeSystem : ISystem
+    partial struct CitizenGoToJobDailyLifeSystem : ISystem
     {
         NativeArray<int2> directions;
+
+        private ComponentLookup<House> housesLookup;
+        private ComponentLookup<GridCellComponent> gridLookup;
 
         [BurstCompile]
         public void OnCreate(ref SystemState state)
@@ -29,11 +35,18 @@ namespace quentin.tran.simulation.system.citizen
             directions[1] = new int2(1, 0);
             directions[2] = new int2(0, -1);
             directions[3] = new int2(-1, 0);
+
+
+            this.housesLookup = state.GetComponentLookup<House>();
+            this.gridLookup = state.GetComponentLookup<GridCellComponent>();
         }
 
         //[BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
+            this.housesLookup.Update(ref state);
+            this.gridLookup.Update(ref state);
+
             DateTime now = SystemAPI.GetSingleton<TimeManager>().dateTime;
             EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
             EntityCommandBuffer.ParallelWriter cmd = ecb.AsParallelWriter();
@@ -44,7 +57,9 @@ namespace quentin.tran.simulation.system.citizen
                 hour = now.Hour,
                 roads = RoadGridManager.Instance.RoadGridArray,
                 directions = directions,
-                cmd = cmd
+                cmd = cmd,
+                housesLookup = this.housesLookup,
+                gridLookup = this.gridLookup,
             };
 
             state.Dependency = job.ScheduleParallel(state.Dependency);
@@ -81,37 +96,56 @@ namespace quentin.tran.simulation.system.citizen
         [WriteOnly]
         public EntityCommandBuffer.ParallelWriter cmd;
 
+        [ReadOnly]
+        public ComponentLookup<House> housesLookup;
+
+        [ReadOnly]
+        public ComponentLookup<GridCellComponent> gridLookup;
+
         [BurstCompile]
-        public void Execute(Entity citizenEntity, ref CitizenJob job, [ChunkIndexInQuery] int sortKey)
+        public void Execute(Entity citizenEntity, ref CitizenJob job, ref Citizen citizen, [ChunkIndexInQuery] int sortKey)
         {
-            if (hour > job.startHour && job.lastDayWentToOffice != day)
+            if (hour >= job.startHour && hour < job.endHour && citizen.activty != CitizenActivity.AtOffice)
             {
-                int2 officeIndex = job.officeBuildingIndex;
-
-                int tmp;
-                int res = -1;
-
-                foreach (int2 direction in directions)
-                {
-                    tmp = IndexToArrayIndex(officeIndex + direction);
-
-                    if (tmp < roads.Length && roads[tmp].Type != RoadType.None)
-                    {
-                        res = tmp;
-
-                        break;
-                    }
-                }
-
-                if (res == -1)
-                {
-                    UnityEngine.Debug.LogError("SetJobTargetJob : office without road around");
-                    return;
-                }
-
-                job.lastDayWentToOffice = day;
-                cmd.AddComponent(sortKey, citizenEntity, new PathFindingRequest() { roadTarget = ArrayIndexToIndex(res), target = officeIndex });
+                citizen.activty = CitizenActivity.AtOffice;
+                cmd.AddComponent(sortKey, citizenEntity, new PathFindingRequest() { roadTarget = GetClosestRoad(job.officeBuildingIndex), target = job.officeBuildingIndex });
             }
+            else if (hour >= job.endHour && citizen.activty == CitizenActivity.AtOffice)
+            {
+
+                citizen.activty = CitizenActivity.AtHome;
+
+                RefRO<House> house = this.housesLookup.GetRefRO(citizen.house);
+                RefRO<GridCellComponent> gridIndex = this.gridLookup.GetRefRO(house.ValueRO.building);
+
+                cmd.AddComponent(sortKey, citizenEntity, new PathFindingRequest() { roadTarget = GetClosestRoad(gridIndex.ValueRO.index), target = gridIndex.ValueRO.index });
+            }
+        }
+
+        [BurstCompile] private int2 GetClosestRoad(int2 target)
+        {
+            int tmp;
+            int res = -1;
+
+            foreach (int2 direction in directions)
+            {
+                tmp = IndexToArrayIndex(target + direction);
+
+                if (tmp < roads.Length && roads[tmp].Type != RoadType.None)
+                {
+                    res = tmp;
+
+                    break;
+                }
+            }
+
+            if (res == -1)
+            {
+                UnityEngine.Debug.LogError("SetJobTargetJob : office without road around");
+                return int2.zero;
+            }
+
+            return ArrayIndexToIndex(res);
         }
 
         [BurstCompile]
