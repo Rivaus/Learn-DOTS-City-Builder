@@ -1,0 +1,29 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Style/popup-style.uss?fileID=7433441132597879392&amp;guid=fe9d002a0ba829a4089c253d365e78f8&amp;type=3#popup-style" />
+    <Style src="project://database/Assets/UI/Style/input-style.uss?fileID=7433441132597879392&amp;guid=08087dd9c57366c47b33793037ec40cb&amp;type=3#input-style" />
+    <ui:VisualElement name="body" class="popup" style="transition-property: display; transition-duration: 1s; width: 750px; height: 400px;">
+        <ui:VisualElement name="header" class="popup-header">
+            <ui:Label text="Settings" name="header-label" class="popup-header__label" />
+            <ui:Button name="close-button" class="popup__close-button" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+            <ui:VisualElement name="side-container" style="height: 100%;">
+                <quentin.tran.ui.customElements.TabButtonElement name="general-tab-button" class="popup__tab-button popup__tab-button-large">
+                    <ui:Label text="General" />
+                </quentin.tran.ui.customElements.TabButtonElement>
+                <quentin.tran.ui.customElements.TabButtonElement name="controls-tab-button" class="popup__tab-button popup__tab-button-large">
+                    <ui:Label text="Controls" />
+                </quentin.tran.ui.customElements.TabButtonElement>
+                <quentin.tran.ui.customElements.TabButtonElement name="visuals-tab-button" class="popup__tab-button popup__tab-button-large popup__tab-button--selected">
+                    <ui:Label text="Visuals" />
+                </quentin.tran.ui.customElements.TabButtonElement>
+            </ui:VisualElement>
+            <ui:ScrollView name="main-section" vertical-scroller-visibility="AlwaysVisible" class="popup-scrollview" style="flex-grow: 1;">
+                <ui:EnumField label="Mode" value="Center" type="quentin.tran.ui.popup.VisualQualityPresets, Assembly-CSharp" name="visuals-mode-dropdown" />
+                <ui:Label text="Advanced Settings" class="popup__section__header" />
+                <ui:EnumField label="Anti Aliasing" value="Center" type="quentin.tran.ui.popup.VisualQualityPresets, Assembly-CSharp" enabled="false" />
+                <ui:EnumField label="Shadow Quality" value="Center" type="quentin.tran.ui.popup.VisualQualityPresets, Assembly-CSharp" enabled="false" />
+            </ui:ScrollView>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

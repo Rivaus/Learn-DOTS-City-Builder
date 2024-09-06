@@ -5,7 +5,7 @@
     <ui:VisualElement name="body" style="flex-grow: 1;">
         <ui:VisualElement name="top-bar">
             <ui:VisualElement name="top-bar__button_container">
-                <ui:Button class="circle-icon-button">
+                <ui:Button name="settings-button" class="circle-icon-button">
                     <ui:VisualElement style="background-image: url(&quot;project://database/Assets/UI/Icons/settings.svg?fileID=7388822144124034973&amp;guid=d5fe726f77cbab94ea1b1d33155a756b&amp;type=3#settings&quot;);" />
                 </ui:Button>
             </ui:VisualElement>

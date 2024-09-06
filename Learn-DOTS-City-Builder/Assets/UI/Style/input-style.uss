@@ -44,3 +44,25 @@
     margin-left: 10px;
     margin-right: 10px;
 }
+
+.unity-enum-field {
+    align-items: center;
+    margin-left: 0;
+    color: rgb(255, 255, 255);
+}
+
+.unity-base-field__input {
+    background-color: var(--city-builder-light-grey-color);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-color: var(--city-builder-very-dark-grey-color);
+    border-right-color: var(--city-builder-very-dark-grey-color);
+    border-bottom-color: var(--city-builder-very-dark-grey-color);
+    border-left-color: var(--city-builder-very-dark-grey-color);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+}

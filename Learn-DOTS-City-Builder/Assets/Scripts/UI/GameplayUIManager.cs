@@ -18,6 +18,7 @@ namespace quentin.tran.ui
             VisualElement root = this.document.rootVisualElement;
 
             this.bottomBarManager = new BottomBarManager(root.Q<VisualElement>("bottom-bar"));
+            TopBarManager topBarManager = new TopBarManager(root.Q<VisualElement>("top-bar"));
 
             this.gameplayContainer = root.Q<VisualElement>("gameplay");
             this.gameplayContainer.RegisterCallback<MouseEnterEvent>(MouseEnter);

@@ -64,7 +64,6 @@ namespace quentin.tran.ui.popup
             this.budgetTabButton.onClick += () => DisplaySection(this.budgetTabButton);
             tabs.Add(this.budgetTabButton);
 
-
             foreach (TabButtonElement tabButton in tabs)
             {
                 tabButton.SelectClass = "popup__tab-button--selected";
