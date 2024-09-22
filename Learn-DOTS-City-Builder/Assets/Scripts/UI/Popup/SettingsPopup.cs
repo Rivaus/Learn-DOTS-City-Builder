@@ -43,9 +43,9 @@ namespace quentin.tran.ui.popup
     public enum VisualQualityPresets
     {
         Low,
-        Medium,
-        High,
+        //Medium,
+        //High,
         Ultra,
-        Custom
+        //Custom
     }
 }
