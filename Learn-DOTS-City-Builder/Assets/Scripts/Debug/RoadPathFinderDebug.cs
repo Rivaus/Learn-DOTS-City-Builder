@@ -49,7 +49,7 @@ namespace quentin.tran.debug
                 roads = roadsArray,
                 gridWidth = manager.GetGridSize().x,
                 directions = manager.MovementDirections,
-                nodes = nodes,
+                baseNodes = nodes,
                 result = result
             };
 

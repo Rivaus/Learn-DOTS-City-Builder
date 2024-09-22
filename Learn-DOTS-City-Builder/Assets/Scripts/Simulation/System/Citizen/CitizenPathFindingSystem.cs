@@ -2,6 +2,7 @@ using quentin.tran.authoring.citizen;
 using quentin.tran.common;
 using quentin.tran.models.grid;
 using quentin.tran.simulation.grid;
+using System.Linq;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
@@ -37,6 +38,11 @@ namespace quentin.tran.simulation.system.citizen
 
             EntityCommandBuffer cmd = new(Allocator.TempJob);
 
+            NativeArray<PathFindingNode> nodes = new(manager.GetGraphSize(), Allocator.TempJob);
+            manager.GetGraphNode(nodes);
+            NativeArray<RoadCell>.ReadOnly roadsArray = manager.RoadGridArray;
+            NativeList<JobHandle> jobs = new(Allocator.TempJob);
+
             foreach ((var pathFindingRequest, var transform, var waypoints, Entity e) in
                 SystemAPI.Query<RefRO<PathFindingRequest>, RefRO<LocalTransform>, DynamicBuffer<Waypoint>>()
                 .WithAbsent<HasPathFindingPath>()
@@ -47,10 +53,6 @@ namespace quentin.tran.simulation.system.citizen
                 cmd.RemoveComponent<PathFindingRequest>(e);
                 cmd.AddComponent<HasPathFindingPath>(e);
 
-                NativeArray<PathFindingNode> nodes = new(manager.GetGraphSize(), Allocator.TempJob);
-                manager.GetGraphNode(nodes);
-                NativeArray<RoadCell>.ReadOnly roadsArray = manager.RoadGridArray;
-
                 int2 start = FindStartRoad(transform, roadsArray, manager.MovementDirections);
 
                 RoadPathFindingJob pathFinder = new()
@@ -60,13 +62,20 @@ namespace quentin.tran.simulation.system.citizen
                     roads = roadsArray,
                     gridWidth = manager.GetGridSize().x,
                     directions = manager.MovementDirections,
-                    nodes = nodes,
+                    baseNodes = nodes,
                     result = waypoints,
                     addExtraWaypoint = true,
                     extraWaypoint = pathFindingRequest.ValueRO.target
                 };
-                pathFinder.Schedule().Complete();
+                
+                jobs.Add(pathFinder.Schedule());
             }
+
+            NativeArray<JobHandle> jobsArray = jobs.AsArray();
+            JobHandle.CompleteAll(jobsArray);
+            jobsArray.Dispose(); // required ?
+            jobs.Dispose();
+            nodes.Dispose();
 
             cmd.Playback(state.EntityManager);
             cmd.Dispose();

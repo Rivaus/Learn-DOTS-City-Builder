@@ -13,7 +13,7 @@ namespace quentin.tran.common
         /// <summary>
         /// Grid is a square, number of cells of a side. (Total number of cells = GRID_SIZE * GRID_SIZE)
         /// </summary>
-        public const int GRID_SIZE = 400;
+        public const int GRID_SIZE = 100;
     }
 }
 

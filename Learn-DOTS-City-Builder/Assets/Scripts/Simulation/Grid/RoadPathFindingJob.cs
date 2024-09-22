@@ -1,6 +1,7 @@
 using quentin.tran.models.grid;
 using Unity.Burst;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
@@ -30,15 +31,15 @@ namespace quentin.tran.simulation.grid
         public NativeArray<RoadCell>.ReadOnly roads;
 
         /// <summary>
-        /// All graph nodes
+        /// Base graph nodes.
         /// </summary
-        [DeallocateOnJobCompletion]
-        public NativeArray<PathFindingNode> nodes;
+        [ReadOnly]
+        public NativeArray<PathFindingNode> baseNodes;
 
         /// <summary>
         /// Result from start to end.
         /// </summary>
-        [WriteOnly]
+        [NativeDisableContainerSafetyRestriction]
         public DynamicBuffer<Waypoint> result;
 
         [ReadOnly]
@@ -53,11 +54,21 @@ namespace quentin.tran.simulation.grid
         [BurstCompile]
         public void Execute()
         {
+            if (startIndex.Equals(endIndex))
+            {
+                if (addExtraWaypoint)
+                    result.Add(new Waypoint() { cellIndex = extraWaypoint });
+
+                return;
+            }
+
             // 1. Init
             int endArrayIndex = GridIndexToArrayIndex(endIndex);
             int startArrayIndex = GridIndexToArrayIndex(startIndex);
+            NativeArray<PathFindingNode> nodes = new(this.baseNodes.Length, Allocator.Temp);
+            NativeArray<PathFindingNode>.Copy(this.baseNodes, nodes);
 
-            InitHCosts(); // Compute heuristic for every node.
+            InitHCosts(nodes); // Compute heuristic for every node.
 
             PathFindingNode startNode = nodes[startArrayIndex];
             startNode.GCost = 0;
@@ -150,8 +161,6 @@ namespace quentin.tran.simulation.grid
             {
                 int2 tmpIndex = endIndex;
 
-                int i = 0;
-
                 if (addExtraWaypoint)
                     result.Add(new Waypoint() { cellIndex = extraWaypoint });
 
@@ -159,11 +168,6 @@ namespace quentin.tran.simulation.grid
                 {
                     result.Add(new Waypoint() { cellIndex = tmpIndex });
                     tmpIndex = nodes[GridIndexToArrayIndex(tmpIndex)].Previous;
-
-                    i++;
-
-                    if (i > 20)
-                        break;
                 }
 
                 result.Add(new Waypoint() { cellIndex = startIndex });
@@ -172,6 +176,7 @@ namespace quentin.tran.simulation.grid
             // Clear
             openList.Dispose();
             closeList.Dispose();
+            nodes.Dispose();
         }
 
         [BurstCompile]
@@ -221,20 +226,20 @@ namespace quentin.tran.simulation.grid
 
 
         [BurstCompile]
-        private void InitHCosts()
+        private void InitHCosts(NativeArray<PathFindingNode> nodes)
         {
             int k = 0;
 
-            for (int i = 0; i < this.nodes.Length; i++)
+            for (int i = 0; i < nodes.Length; i++)
             {
-                PathFindingNode node = this.nodes[i];
+                PathFindingNode node = nodes[i];
 
                 if (!node.IsWalkable)
                     continue;
 
                 k++;
                 node.HCost = GridUtils.ManhattanDistance(node.Index, endIndex);
-                this.nodes[i] = node;
+                nodes[i] = node;
             }
         }
     }

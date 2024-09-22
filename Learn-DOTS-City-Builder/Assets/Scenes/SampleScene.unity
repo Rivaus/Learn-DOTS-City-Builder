@@ -451,7 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb9c58f3da421146910f8c05ff64708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: {x: 50, y: 50}
+  start: {x: 45, y: 50}
   end: {x: 54, y: 50}
 --- !u!1 &600447322
 GameObject:
