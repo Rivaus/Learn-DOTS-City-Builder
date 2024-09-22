@@ -81,6 +81,8 @@ namespace quentin.tran.gameplay.buildingTool
 
         private Statistics statistics;
 
+        private bool isBuilding = false;
+
         #endregion
 
         #region Methods
@@ -92,7 +94,8 @@ namespace quentin.tran.gameplay.buildingTool
 
             this.gridPlane = new Plane(Vector3.up, Vector3.zero);
 
-            InputManager.OnClick += Build;
+            InputManager.OnClick += BuildAsync;
+            InputManager.OnClickRelease += StopBuilding;
 
             Instance = this;
         }
@@ -110,7 +113,8 @@ namespace quentin.tran.gameplay.buildingTool
 
         private void OnDestroy()
         {
-            InputManager.OnClick -= Build;
+            InputManager.OnClick -= BuildAsync;
+            InputManager.OnClickRelease -= StopBuilding;
         }
 
         private void Update()
@@ -139,6 +143,23 @@ namespace quentin.tran.gameplay.buildingTool
             {
                 statistics.HoveredCell = int2.zero;
             }
+        }
+
+        private async void BuildAsync()
+        {
+            this.isBuilding = true;
+
+            while (this.isBuilding)
+            {
+                await Awaitable.EndOfFrameAsync();
+
+                Build();
+            }
+        }
+
+        private void StopBuilding()
+        {
+            this.isBuilding = false;
         }
 
         private void Build()

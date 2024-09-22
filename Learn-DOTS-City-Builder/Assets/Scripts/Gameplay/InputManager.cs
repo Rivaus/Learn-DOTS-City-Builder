@@ -19,7 +19,7 @@ namespace quentin.tran.gameplay
 
         public static float GetCameraZoom() => Instance.controls.CameraMap.Zoom.ReadValue<float>();
 
-        public static event Action OnClick;
+        public static event Action OnClick, OnClickRelease;
 
         public InputManager()
         {
@@ -29,12 +29,12 @@ namespace quentin.tran.gameplay
             this.controls.Enable();
 
             this.controls.CameraMap.Click.performed += Click;
+            this.controls.CameraMap.Click.canceled += ClickRelease;
         }
 
-        private void Click(InputAction.CallbackContext context)
-        {
-            OnClick?.Invoke();
-        }
+        private void Click(InputAction.CallbackContext context) => OnClick?.Invoke();
+
+        private void ClickRelease(InputAction.CallbackContext context) => OnClickRelease?.Invoke();
 
         public void Clear()
         {

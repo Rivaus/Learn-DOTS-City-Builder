@@ -43,7 +43,7 @@ namespace quentin.tran.simulation.system.citizen
     [BurstCompile]
     public partial struct MoveEntitiesJob : IJobEntity
     {
-        private const float SPEED = .25f;
+        private const float SPEED = .5f;
 
         [ReadOnly]
         public float deltaTime;
@@ -53,6 +53,8 @@ namespace quentin.tran.simulation.system.citizen
 
         [WriteOnly]
         public EntityCommandBuffer.ParallelWriter cmd;
+
+        public Random random;
 
         [BurstCompile]
         public void Execute(ref LocalTransform transform, DynamicBuffer<Waypoint> waypoints, ref HasPathFindingPath path, Entity e, [ChunkIndexInQuery] int sortKey)
