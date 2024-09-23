@@ -1,5 +1,6 @@
 using quentin.tran.authoring;
 using quentin.tran.common;
+using quentin.tran.simulation.component;
 using quentin.tran.simulation.grid;
 using Unity.Burst;
 using Unity.Collections;
