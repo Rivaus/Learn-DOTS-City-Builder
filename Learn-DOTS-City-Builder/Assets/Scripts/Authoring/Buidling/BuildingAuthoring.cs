@@ -26,6 +26,7 @@ namespace quentin.tran.authoring.building
                     nbOfHouses = authoring.nbOfHouses,
                     houseCapacity = authoring.capacity
                 });
+                AddBuffer<LinkedEntityBuffer>(house); // store all House Component related to.
             }
         }
     }

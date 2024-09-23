@@ -77,10 +77,10 @@ namespace quentin.tran.simulation.system.citizen
                             int ageA = random.NextInt(25, 60);
                             int ageB = math.clamp(random.NextInt(ageA - 10, ageA + 10), 20, 60);
 
-                            CreateCitizen("Jean", "Dupont", ageA, ref cmd, inhabitants, citizenSpawner.citizenPrefab, houseEntity, buildingTransform.ValueRO.Position,
+                            CreateCitizen("Jean", "Dupont", ageA, ref cmd, citizenSpawner.citizenPrefab, houseEntity, buildingTransform.ValueRO.Position,
                                 citizenPrefabTransform.ValueRO.Rotation, citizenPrefabTransform.ValueRO.Scale);
 
-                            CreateCitizen("Jean", "Dupont", ageB, ref cmd, inhabitants, citizenSpawner.citizenPrefab, houseEntity, buildingTransform.ValueRO.Position,
+                            CreateCitizen("Jean", "Dupont", ageB, ref cmd, citizenSpawner.citizenPrefab, houseEntity, buildingTransform.ValueRO.Position,
                                 citizenPrefabTransform.ValueRO.Rotation, citizenPrefabTransform.ValueRO.Scale);
 
                             nbResidents++;
@@ -92,7 +92,7 @@ namespace quentin.tran.simulation.system.citizen
                             {
                                 nbResidents++;
 
-                                CreateCitizen("Jean", "Dupont", random.NextInt(1, 20), ref cmd, inhabitants, citizenSpawner.citizenPrefab, houseEntity, buildingTransform.ValueRO.Position,
+                                CreateCitizen("Jean", "Dupont", random.NextInt(1, 20), ref cmd, citizenSpawner.citizenPrefab, houseEntity, buildingTransform.ValueRO.Position,
                                     citizenPrefabTransform.ValueRO.Rotation, citizenPrefabTransform.ValueRO.Scale);
                             }
                         }
@@ -102,7 +102,7 @@ namespace quentin.tran.simulation.system.citizen
 
                             for (int i = 0; i < nbCitizens; i++)
                             {
-                                CreateCitizen("Jean", "Dupont", random.NextInt(22, 70), ref cmd, inhabitants, citizenSpawner.citizenPrefab, houseEntity, buildingTransform.ValueRO.Position,
+                                CreateCitizen("Jean", "Dupont", random.NextInt(22, 70), ref cmd, citizenSpawner.citizenPrefab, houseEntity, buildingTransform.ValueRO.Position,
                                     citizenPrefabTransform.ValueRO.Rotation, citizenPrefabTransform.ValueRO.Scale);
                             }
 
@@ -120,7 +120,7 @@ namespace quentin.tran.simulation.system.citizen
             }
         }
 
-        private void CreateCitizen(string firstName, string lastName, int age, ref EntityCommandBuffer cmd, DynamicBuffer<LinkedEntityBuffer> inhabitants,
+        private void CreateCitizen(string firstName, string lastName, int age, ref EntityCommandBuffer cmd,
             Entity prefab, Entity house, float3 pos, quaternion rot, float scale)
         {
             Entity citizen = cmd.Instantiate(prefab);
@@ -160,7 +160,7 @@ namespace quentin.tran.simulation.system.citizen
             }
 
             cmd.AddBuffer<Waypoint>(citizen);
-            inhabitants.Add(new LinkedEntityBuffer() { entity = citizen });
+            cmd.AppendToBuffer<LinkedEntityBuffer>(house, new LinkedEntityBuffer() { entity = citizen });
         }
     }
 }

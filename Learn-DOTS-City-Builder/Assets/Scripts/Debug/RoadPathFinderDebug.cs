@@ -55,7 +55,7 @@ namespace quentin.tran.debug
 
             JobHandle handle = job.Schedule();
             handle.Complete();
-
+            nodes.Dispose();
 
             Debug.Log("Pathfinding " + (job.result.Length > 0));
 
@@ -64,10 +64,8 @@ namespace quentin.tran.debug
                 GameObject go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 go.transform.position = GridUtils.GetCellCenterPosition(res.cellIndex);
 
-                debugObjects
-                    .Add(go);
+                debugObjects.Add(go);
             }
-
         }
     }
 }

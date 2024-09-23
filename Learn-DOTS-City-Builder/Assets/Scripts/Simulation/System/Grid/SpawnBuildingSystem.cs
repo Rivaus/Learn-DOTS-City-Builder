@@ -79,9 +79,12 @@ namespace quentin.tran.simulation.system.grid
                         if (SystemAPI.HasComponent<HouseBuilding>(entity))
                         {
                             RefRO<HouseBuilding> building = SystemAPI.GetComponentRO<HouseBuilding>(entity);
+
                             for (int i = 0; i < building.ValueRO.nbOfHouses; i++)
                             {
                                 Entity house = entityCmdBuffer.CreateEntity();
+                                entityCmdBuffer.AppendToBuffer<LinkedEntityBuffer>(createdBuilding, new() { entity = house });
+
                                 entityCmdBuffer.AddComponent(house, new House()
                                 {
                                     building = createdBuilding,
@@ -108,21 +111,72 @@ namespace quentin.tran.simulation.system.grid
             entityCmdBuffer.Dispose();
         }
 
-        //[BurstCompile]
-        private void Delete(DeleteBuildCellCommand deleteCmd, ref SystemState state, ref EntityCommandBuffer cmd)
+        [BurstCompile]
+        private void Delete(DeleteBuildCellCommand deleteCmd, ref SystemState _, ref EntityCommandBuffer cmd)
         {
+            // Delete specific data
             switch (deleteCmd.buildingType)
             {
                 case models.grid.GridCellType.House:
-                    // 2. Delete house
-                    // 2.1 Remove every worker from their jobs
-                    // 2.2 Remove every child from school and student from university
-                    // 2.3 Delete citizens
+
+                    foreach ((RefRO<GridCellComponent> cell, DynamicBuffer<LinkedEntityBuffer> houses) in SystemAPI.Query<RefRO<GridCellComponent>, DynamicBuffer<LinkedEntityBuffer>>().WithAll<HouseBuilding>())
+                    {
+                        if (!cell.ValueRO.index.Equals(deleteCmd.index))
+                            continue;
+
+
+                        for (int i = 0; i < houses.Length; i++)
+                        {
+                            // Delete house inhabitants
+                            DynamicBuffer<LinkedEntityBuffer> inhabitants = SystemAPI.GetBuffer<LinkedEntityBuffer>(houses[i].entity);
+
+                            for (int j = 0; j < inhabitants.Length; j++)
+                            {
+                                Entity inhabitant = inhabitants[j].entity;
+
+                                // Remove every worker from their jobs
+                                if (SystemAPI.HasComponent<CitizenJob>(inhabitant))
+                                {
+                                    foreach((RefRW<OfficeBuilding> office, DynamicBuffer<LinkedEntityBuffer> workers) in SystemAPI.Query<RefRW<OfficeBuilding>, DynamicBuffer<LinkedEntityBuffer>>())
+                                    {
+                                        int workerFound = -1;
+
+                                        for (int k = 0; k < workers.Length; k++)
+                                        {
+                                            if (workers[k].entity == inhabitant)
+                                            {
+                                                office.ValueRW.nbOfAvailableJob = math.clamp(office.ValueRO.nbOfAvailableJob + 1, 0, office.ValueRO.nbJobs); // Free a job
+        
+                                                workerFound = k;
+                                                break;
+                                            }
+                                        }
+
+                                        if (workerFound >= 0)
+                                        {
+                                            workers.RemoveAt(workerFound);
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                // Remove every child from school and student from university
+                                Debug.Log("TODO Remove from school");
+
+                                // Destroy inhabitant
+                                cmd.DestroyEntity(inhabitant);
+                            }
+
+                            // Delete houses
+                            cmd.DestroyEntity(houses[i].entity);
+                        }
+                    }
+
                     break;
                 case models.grid.GridCellType.Office:
 
                     // 1. Delete building
-                    // 1.1 Remove job for every citizen who were working here
+                    // 2. Remove job for every citizen who were working here
                     foreach((RefRO<GridCellComponent> cell, DynamicBuffer<LinkedEntityBuffer> workers) in SystemAPI.Query<RefRO<GridCellComponent>, DynamicBuffer<LinkedEntityBuffer>>().WithAll<OfficeBuilding>())
                     {
                         if (!cell.ValueRO.index.Equals(deleteCmd.index))
