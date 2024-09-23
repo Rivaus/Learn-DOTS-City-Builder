@@ -3,6 +3,7 @@ using quentin.tran.simulation.system.grid;
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Transforms;
 
 namespace quentin.tran.simulation.system.citizen
 {
@@ -23,9 +24,6 @@ namespace quentin.tran.simulation.system.citizen
             state.RequireForUpdate<OfficeBuilding>();
 
             this.random = new Random(123);
-
-            UnityEngine.Debug.LogError("Prevent student from getting a job");
-            UnityEngine.Debug.LogError("Find closest job");
         }
 
         [BurstCompile]
@@ -33,17 +31,24 @@ namespace quentin.tran.simulation.system.citizen
         {
             EntityCommandBuffer cmd = new(Unity.Collections.Allocator.Temp);
 
-            foreach ((RefRO<CitizenAdult> _, Entity citizenEntity) in SystemAPI.Query<RefRO<CitizenAdult>>().WithAbsent<CitizenJob>().WithEntityAccess())
+            foreach ((RefRO<LocalTransform> citizenTransform, Entity citizenEntity) in SystemAPI.Query<RefRO<LocalTransform>>().WithAbsent<CitizenJob>().WithAll<CitizenAdult>().WithEntityAccess())
             {
                 RefRW<OfficeBuilding> officeWithEmploy = default;
                 Entity officeBuilding = Entity.Null;
                 DynamicBuffer<LinkedEntityBuffer> workers = default;
 
-                foreach ((RefRW<OfficeBuilding> office, DynamicBuffer<LinkedEntityBuffer> w, Entity officeEntity) in SystemAPI.Query<RefRW<OfficeBuilding>, DynamicBuffer<LinkedEntityBuffer>>().WithEntityAccess())
+                float sqDistanceToOffice = float.MaxValue;
+
+                // Find closest office with an available job
+                foreach ((RefRW<OfficeBuilding> office, RefRO<LocalToWorld> transform, DynamicBuffer < LinkedEntityBuffer> w, Entity officeEntity) in
+                    SystemAPI.Query<RefRW<OfficeBuilding>, RefRO<LocalToWorld>, DynamicBuffer<LinkedEntityBuffer>>().WithEntityAccess())
                 {
-                    if (office.ValueRO.nbOfAvailableJob > 0)
+                    float currentDistance = math.lengthsq(transform.ValueRO.Position - citizenTransform.ValueRO.Position);
+
+                    if (office.ValueRO.nbOfAvailableJob > 0 && currentDistance < sqDistanceToOffice)
                     {
-                        office.ValueRW.nbOfAvailableJob--;
+                        sqDistanceToOffice = currentDistance;
+
                         officeWithEmploy = office;
                         officeBuilding = officeEntity;
                         workers = w;
@@ -70,6 +75,7 @@ namespace quentin.tran.simulation.system.citizen
                 };
 
                 cmd.AddComponent(citizenEntity, job);
+                officeWithEmploy.ValueRW.nbOfAvailableJob--;
                 workers.Add(new LinkedEntityBuffer { entity = citizenEntity });
             }
 
