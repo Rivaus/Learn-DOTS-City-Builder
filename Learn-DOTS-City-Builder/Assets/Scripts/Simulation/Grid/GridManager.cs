@@ -44,6 +44,7 @@ namespace quentin.tran.simulation.grid
             CheckGrid(nameof(Build), x, y);
 
             this.grid[x, y] = cell;
+            UnityEngine.Debug.Log("BUILD " + cell.Type + "; " + cell.GetHashCode());
         }
 
         public void Destroy(int x, int y)

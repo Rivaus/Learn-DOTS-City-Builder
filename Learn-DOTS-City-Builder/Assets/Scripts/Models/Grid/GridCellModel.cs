@@ -29,6 +29,8 @@ namespace quentin.tran.models.grid
     {
         None,
         Road,
-        Building
+        House,
+        Office,
+        School
     }
 }

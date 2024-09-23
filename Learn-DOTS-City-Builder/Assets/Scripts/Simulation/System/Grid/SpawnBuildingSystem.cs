@@ -88,26 +88,14 @@ namespace quentin.tran.simulation.system.grid
                                     nbOfResidents = 0,
                                     capacity = building.ValueRO.houseCapacity
                                 });
+                                entityCmdBuffer.AddBuffer<LinkedEntityBuffer>(house); // A buffer to store all inhabitants
                             }
                         }
 
                         break;
                     case DeleteBuildCellCommand deleteCmd:
 
-                        foreach ((var gridCell, var e) in SystemAPI.Query<RefRO<GridCellComponent>>().WithEntityAccess())
-                        {
-                            if (gridCell.ValueRO.index.Equals(deleteCmd.index))
-                            {
-                                DynamicBuffer<LinkedEntityGroup> group = SystemAPI.GetBuffer<LinkedEntityGroup>(e);
-
-                                foreach (LinkedEntityGroup child in group)
-                                {
-                                    entityCmdBuffer.DestroyEntity(child.Value);
-                                }
-
-                                break;
-                            }
-                        }
+                        Delete(deleteCmd, ref state, ref entityCmdBuffer);
 
                         break;
                     default:
@@ -118,6 +106,56 @@ namespace quentin.tran.simulation.system.grid
 
             entityCmdBuffer.Playback(state.EntityManager);
             entityCmdBuffer.Dispose();
+        }
+
+        //[BurstCompile]
+        private void Delete(DeleteBuildCellCommand deleteCmd, ref SystemState state, ref EntityCommandBuffer cmd)
+        {
+            switch (deleteCmd.buildingType)
+            {
+                case models.grid.GridCellType.House:
+                    // 2. Delete house
+                    // 2.1 Remove every worker from their jobs
+                    // 2.2 Remove every child from school and student from university
+                    // 2.3 Delete citizens
+                    break;
+                case models.grid.GridCellType.Office:
+
+                    // 1. Delete building
+                    // 1.1 Remove job for every citizen who were working here
+                    foreach((RefRO<GridCellComponent> cell, DynamicBuffer<LinkedEntityBuffer> workers) in SystemAPI.Query<RefRO<GridCellComponent>, DynamicBuffer<LinkedEntityBuffer>>().WithAll<OfficeBuilding>())
+                    {
+                        if (!cell.ValueRO.index.Equals(deleteCmd.index))
+                            continue;
+
+                        for (int i = 0; i < workers.Length; i++)
+                        {
+                            cmd.RemoveComponent<CitizenJob>(workers[i].entity);
+                        }
+                    }
+
+                    break;
+                case models.grid.GridCellType.School:
+                    break;
+                default:
+                    break;
+            }
+
+            // Delete global entity
+            foreach ((var gridCell, var e) in SystemAPI.Query<RefRO<GridCellComponent>>().WithEntityAccess())
+            {
+                if (gridCell.ValueRO.index.Equals(deleteCmd.index))
+                {
+                    DynamicBuffer<LinkedEntityGroup> group = SystemAPI.GetBuffer<LinkedEntityGroup>(e);
+
+                    foreach (LinkedEntityGroup child in group)
+                    {
+                        cmd.DestroyEntity(child.Value);
+                    }
+
+                    break;
+                }
+            }
         }
     }
 

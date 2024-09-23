@@ -85,12 +85,14 @@ namespace quentin.tran.ui
         private void SetBuildBuildingMode()
         {
             BuilderController.Instance.CurrentBuilding = GridCellKeys.SIMPLE_HOUSE_01;
+            BuilderController.Instance.CurrentBuildingCategory = models.grid.GridCellType.House;
             BuilderController.Instance.Mode = BuilderController.BuildingMode.Building;
         }
 
         private void SetOfficeBuildingMode()
         {
             BuilderController.Instance.CurrentBuilding = GridCellKeys.SIMPLE_JOB_OFFICE_01;
+            BuilderController.Instance.CurrentBuildingCategory = models.grid.GridCellType.Office;
             BuilderController.Instance.Mode = BuilderController.BuildingMode.Building;
         }
 

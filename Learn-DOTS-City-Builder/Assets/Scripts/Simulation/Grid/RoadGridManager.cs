@@ -67,7 +67,6 @@ namespace quentin.tran.simulation.grid
                 throw new System.Exception("RoadGridManager.Destroy : cell not destroyable " + x + "; " + y);
 
             roadGrid[x, y].Type = RoadType.None;
-            UpdateGraph();
         }
 
         public bool IsRoad(int x, int y) => this.roadGrid[x, y].Type != RoadType.None;

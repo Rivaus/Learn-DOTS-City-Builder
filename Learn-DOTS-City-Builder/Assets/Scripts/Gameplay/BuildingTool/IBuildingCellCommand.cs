@@ -1,3 +1,4 @@
+using quentin.tran.models.grid;
 using Unity.Mathematics;
 
 namespace quentin.tran.gameplay.buildingTool
@@ -21,6 +22,8 @@ namespace quentin.tran.gameplay.buildingTool
     public struct DeleteBuildCellCommand : IBuildingCellCommand
     {
         public int2 index;
+
+        public GridCellType buildingType;
     }
 }
 

@@ -1,3 +1,4 @@
+using quentin.tran.simulation.component;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -26,24 +27,9 @@ namespace quentin.tran.authoring.building
                     salaryRangePerDay = new float2(authoring.salaryRangePerDay),
                     officeBuilding = e
                 });
+                AddBuffer<LinkedEntityBuffer>(e); // all workers
             }
         }
-    }
-
-    public struct OfficeBuilding : IComponentData
-    {
-        /// <summary>
-        /// Total of jobs (available + employed)
-        /// </summary>
-        public int nbJobs;
-
-        public int nbOfAvailableJob;
-
-        public int startHour, endHour;
-
-        public float2 salaryRangePerDay;
-
-        public Entity officeBuilding;
     }
 }
 

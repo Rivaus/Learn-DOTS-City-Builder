@@ -1,4 +1,5 @@
 using quentin.tran.common;
+using quentin.tran.models.grid;
 using quentin.tran.simulation;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,11 @@ namespace quentin.tran.gameplay.buildingTool
         /// When <see cref="mode"/> is set to <see cref="BuildingMode.Building"/>, this key is used to determine which building to spawn.
         /// </summary>
         public uint CurrentBuilding { get; set; }
+
+        /// <summary>
+        /// Current building category.
+        /// </summary>
+        public GridCellType CurrentBuildingCategory { get; set; }
 
         /// <summary>
         /// Event raised when <see cref="Mode"/>changes.
@@ -179,6 +185,7 @@ namespace quentin.tran.gameplay.buildingTool
                     break;
                 case BuildingMode.Building:
                     this.buildingBuilder.CurrentBuildingKey = this.CurrentBuilding;
+                    this.buildingBuilder.BuildingType = this.CurrentBuildingCategory;
                     builder = this.buildingBuilder;
                     break;
                 case BuildingMode.Delete:

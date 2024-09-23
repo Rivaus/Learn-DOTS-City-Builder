@@ -14,6 +14,8 @@ namespace quentin.tran.gameplay.buildingTool
 
         public uint CurrentBuildingKey;
 
+        public GridCellType BuildingType;
+
         IEnumerable<IBuildingCellCommand> IBuilderModule.Handle(int x, int y)
         {
             this.commandsBuffer.Clear();
@@ -46,7 +48,7 @@ namespace quentin.tran.gameplay.buildingTool
             {
                 Index = new int2(x, y),
                 Key = CurrentBuildingKey,
-                Type = GridCellType.Building,
+                Type = BuildingType,
                 RotationOffset = rotation
             });
 

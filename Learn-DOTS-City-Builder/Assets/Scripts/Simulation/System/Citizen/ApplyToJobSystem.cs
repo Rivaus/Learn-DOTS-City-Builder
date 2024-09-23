@@ -39,14 +39,16 @@ namespace quentin.tran.simulation.system.citizen
             {
                 RefRW<OfficeBuilding> officeWithEmploy = default;
                 Entity officeBuilding = Entity.Null;
+                DynamicBuffer<LinkedEntityBuffer> workers = default;
 
-                foreach ((RefRW<OfficeBuilding> office, Entity officeEntity) in SystemAPI.Query<RefRW<OfficeBuilding>>().WithEntityAccess())
+                foreach ((RefRW<OfficeBuilding> office, DynamicBuffer<LinkedEntityBuffer> w, Entity officeEntity) in SystemAPI.Query<RefRW<OfficeBuilding>, DynamicBuffer<LinkedEntityBuffer>>().WithEntityAccess())
                 {
                     if (office.ValueRO.nbOfAvailableJob > 0)
                     {
                         office.ValueRW.nbOfAvailableJob--;
                         officeWithEmploy = office;
                         officeBuilding = officeEntity;
+                        workers = w;
                     }
                 }
 
@@ -59,6 +61,7 @@ namespace quentin.tran.simulation.system.citizen
                 {
                     UnityEngine.Debug.LogError("ApplyToJobSystem.OnUpdate : internal error");
                 }
+
                 int2 officeIndex = SystemAPI.GetComponentRO<GridCellComponent>(officeBuilding).ValueRO.index;
                 CitizenJob job = new CitizenJob()
                 {
@@ -69,6 +72,7 @@ namespace quentin.tran.simulation.system.citizen
                 };
 
                 cmd.AddComponent(citizenEntity, job);
+                workers.Add(new LinkedEntityBuffer { entity = citizenEntity });
             }
 
             cmd.Playback(state.EntityManager);
