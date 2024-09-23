@@ -1,6 +1,7 @@
 using quentin.tran.authoring.citizen;
 using quentin.tran.common;
 using quentin.tran.models.grid;
+using quentin.tran.simulation.component;
 using quentin.tran.simulation.grid;
 using System.Linq;
 using Unity.Burst;
@@ -125,23 +126,5 @@ namespace quentin.tran.simulation.system.citizen
 
             return new int2(x, y);
         }
-    }
-
-    public struct PathFindingRequest : IComponentData
-    {
-        /// <summary>
-        /// Road next to target
-        /// </summary>
-        public int2 roadTarget;
-
-        /// <summary>
-        /// Target
-        /// </summary>
-        public int2 target;
-    }
-
-    public struct HasPathFindingPath : IComponentData
-    {
-        public int currentWaypointIndex;
     }
 }

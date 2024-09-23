@@ -1,3 +1,4 @@
+using quentin.tran.simulation.component;
 using Unity.Entities;
 using UnityEngine;
 
@@ -20,29 +21,13 @@ namespace quentin.tran.authoring.building
             public override void Bake(BuildingAuthoring authoring)
             {
                 Entity house = GetEntity(TransformUsageFlags.Dynamic);
-                AddComponent(house, new Building()
+                AddComponent(house, new HouseBuilding()
                 {
                     nbOfHouses = authoring.nbOfHouses,
                     houseCapacity = authoring.capacity
                 });
             }
         }
-    }
-
-    public struct Building : IComponentData
-    {
-        public int nbOfHouses;
-
-        public int houseCapacity;
-    }
-
-    public struct House : IComponentData
-    {
-        public Entity building;
-
-        public int capacity;
-
-        public int nbOfResidents;
     }
 }
 

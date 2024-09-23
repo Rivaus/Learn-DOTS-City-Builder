@@ -1,6 +1,7 @@
 using quentin.tran.authoring.building;
 using quentin.tran.authoring.citizen;
 using quentin.tran.gameplay;
+using quentin.tran.simulation.component;
 using quentin.tran.simulation.system.citizen;
 using Unity.Collections;
 using Unity.Entities;
@@ -41,7 +42,7 @@ namespace quentin.tran.simulation
             this.adultsQuery = entityManager.CreateEntityQuery(typeof(CitizenAdult));
             this.seniorsQuery = entityManager.CreateEntityQuery(typeof(CitizenSenior));
 
-            this.nbOfHouseBuildingsQuery = entityManager.CreateEntityQuery(typeof(Building));
+            this.nbOfHouseBuildingsQuery = entityManager.CreateEntityQuery(typeof(HouseBuilding));
             this.housesQuery = entityManager.CreateEntityQuery(typeof(House));
             this.jobBuildingsQuery = entityManager.CreateEntityQuery(typeof(OfficeBuilding));
             this.workersQuery = entityManager.CreateEntityQuery(typeof(Citizen), typeof(CitizenJob));

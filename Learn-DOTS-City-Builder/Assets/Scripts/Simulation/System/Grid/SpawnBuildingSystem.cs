@@ -2,6 +2,7 @@ using quentin.tran.authoring.building;
 using quentin.tran.authoring.grid;
 using quentin.tran.common;
 using quentin.tran.gameplay.buildingTool;
+using quentin.tran.simulation.component;
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -75,9 +76,9 @@ namespace quentin.tran.simulation.system.grid
                             index = createCmd.index,
                         });
 
-                        if (SystemAPI.HasComponent<Building>(entity))
+                        if (SystemAPI.HasComponent<HouseBuilding>(entity))
                         {
-                            RefRO<Building> building = SystemAPI.GetComponentRO<Building>(entity);
+                            RefRO<HouseBuilding> building = SystemAPI.GetComponentRO<HouseBuilding>(entity);
                             for (int i = 0; i < building.ValueRO.nbOfHouses; i++)
                             {
                                 Entity house = entityCmdBuffer.CreateEntity();

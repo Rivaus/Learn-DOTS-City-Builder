@@ -2,6 +2,7 @@ using quentin.tran.authoring;
 using quentin.tran.authoring.building;
 using quentin.tran.authoring.citizen;
 using quentin.tran.common;
+using quentin.tran.simulation.component;
 using quentin.tran.simulation.grid;
 using quentin.tran.simulation.system.grid;
 using System;
@@ -105,15 +106,15 @@ namespace quentin.tran.simulation.system.citizen
         [BurstCompile]
         public void Execute(Entity citizenEntity, ref CitizenJob job, ref Citizen citizen, [ChunkIndexInQuery] int sortKey)
         {
-            if (hour >= job.startHour && hour < job.endHour && citizen.activty != CitizenActivity.AtOffice)
+            if (hour >= job.startHour && hour < job.endHour && citizen.activity != CitizenActivity.AtOffice)
             {
-                citizen.activty = CitizenActivity.AtOffice;
+                citizen.activity = CitizenActivity.AtOffice;
                 cmd.AddComponent(sortKey, citizenEntity, new PathFindingRequest() { roadTarget = GetClosestRoad(job.officeBuildingIndex), target = job.officeBuildingIndex });
             }
-            else if (hour >= job.endHour && citizen.activty == CitizenActivity.AtOffice)
+            else if (hour >= job.endHour && citizen.activity == CitizenActivity.AtOffice)
             {
 
-                citizen.activty = CitizenActivity.AtHome;
+                citizen.activity = CitizenActivity.AtHome;
 
                 RefRO<House> house = this.housesLookup.GetRefRO(citizen.house);
                 RefRO<GridCellComponent> gridIndex = this.gridLookup.GetRefRO(house.ValueRO.building);

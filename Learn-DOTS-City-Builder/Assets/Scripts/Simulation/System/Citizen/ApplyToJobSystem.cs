@@ -1,5 +1,6 @@
 using quentin.tran.authoring.building;
 using quentin.tran.authoring.citizen;
+using quentin.tran.simulation.component;
 using quentin.tran.simulation.system.grid;
 using Unity.Burst;
 using Unity.Entities;
@@ -73,15 +74,6 @@ namespace quentin.tran.simulation.system.citizen
             cmd.Playback(state.EntityManager);
             cmd.Dispose();
         }
-    }
-
-    public struct CitizenJob : IComponentData
-    {
-        public int salaryPerDay;
-
-        public int startHour, endHour;
-
-        public int2 officeBuildingIndex;
     }
 }
 
