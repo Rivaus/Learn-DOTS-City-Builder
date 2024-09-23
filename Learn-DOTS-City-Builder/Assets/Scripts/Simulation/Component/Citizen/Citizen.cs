@@ -1,4 +1,3 @@
-using quentin.tran.authoring.citizen;
 using Unity.Collections;
 using Unity.Entities;
 

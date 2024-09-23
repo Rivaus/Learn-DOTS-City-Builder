@@ -1,4 +1,3 @@
-using quentin.tran.authoring.building;
 using quentin.tran.authoring.grid;
 using quentin.tran.common;
 using quentin.tran.gameplay.buildingTool;
@@ -137,7 +136,7 @@ namespace quentin.tran.simulation.system.grid
                                 // Remove every worker from their jobs
                                 if (SystemAPI.HasComponent<CitizenJob>(inhabitant))
                                 {
-                                    foreach((RefRW<OfficeBuilding> office, DynamicBuffer<LinkedEntityBuffer> workers) in SystemAPI.Query<RefRW<OfficeBuilding>, DynamicBuffer<LinkedEntityBuffer>>())
+                                    foreach ((RefRW<OfficeBuilding> office, DynamicBuffer<LinkedEntityBuffer> workers) in SystemAPI.Query<RefRW<OfficeBuilding>, DynamicBuffer<LinkedEntityBuffer>>())
                                     {
                                         int workerFound = -1;
 
@@ -146,7 +145,7 @@ namespace quentin.tran.simulation.system.grid
                                             if (workers[k].entity == inhabitant)
                                             {
                                                 office.ValueRW.nbOfAvailableJob = math.clamp(office.ValueRO.nbOfAvailableJob + 1, 0, office.ValueRO.nbJobs); // Free a job
-        
+
                                                 workerFound = k;
                                                 break;
                                             }
@@ -177,7 +176,7 @@ namespace quentin.tran.simulation.system.grid
 
                     // 1. Delete building
                     // 2. Remove job for every citizen who were working here
-                    foreach((RefRO<GridCellComponent> cell, DynamicBuffer<LinkedEntityBuffer> workers) in SystemAPI.Query<RefRO<GridCellComponent>, DynamicBuffer<LinkedEntityBuffer>>().WithAll<OfficeBuilding>())
+                    foreach ((RefRO<GridCellComponent> cell, DynamicBuffer<LinkedEntityBuffer> workers) in SystemAPI.Query<RefRO<GridCellComponent>, DynamicBuffer<LinkedEntityBuffer>>().WithAll<OfficeBuilding>())
                     {
                         if (!cell.ValueRO.index.Equals(deleteCmd.index))
                             continue;

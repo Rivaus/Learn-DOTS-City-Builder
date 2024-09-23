@@ -1,6 +1,4 @@
 using quentin.tran.authoring;
-using quentin.tran.authoring.building;
-using quentin.tran.authoring.citizen;
 using quentin.tran.common;
 using quentin.tran.simulation.component;
 using quentin.tran.simulation.grid;
@@ -123,7 +121,8 @@ namespace quentin.tran.simulation.system.citizen
             }
         }
 
-        [BurstCompile] private int2 GetClosestRoad(int2 target)
+        [BurstCompile]
+        private int2 GetClosestRoad(int2 target)
         {
             int tmp;
             int res = -1;

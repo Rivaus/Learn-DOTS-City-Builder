@@ -23,18 +23,19 @@ namespace quentin.tran.ui.popup
         {
             EnumField visualsModeDropdown = this.Q<EnumField>("visuals-mode-dropdown");
             visualsModeDropdown.value = VisualQualityPresets.Low;
-            visualsModeDropdown.RegisterValueChangedCallback(e => {
+            visualsModeDropdown.RegisterValueChangedCallback(e =>
+            {
                 if (e.newValue is not VisualQualityPresets qualityPresets)
                     return;
 
                 switch (qualityPresets)
                 {
-                    case VisualQualityPresets.Low :
+                    case VisualQualityPresets.Low:
                         QualitySettings.SetQualityLevel(0);
                         break;
-                    default :
+                    default:
                         QualitySettings.SetQualityLevel(1);
-                        break;                    
+                        break;
                 }
             });
         }

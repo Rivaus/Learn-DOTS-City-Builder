@@ -1,9 +1,7 @@
-using quentin.tran.authoring.citizen;
 using quentin.tran.common;
 using quentin.tran.models.grid;
 using quentin.tran.simulation.component;
 using quentin.tran.simulation.grid;
-using System.Linq;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
@@ -68,7 +66,7 @@ namespace quentin.tran.simulation.system.citizen
                     addExtraWaypoint = true,
                     extraWaypoint = pathFindingRequest.ValueRO.target
                 };
-                
+
                 jobs.Add(pathFinder.Schedule());
             }
 

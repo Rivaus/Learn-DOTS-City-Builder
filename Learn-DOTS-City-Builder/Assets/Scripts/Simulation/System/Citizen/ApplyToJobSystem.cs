@@ -1,5 +1,3 @@
-using quentin.tran.authoring.building;
-using quentin.tran.authoring.citizen;
 using quentin.tran.simulation.component;
 using quentin.tran.simulation.system.grid;
 using Unity.Burst;

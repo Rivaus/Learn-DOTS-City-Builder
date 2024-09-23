@@ -1,5 +1,4 @@
 using quentin.tran.authoring;
-using quentin.tran.authoring.building;
 using quentin.tran.authoring.citizen;
 using quentin.tran.common;
 using quentin.tran.simulation.component;

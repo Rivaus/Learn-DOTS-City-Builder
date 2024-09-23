@@ -8,7 +8,7 @@ namespace quentin.tran.ui
         public TopBarManager(VisualElement root)
         {
             Button settingsButton = root.Q<Button>("settings-button");
-            settingsButton.clickable.clicked += () => 
+            settingsButton.clickable.clicked += () =>
                 PopupsManager.Instance.OpenPopup(PopupsManager.PopupType.Settings);
         }
     }

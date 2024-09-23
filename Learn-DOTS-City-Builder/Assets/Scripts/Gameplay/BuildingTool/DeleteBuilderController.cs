@@ -1,14 +1,7 @@
-using quentin.tran.authoring.building;
 using quentin.tran.models.grid;
-using quentin.tran.simulation.component;
 using quentin.tran.simulation.grid;
-using quentin.tran.simulation.system.grid;
 using System.Collections.Generic;
-using Unity.Burst;
-using Unity.Collections;
-using Unity.Entities;
 using Unity.Mathematics;
-using UnityEngine;
 using static quentin.tran.gameplay.buildingTool.BuilderController;
 
 namespace quentin.tran.gameplay.buildingTool
