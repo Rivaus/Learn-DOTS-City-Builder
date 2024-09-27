@@ -110,7 +110,7 @@ namespace quentin.tran.simulation.system.citizen
 
                         house.ValueRW.nbOfResidents = nbResidents;
 
-                        break;
+                        //break;
                     }
                 }
 
