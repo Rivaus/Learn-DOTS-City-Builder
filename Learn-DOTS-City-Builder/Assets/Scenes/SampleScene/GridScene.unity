@@ -147,7 +147,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda1e195feb20184d8c5dbd0f4b35ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simpleHouse01: {fileID: 3831891534686765660, guid: f3be06af2554e2a4ead05365e6a64090, type: 3}
+  simpleHouse01Prefabs:
+  - {fileID: 3831891534686765660, guid: f3be06af2554e2a4ead05365e6a64090, type: 3}
+  - {fileID: 8577524067104048807, guid: 2bbe067c6a1af3642ba0be32f2da761d, type: 3}
+  - {fileID: 1901209708497230758, guid: a73d19c3de124f349b04fcb205894bc9, type: 3}
+  - {fileID: 5445778966794109317, guid: cfcb1e53d3d04c8478e9464b106ae2e9, type: 3}
+  - {fileID: 954610614246204986, guid: c2906788e3ece9f4b8fed2e351936cb5, type: 3}
+  - {fileID: 4070043223222877106, guid: 853956bf8e41d4942a4b3923a8043ff0, type: 3}
+  - {fileID: 584340466287673606, guid: c402fb958a641854a8ba3f61884b8666, type: 3}
+  - {fileID: 5349369119672240608, guid: f37c8915207c38243adcc6e02a65f1af, type: 3}
+  - {fileID: 6203236861395143063, guid: 9cfa1c270c980bd4bbeb88bd5fb39dd8, type: 3}
 --- !u!4 &419916451
 Transform:
   m_ObjectHideFlags: 0

@@ -3,10 +3,10 @@ using quentin.tran.common;
 using quentin.tran.gameplay.buildingTool;
 using quentin.tran.simulation.component;
 using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-using UnityEngine;
 
 namespace quentin.tran.simulation.system.grid
 {
@@ -14,8 +14,11 @@ namespace quentin.tran.simulation.system.grid
     /// System which handles <see cref="IBuildingCellCommand"/> commands : creates or deletes entities.
     /// </summary>
     [UpdateBefore(typeof(TransformSystemGroup))]
-    partial struct SpawnBuildingSystem : ISystem
+    partial struct SpawnBuildingSystem : ISystem, ISystemStartStop
     {
+        private Random random;
+        public NativeArray<Entity> simpleHouse01Prefabs;
+
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
@@ -24,14 +27,38 @@ namespace quentin.tran.simulation.system.grid
             state.RequireForUpdate<JobBuildingPrefabs>();
         }
 
+        public void OnStartRunning(ref SystemState state)
+        {
+            RefRW<HouseBuildingPrefabs> housePrefabs = SystemAPI.GetSingletonRW<HouseBuildingPrefabs>();
+            this.simpleHouse01Prefabs = new(9, Allocator.Persistent);
+
+            this.simpleHouse01Prefabs[0] = housePrefabs.ValueRO.simpleHouse01_01;
+            this.simpleHouse01Prefabs[1] = housePrefabs.ValueRO.simpleHouse01_02;
+            this.simpleHouse01Prefabs[2] = housePrefabs.ValueRO.simpleHouse01_03;
+            this.simpleHouse01Prefabs[3] = housePrefabs.ValueRO.simpleHouse01_04;
+            this.simpleHouse01Prefabs[4] = housePrefabs.ValueRO.simpleHouse01_05;
+            this.simpleHouse01Prefabs[5] = housePrefabs.ValueRO.simpleHouse01_06;
+            this.simpleHouse01Prefabs[6] = housePrefabs.ValueRO.simpleHouse01_07;
+            this.simpleHouse01Prefabs[7] = housePrefabs.ValueRO.simpleHouse01_08;
+            this.simpleHouse01Prefabs[8] = housePrefabs.ValueRO.simpleHouse01_09;
+
+            var now = System.DateTime.Now;
+
+            this.random = Random.CreateFromIndex((uint)(now.Second + now.Minute + now.Hour));
+        }
+
+        public void OnStopRunning(ref SystemState state)
+        {
+            this.simpleHouse01Prefabs.Dispose();
+        }
+
         public void OnUpdate(ref SystemState state)
         {
             RoadPrefab roadPrefabs = SystemAPI.GetSingleton<RoadPrefab>();
             HouseBuildingPrefabs housePrefabs = SystemAPI.GetSingleton<HouseBuildingPrefabs>();
             JobBuildingPrefabs jobBuildingPrefabs = SystemAPI.GetSingleton<JobBuildingPrefabs>();
 
-
-            EntityCommandBuffer entityCmdBuffer = new EntityCommandBuffer(Unity.Collections.Allocator.Temp);
+            EntityCommandBuffer entityCmdBuffer = new EntityCommandBuffer(Allocator.Temp);
 
             while (BuilderController.Instance.commands.Count > 0)
             {
@@ -51,7 +78,7 @@ namespace quentin.tran.simulation.system.grid
                             GridCellKeys.ROAD_2x2_CROSSROAD => roadPrefabs.road2x2CrossRoadPrefab,
                             GridCellKeys.ROAD_2x2_T_TURN => roadPrefabs.road2x2TTurnPrefab,
 
-                            GridCellKeys.SIMPLE_HOUSE_01 => housePrefabs.simpleHouse01,
+                            GridCellKeys.SIMPLE_HOUSE_01 => this.simpleHouse01Prefabs[this.random.NextInt(0, this.simpleHouse01Prefabs.Length)],
 
                             GridCellKeys.SIMPLE_JOB_OFFICE_01 => jobBuildingPrefabs.simpleOffice01,
 
@@ -101,7 +128,7 @@ namespace quentin.tran.simulation.system.grid
 
                         break;
                     default:
-                        Debug.LogError("SpawnBuildingSystem : Command unknown ");
+                        UnityEngine.Debug.LogError("SpawnBuildingSystem : Command unknown ");
                         break;
                 }
             }
@@ -160,7 +187,7 @@ namespace quentin.tran.simulation.system.grid
                                 }
 
                                 // Remove every child from school and student from university
-                                Debug.Log("TODO Remove from school");
+                                UnityEngine.Debug.Log("TODO Remove from school");
 
                                 // Destroy inhabitant
                                 cmd.DestroyEntity(inhabitant);

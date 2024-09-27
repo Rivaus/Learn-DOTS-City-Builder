@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 358a30a6c0bc9fe468855fb6a58a6021
+guid: a64b2e395e416e143aeeb204a21cb336
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -34,16 +34,6 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Buildng_Bush_02
     second: {fileID: 2100000, guid: 5143f9bcf1e3c6849aadd286e1614f7f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Roof
-    second: {fileID: 2100000, guid: 8dfd8f1cdecdaca439953b5caf065b6a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Wood
-    second: {fileID: 2100000, guid: 45752b50740dea24884736abaaca161d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
