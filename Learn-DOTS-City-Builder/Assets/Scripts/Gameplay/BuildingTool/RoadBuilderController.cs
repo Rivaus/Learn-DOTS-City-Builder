@@ -13,21 +13,11 @@ namespace quentin.tran.gameplay.buildingTool
     /// </summary>
     public class RoadBuilderController : IBuilderModule
     {
-        private List<IBuildingCellCommand> commandBuffer = new();
+        private List<IBuildingEntityCommand> commandBuffer = new();
 
-        public RoadBuilderController()
-        {
-
-        }
-
-        IEnumerable<IBuildingCellCommand> IBuilderModule.Handle(int x, int y)
-        {
+         IEnumerable<IBuildingEntityCommand> IBuilderModule.Handle(int x, int y)
+         {
             this.commandBuffer.Clear();
-
-            if (!GridManager.Instance.IsCellBuildable(x, y))
-            {
-                return this.commandBuffer;
-            }
 
             int2 index = new int2(x, y);
 
@@ -43,7 +33,7 @@ namespace quentin.tran.gameplay.buildingTool
                 GridManager.Instance.Build(x, y, road);
                 RoadGridManager.Instance.Build(x, y, isIntersection);
 
-                this.commandBuffer.Add(new CreateBuildCellCommand()
+                this.commandBuffer.Add(new CreateBuildingEntityCommand()
                 {
                     index = index,
                     cellKey = roadKey,
@@ -60,7 +50,7 @@ namespace quentin.tran.gameplay.buildingTool
             return this.commandBuffer;
         }
 
-        internal void UpdateRoadNeighbours(int x, int y, List<IBuildingCellCommand> commands)
+        internal void UpdateRoadNeighbours(int x, int y, List<IBuildingEntityCommand> commands)
         {
             quaternion rotation;
             uint roadKey;
@@ -77,13 +67,13 @@ namespace quentin.tran.gameplay.buildingTool
                     neighbour.Key = roadKey;
                     neighbour.RotationOffset = rotation;
 
-                    commands.Add(new DeleteBuildCellCommand()
+                    commands.Add(new DeleteBuildEntityCommand()
                     {
                         index = neighbour.Index,
                     });
                     RoadGridManager.Instance.Destroy(neighbour.Index.x, neighbour.Index.y);
 
-                    commands.Add(new CreateBuildCellCommand()
+                    commands.Add(new CreateBuildingEntityCommand()
                     {
                         index = neighbour.Index,
                         cellKey = roadKey,

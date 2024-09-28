@@ -1,6 +1,7 @@
 using quentin.tran.common;
 using quentin.tran.models.grid;
 using quentin.tran.simulation;
+using quentin.tran.simulation.grid;
 using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -36,9 +37,14 @@ namespace quentin.tran.gameplay.buildingTool
         private int2 hoveredCell;
 
         /// <summary>
-        /// Queue of current building commands.
+        /// Queue of current create building commands.
         /// </summary>
-        public Queue<IBuildingCellCommand> commands = new();
+        public Queue<CreateBuildingEntityCommand> createBuildingCommands = new();
+
+        /// <summary>
+        /// Queue of current delete building commands.
+        /// </summary>
+        public Queue<DeleteBuildEntityCommand> deleteBuildingCommands = new();
 
         private BuildingMode mode;
 
@@ -176,6 +182,9 @@ namespace quentin.tran.gameplay.buildingTool
             if (this.hoveredCell.x < 0 || this.hoveredCell.y < 0 || this.hoveredCell.x > GridProperties.GRID_SIZE || this.hoveredCell.y > GridProperties.GRID_SIZE)
                 return;
 
+            if ((this.Mode is not BuildingMode.Delete) && !GridManager.Instance.IsCellBuildable(this.hoveredCell.x, this.hoveredCell.y))
+                return;
+
             IBuilderModule builder = null;
 
             switch (this.Mode)
@@ -201,9 +210,17 @@ namespace quentin.tran.gameplay.buildingTool
                 return;
             }
 
-            foreach (IBuildingCellCommand buildCommand in builder.Handle(this.hoveredCell.x, this.hoveredCell.y))
+            foreach (IBuildingEntityCommand buildCommand in builder.Handle(this.hoveredCell.x, this.hoveredCell.y))
             {
-                this.commands.Enqueue(buildCommand);
+                switch (buildCommand)
+                {
+                    case CreateBuildingEntityCommand createCmd:
+                        this.createBuildingCommands.Enqueue(createCmd);
+                        break;
+                    case DeleteBuildEntityCommand deleteCmd:
+                        this.deleteBuildingCommands.Enqueue(deleteCmd);
+                        break;
+                }
             }
         }
 
@@ -221,7 +238,7 @@ namespace quentin.tran.gameplay.buildingTool
 
         public interface IBuilderModule
         {
-            IEnumerable<IBuildingCellCommand> Handle(int x, int y);
+            IEnumerable<IBuildingEntityCommand> Handle(int x, int y);
         }
 
         public enum GridDirection

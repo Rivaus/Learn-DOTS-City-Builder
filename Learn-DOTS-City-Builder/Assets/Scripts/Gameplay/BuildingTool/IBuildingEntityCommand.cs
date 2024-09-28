@@ -3,12 +3,12 @@ using Unity.Mathematics;
 
 namespace quentin.tran.gameplay.buildingTool
 {
-    public interface IBuildingCellCommand
+    public interface IBuildingEntityCommand
     {
 
     }
 
-    public struct CreateBuildCellCommand : IBuildingCellCommand
+    public struct CreateBuildingEntityCommand : IBuildingEntityCommand
     {
         public uint cellKey;
 
@@ -19,7 +19,7 @@ namespace quentin.tran.gameplay.buildingTool
         public quaternion rotation;
     }
 
-    public struct DeleteBuildCellCommand : IBuildingCellCommand
+    public struct DeleteBuildEntityCommand : IBuildingEntityCommand
     {
         public int2 index;
 

@@ -10,14 +10,14 @@ namespace quentin.tran.gameplay.buildingTool
     {
         private RoadBuilderController roadBuilder;
 
-        private List<IBuildingCellCommand> commandBuffer = new List<IBuildingCellCommand>();
+        private List<IBuildingEntityCommand> commandBuffer = new List<IBuildingEntityCommand>();
 
         public DeleteBuilderController(RoadBuilderController roadBuilder)
         {
             this.roadBuilder = roadBuilder;
         }
 
-        IEnumerable<IBuildingCellCommand> IBuilderModule.Handle(int x, int y)
+        IEnumerable<IBuildingEntityCommand> IBuilderModule.Handle(int x, int y)
         {
             this.commandBuffer.Clear();
 
@@ -32,11 +32,11 @@ namespace quentin.tran.gameplay.buildingTool
                     break;
             }
 
-            this.commandBuffer.Add(new DeleteBuildCellCommand { index = new int2(x, y), buildingType = cell.Type });
-            this.roadBuilder.UpdateRoadNeighbours(x, y, this.commandBuffer);
-            RoadGridManager.Instance.UpdateGraph();
+            this.commandBuffer.Add(new DeleteBuildEntityCommand { index = new int2(x, y), buildingType = cell.Type });
 
             GridManager.Instance.Destroy(x, y);
+            this.roadBuilder.UpdateRoadNeighbours(x, y, this.commandBuffer);
+            RoadGridManager.Instance.UpdateGraph();
 
             return this.commandBuffer;
         }
