@@ -25,10 +25,12 @@ namespace quentin.tran.ui.popup
             BindVisualSettings();
 
             if (PlayerPrefs.HasKey(PLAYER_PREF_QUALITY_PRESET))
-                SetQualitySettings((VisualQualityPresets) PlayerPrefs.GetInt(PLAYER_PREF_QUALITY_PRESET));
+                SetQualitySettings((VisualQualityPresets)PlayerPrefs.GetInt(PLAYER_PREF_QUALITY_PRESET));
+            else
+                SetQualitySettings(VisualQualityPresets.High);
 
             if (PlayerPrefs.HasKey(PLAYER_PREF_VSYNC))
-                SetVSync(PlayerPrefs.GetInt(PLAYER_PREF_QUALITY_PRESET) == 1);
+                SetVSync(PlayerPrefs.GetInt(PLAYER_PREF_VSYNC) == 1);
         }
 
         private void BindVisualSettings()
@@ -69,7 +71,6 @@ namespace quentin.tran.ui.popup
             QualitySettings.vSyncCount = vSync ? 1 : 0;
 
             this.vsyncToggle.SetValueWithoutNotify(vSync);
-
             PlayerPrefs.SetInt(PLAYER_PREF_VSYNC, vSync ? 1 : 0);
         }
     }
@@ -77,8 +78,8 @@ namespace quentin.tran.ui.popup
     public enum VisualQualityPresets
     {
         Low,
-        //Medium,
-        //High,
+        Medium,
+        High,
         Ultra,
         //Custom
     }
