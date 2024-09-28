@@ -1,4 +1,4 @@
-# Learn DOTS - CItyBuilder
+# Learn DOTS - CityBuilder
 
 This project is just a very very simple prototype to learn the Unity's Data-Oriented Technology Stack.
 I want to learn how to structure a game using ECS, make a basic city simulation with systems and how to make tasks such as pathfinding efficiently.
