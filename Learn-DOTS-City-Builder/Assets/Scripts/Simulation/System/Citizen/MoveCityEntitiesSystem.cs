@@ -18,11 +18,15 @@ namespace quentin.tran.simulation.system.citizen
 
     partial struct MoveCityEntitiesSystem : ISystem
     {
+        private Random random;
+
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
             state.RequireForUpdate<TimeManager>();
             state.RequireForUpdate<HasPathFindingPath>();
+
+            this.random = Random.CreateFromIndex(123);
         }
 
         //[BurstCompile]
@@ -33,7 +37,12 @@ namespace quentin.tran.simulation.system.citizen
             EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
             EntityCommandBuffer.ParallelWriter cmd = ecb.AsParallelWriter();
 
-            MoveEntitiesJob moveJob = new MoveEntitiesJob() { deltaTime = SystemAPI.Time.DeltaTime, cmd = cmd, timeScale = time.timeScale };
+            MoveEntitiesJob moveJob = new MoveEntitiesJob() {
+                deltaTime = SystemAPI.Time.DeltaTime,
+                cmd = cmd,
+                timeScale = time.timeScale,
+                random = this.random
+            };
             moveJob.ScheduleParallel(state.Dependency).Complete();
 
             ecb.Playback(state.EntityManager);
@@ -73,6 +82,8 @@ namespace quentin.tran.simulation.system.citizen
             {
                 int2 targetIndex = waypoints[^(path.currentWaypointIndex + 1)].cellIndex;
                 float3 target = (new float3(targetIndex.x, 0, targetIndex.y) + new float3(0.5f, 0, 0.5f)) * GridProperties.GRID_CELL_SIZE;
+
+                target = target + math.rotate(quaternion.Euler(0, this.random.NextInt(0, 360), 0), new float3(0, 0, .2f));
 
                 float3 direction = target - transform.Position;
                 float speed = math.clamp(distanceThatCanBeTravelled, 0, math.length(direction));

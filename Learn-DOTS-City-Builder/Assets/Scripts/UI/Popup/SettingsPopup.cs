@@ -56,8 +56,14 @@ namespace quentin.tran.ui.popup
                 case VisualQualityPresets.Low:
                     QualitySettings.SetQualityLevel(0);
                     break;
-                default:
+                case VisualQualityPresets.Medium:
                     QualitySettings.SetQualityLevel(1);
+                    break;
+                case VisualQualityPresets.High:
+                    QualitySettings.SetQualityLevel(2);
+                    break;
+                case VisualQualityPresets.Ultra:
+                    QualitySettings.SetQualityLevel(3);
                     break;
             }
 

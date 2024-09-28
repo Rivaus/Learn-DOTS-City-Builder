@@ -11,6 +11,8 @@ namespace quentin.tran.gameplay
 
         void Awake()
         {
+            Application.runInBackground = true;
+
             this.managers.Add(new InputManager());
             this.managers.Add(new GridManager());
             this.managers.Add(new StatisticsManager());
