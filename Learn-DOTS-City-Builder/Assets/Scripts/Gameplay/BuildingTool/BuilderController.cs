@@ -2,6 +2,7 @@ using quentin.tran.common;
 using quentin.tran.models.grid;
 using quentin.tran.simulation;
 using quentin.tran.simulation.grid;
+using quentin.tran.ui.audio;
 using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -210,17 +211,29 @@ namespace quentin.tran.gameplay.buildingTool
                 return;
             }
 
+            bool action = false;
+
             foreach (IBuildingEntityCommand buildCommand in builder.Handle(this.hoveredCell.x, this.hoveredCell.y))
             {
                 switch (buildCommand)
                 {
                     case CreateBuildingEntityCommand createCmd:
                         this.createBuildingCommands.Enqueue(createCmd);
+                        action = true;
                         break;
                     case DeleteBuildEntityCommand deleteCmd:
                         this.deleteBuildingCommands.Enqueue(deleteCmd);
+                        action = true;
                         break;
                 }
+            }
+
+            if (action)
+            {
+                if (this.Mode == BuildingMode.Delete)
+                    UISoundEffect.PlaySound(UISoundEffect.SoundEffect.DeleteBuilding);
+                else
+                    UISoundEffect.PlaySound(UISoundEffect.SoundEffect.CreateBuilding);
             }
         }
 
