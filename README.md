@@ -26,3 +26,6 @@ This all system I want to implement for my basic simulation, in order :
   - Citizen Path Finding System : compute path from pathfinding requests added from (go to daily life and go back home system)
   - Move City Entities : move cars and inhabitants if they have a target
 - Delete/Create Building System : create or delete entity buildings according to ```BuildingBuilderController```.
+
+All sound effects comes from https://pixabay.com/sound-effects/search/ui/.
+All icons comes from https://lucide.dev/.
