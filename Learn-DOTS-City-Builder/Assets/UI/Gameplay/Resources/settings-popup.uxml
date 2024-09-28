@@ -20,6 +20,7 @@
             </ui:VisualElement>
             <ui:ScrollView name="main-section" vertical-scroller-visibility="AlwaysVisible" class="popup-scrollview" style="flex-grow: 1;">
                 <ui:EnumField label="Mode" value="Center" type="quentin.tran.ui.popup.VisualQualityPresets, Assembly-CSharp" name="visuals-mode-dropdown" />
+                <ui:Toggle label="VSync" name="vsync-toggle" />
                 <ui:Label text="Advanced Settings" class="popup__section__header" />
                 <ui:EnumField label="Anti Aliasing" value="Center" type="quentin.tran.ui.popup.VisualQualityPresets, Assembly-CSharp" enabled="false" />
                 <ui:EnumField label="Shadow Quality" value="Center" type="quentin.tran.ui.popup.VisualQualityPresets, Assembly-CSharp" enabled="false" />

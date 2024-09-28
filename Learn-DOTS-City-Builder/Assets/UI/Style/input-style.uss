@@ -47,8 +47,11 @@
 
 .unity-enum-field {
     align-items: center;
-    margin-left: 0;
     color: rgb(255, 255, 255);
+}
+
+.unity-base-field {
+    margin-left: 0;
 }
 
 .unity-base-field__input {
@@ -65,6 +68,48 @@
     border-right-width: 1px;
     border-bottom-width: 1px;
     border-left-width: 1px;
+}
+
+.unity-base-field__label {
+    color: rgb(255, 255, 255);
+}
+
+.unity-base-field:focus:enabled > .unity-base-field__label {
+    color: rgb(255, 255, 255);
+}
+
+Toggle .unity-base-field__input {
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+Toggle .unity-toggle__checkmark {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: var(--city-builder-light-grey-color);
+    border-top-color: var(--city-builder-very-dark-grey-color);
+    border-right-color: var(--city-builder-very-dark-grey-color);
+    border-bottom-color: var(--city-builder-very-dark-grey-color);
+    border-left-color: var(--city-builder-very-dark-grey-color);
+    -unity-background-image-tint-color: rgb(241, 241, 241);
+    height: 30px;
+    width: 30px;
+}
+
+.unity-toggle > .unity-toggle__input:checked > .unity-toggle__checkmark {
+    border-top-color: var(--city-builder-very-dark-grey-color);
+    border-right-color: var(--city-builder-very-dark-grey-color);
+    border-bottom-color: var(--city-builder-very-dark-grey-color);
+    border-left-color: var(--city-builder-very-dark-grey-color);
 }
 
 .unity-base-dropdown__container-inner {
@@ -84,6 +129,8 @@
     overflow: hidden;
     color: rgb(255, 255, 255);
     -unity-background-image-tint-color: rgb(255, 255, 255);
+    padding-right: 5px;
+    padding-left: 5px;
 }
 
 .unity-base-dropdown__container-outer {
@@ -91,4 +138,8 @@
     border-right-width: 0;
     border-bottom-width: 0;
     border-left-width: 0;
+}
+
+.unity-base-dropdown__item:checked > .unity-base-dropdown__item-content > .unity-base-dropdown__checkmark {
+    -unity-background-image-tint-color: rgb(209, 209, 209);
 }

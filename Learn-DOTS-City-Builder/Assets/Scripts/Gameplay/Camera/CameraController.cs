@@ -26,7 +26,6 @@ namespace quentin.tran.gameplay.camera
 
         private void Start()
         {
-            QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 60;
 
             this.transform.position = this.focusPoint.transform.position + this.defaultOffset;
