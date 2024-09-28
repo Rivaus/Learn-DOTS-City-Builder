@@ -7,7 +7,7 @@ I want to learn how to structure a game using ECS, make a basic city simulation 
 
 ## Game simulation
 
-This all system I want to implement for my basic simulation, in order :
+All system I want to implement for my basic simulation, in order :
 
 - **Update Time System Group**
   - Time Manager System : update time depending on time scale. To access its data outside a system, use ```TimeManagerMonoHandler```. :white_check_mark:
@@ -15,7 +15,6 @@ This all system I want to implement for my basic simulation, in order :
   - Get Salary System :x:
   - Get Tax System :x:
   - Compute Happyness and City Attraction System :x:
-- SpawnBuilding System : Spawn buildings
 - **Citizen System Group**
   - Spawn Citizen System : creating new citizens depending on free houses, level of city attraction. :construction:
   - Apply To Job System : unemployed citizens, not student, in range 18 -> 65 years old try to get a job. :white_check_mark:
