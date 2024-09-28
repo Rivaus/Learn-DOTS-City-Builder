@@ -4,6 +4,7 @@ using quentin.tran.common;
 using quentin.tran.gameplay.buildingTool;
 using quentin.tran.simulation;
 using quentin.tran.ui.popup;
+using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -18,6 +19,8 @@ namespace quentin.tran.ui
         private Label timeLabel;
 
         private bool running = true;
+
+        private List<Button> timeScaleButtons = new();
 
         public BottomBarManager(VisualElement root)
         {
@@ -35,10 +38,23 @@ namespace quentin.tran.ui
             statisticsButton.clickable.clicked += () => PopupsManager.Instance.OpenPopup(PopupsManager.PopupType.Statistics);
 
             this.timeLabel = root.Q<Label>("time-label");
-            root.Q<Button>("time-scale-x0").clickable.clicked += () => SetTimeScale(0);
-            root.Q<Button>("time-scale-x1").clickable.clicked += () => SetTimeScale(1);
-            root.Q<Button>("time-scale-x10").clickable.clicked += () => SetTimeScale(10);
-            root.Q<Button>("time-scale-x50").clickable.clicked += () => SetTimeScale(50);
+
+            var timeScale0 = root.Q<Button>("time-scale-x0");
+            this.timeScaleButtons.Add(timeScale0);
+            timeScale0.clickable.clicked += () => SetTimeScale(0, timeScale0);
+
+            var timeScale1 = root.Q<Button>("time-scale-x1");
+            this.timeScaleButtons.Add(timeScale1);
+            timeScale1.clickable.clicked += () => SetTimeScale(1, timeScale1);
+
+            var timeScale10 = root.Q<Button>("time-scale-x10");
+            this.timeScaleButtons.Add(timeScale10);
+            timeScale10.clickable.clicked += () => SetTimeScale(10, timeScale10);
+
+            var timeScale30 = root.Q<Button>("time-scale-x30");
+            this.timeScaleButtons.Add(timeScale30);
+            timeScale30.clickable.clicked += () => SetTimeScale(30, timeScale30);
+
 
             BuilderController.Instance.OnModeChanged += UpdateBuildingButtons;
             UpdateBuildingButtons(BuilderController.Instance.Mode);
@@ -133,8 +149,13 @@ namespace quentin.tran.ui
             }
         }
 
-        private void SetTimeScale(int timeScale)
+        private void SetTimeScale(int timeScale, Button selectedButton)
         {
+            foreach (Button btn in this.timeScaleButtons)
+                btn.RemoveFromClassList("time-scale-button--selected");
+
+            selectedButton.AddToClassList("time-scale-button--selected");
+
             using EntityQuery timeManagerQuery = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(typeof(TimeManager));
             timeManagerQuery.GetSingletonRW<TimeManager>().ValueRW.timeScale = timeScale;
         }
