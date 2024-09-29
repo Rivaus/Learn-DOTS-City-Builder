@@ -247,6 +247,11 @@ namespace quentin.tran.gameplay.buildingTool
             this.enabled = false;
         }
 
+        public Ray RayFromCamera()
+        {
+            return this.cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+        }
+
         #endregion
 
         public interface IBuilderModule
