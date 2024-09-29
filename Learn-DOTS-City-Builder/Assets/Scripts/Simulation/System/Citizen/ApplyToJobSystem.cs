@@ -40,7 +40,7 @@ namespace quentin.tran.simulation.system.citizen
                 float sqDistanceToOffice = float.MaxValue;
 
                 // Find closest office with an available job
-                foreach ((RefRW<OfficeBuilding> office, RefRO<LocalToWorld> transform, DynamicBuffer < LinkedEntityBuffer> w, Entity officeEntity) in
+                foreach ((RefRW<OfficeBuilding> office, RefRO<LocalToWorld> transform, DynamicBuffer<LinkedEntityBuffer> w, Entity officeEntity) in
                     SystemAPI.Query<RefRW<OfficeBuilding>, RefRO<LocalToWorld>, DynamicBuffer<LinkedEntityBuffer>>().WithEntityAccess())
                 {
                     float currentDistance = math.lengthsq(transform.ValueRO.Position - citizenTransform.ValueRO.Position);

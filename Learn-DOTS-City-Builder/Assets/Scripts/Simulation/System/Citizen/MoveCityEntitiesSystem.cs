@@ -40,7 +40,8 @@ namespace quentin.tran.simulation.system.citizen
             EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
             EntityCommandBuffer.ParallelWriter cmd = ecb.AsParallelWriter();
 
-            MoveEntitiesJob moveJob = new MoveEntitiesJob() {
+            MoveEntitiesJob moveJob = new MoveEntitiesJob()
+            {
                 deltaTime = SystemAPI.Time.DeltaTime,
                 cmd = cmd,
                 timeScale = time.timeScale,

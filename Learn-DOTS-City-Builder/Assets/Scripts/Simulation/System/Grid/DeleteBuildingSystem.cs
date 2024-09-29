@@ -6,7 +6,6 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-using static Unity.Burst.Intrinsics.X86.Avx;
 
 namespace quentin.tran.simulation.system.grid
 {

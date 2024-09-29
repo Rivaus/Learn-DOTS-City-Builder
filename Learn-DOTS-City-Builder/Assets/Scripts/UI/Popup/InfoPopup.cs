@@ -1,4 +1,3 @@
-using quentin.tran.ui.customElements;
 using quentin.tran.ui.manipulator;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,7 +38,7 @@ namespace quentin.tran.ui.popup
 
             this.headerEntity.text = currentData.Title;
 
-            foreach(InfoPopupSubEntry subEntry in currentData.Entries)
+            foreach (InfoPopupSubEntry subEntry in currentData.Entries)
             {
                 this.mainSection.Add(GenerateElement(subEntry));
             }

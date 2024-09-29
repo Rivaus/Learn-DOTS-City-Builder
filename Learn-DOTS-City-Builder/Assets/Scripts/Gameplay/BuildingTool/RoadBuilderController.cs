@@ -15,8 +15,8 @@ namespace quentin.tran.gameplay.buildingTool
     {
         private List<IBuildingEntityCommand> commandBuffer = new();
 
-         IEnumerable<IBuildingEntityCommand> IBuilderModule.Handle(int x, int y)
-         {
+        IEnumerable<IBuildingEntityCommand> IBuilderModule.Handle(int x, int y)
+        {
             this.commandBuffer.Clear();
 
             int2 index = new int2(x, y);

@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.Profiling.HierarchyFrameDataView;
 
 namespace quentin.tran.gameplay
 {
