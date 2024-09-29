@@ -15,12 +15,6 @@ namespace quentin.tran.debug
 
         List<GameObject> debugObjects = new();
 
-        private void Start()
-        {
-            /*QualitySettings.vSyncCount = 1;
-            Application.targetFrameRate = 30;*/
-        }
-
         [ContextMenu("Pathfinding")]
         public void PathFinding()
         {

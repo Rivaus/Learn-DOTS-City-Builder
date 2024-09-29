@@ -19,20 +19,35 @@ namespace quentin.tran.gameplay.camera
         private float moveSpeed = 15f;
 
         [SerializeField]
-        private float rotationSpeed = 360f;
+        private float mouseSensitivity = .35f;
 
         [SerializeField]
-        private float zoomSpeed = 10f;
+        private float scrollSensitivity = 10f;
 
         private void Start()
         {
-            Application.targetFrameRate = 60;
-
             this.transform.position = this.focusPoint.transform.position + this.defaultOffset;
             this.transform.LookAt(this.focusPoint.position);
         }
 
+        private void OnEnable()
+        {
+            InputManager.OnOrbitalRotate += RotateCamera;
+            InputManager.OnZoom += Zoom;
+        }
+
+        private void OnDisable()
+        {
+            InputManager.OnOrbitalRotate -= RotateCamera;
+            InputManager.OnZoom -= Zoom;
+        }
+
         private void Update()
+        {
+            Move();
+        }
+
+        private void Move()
         {
             Vector3 offset = this.transform.position - this.focusPoint.position;
             float distanceFromFocus = offset.magnitude;
@@ -41,10 +56,12 @@ namespace quentin.tran.gameplay.camera
             this.focusPoint.transform.position += this.transform.right * input.x + Quaternion.Euler(0, -90, 0) * this.transform.right * input.y;
 
             this.transform.position = this.focusPoint.position + offset;
+        }
 
-            Vector2 orbitalInput = InputManager.GetCameraOrbitalMovement();
-            this.transform.RotateAround(this.focusPoint.position, Vector3.up, this.rotationSpeed * Time.deltaTime * orbitalInput.x);
-            transform.RotateAround(this.focusPoint.position, this.transform.right, -this.rotationSpeed * Time.deltaTime * orbitalInput.y);
+        private void RotateCamera(Vector2 orbitalInput)
+        {
+            this.transform.RotateAround(this.focusPoint.position, Vector3.up, this.mouseSensitivity * orbitalInput.x);
+            transform.RotateAround(this.focusPoint.position, this.transform.right, -this.mouseSensitivity * orbitalInput.y);
 
             float angleToGround = Vector3.Angle(this.transform.forward, Quaternion.Euler(0, -90, 0) * this.transform.right);
 
@@ -56,8 +73,13 @@ namespace quentin.tran.gameplay.camera
 
             Debug.DrawRay(this.transform.position, this.transform.forward * 10);
             Debug.DrawRay(this.transform.position, (Quaternion.Euler(0, -90, 0) * this.transform.right) * 10);
+        }
 
-            float zoomInput = InputManager.GetCameraZoom();
+        private void Zoom(float zoomInput)
+        {
+            Vector3 offset = this.transform.position - this.focusPoint.position;
+            float distanceFromFocus = offset.magnitude;
+
             if (distanceFromFocus < 1 && zoomInput > 0)
                 return;
 
@@ -66,7 +88,7 @@ namespace quentin.tran.gameplay.camera
 
             float maxZoom = Mathf.Abs(distanceFromFocus * 0.1f * zoomInput);
 
-            float speedZoom = Mathf.Clamp(distanceFromFocus * zoomInput * Time.deltaTime * zoomSpeed, -maxZoom, maxZoom);
+            float speedZoom = Mathf.Clamp(distanceFromFocus * zoomInput * scrollSensitivity, -maxZoom, maxZoom);
             Vector3 zoom = -offset.normalized * speedZoom;
             transform.position += zoom;
         }
