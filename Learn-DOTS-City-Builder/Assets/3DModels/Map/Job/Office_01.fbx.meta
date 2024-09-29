@@ -3,7 +3,52 @@ guid: 9114a2c00a1f66d48ad7609d2e6de325
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Building_Roof
+    second: {fileID: 2100000, guid: b420486f4b9b7474e8991552909694f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Buildng_Bush_01
+    second: {fileID: 2100000, guid: 47502da316aedbc43b47f858c8d612f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_02
+    second: {fileID: 2100000, guid: df56def247284de44834339380c0bc93, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_03_Dark
+    second: {fileID: 2100000, guid: 7948eeb8be7f4634286846e55a20fe96, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Office_Window
+    second: {fileID: 2100000, guid: a43fcd0b2c979f04c9fdf58326c1fd5d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Road
+    second: {fileID: 2100000, guid: b420486f4b9b7474e8991552909694f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Roof
+    second: {fileID: 2100000, guid: df537d8bc8514624aa46a2b319eedc60, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_White
+    second: {fileID: 2100000, guid: df56def247284de44834339380c0bc93, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Wood
+    second: {fileID: 2100000, guid: 70180fdc0caec1b4ebb878e2a8a3f484, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

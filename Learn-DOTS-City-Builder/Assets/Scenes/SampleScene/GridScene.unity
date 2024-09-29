@@ -345,8 +345,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simpleOffice01Prefabs:
   - {fileID: 5894051482073591292, guid: 191b712e1a6314d4a836241776e67444, type: 3}
-  - {fileID: 7743575952822823972, guid: a4766f38dc1a20f43b60f8d2593f0d66, type: 3}
-  - {fileID: 3060633642920588345, guid: 54922d61fc749d747828d9557b0ddf5c, type: 3}
+  - {fileID: 6401893636381508655, guid: 4b62146e1542d5e448ccd87684e1a68e, type: 3}
+  - {fileID: 8176746862389715886, guid: 5b1d19db88c98cd448ff209e3af05e80, type: 3}
   - {fileID: 6292262346189974767, guid: b0a2443ea3144774cbb086849269811e, type: 3}
   - {fileID: 4173163315992199728, guid: 0161637ddf2b9e042ae5c8fdd398d72c, type: 3}
   - {fileID: 6642063002034077825, guid: 3cb09f52ce4191a43b5cb2ab6814e932, type: 3}
