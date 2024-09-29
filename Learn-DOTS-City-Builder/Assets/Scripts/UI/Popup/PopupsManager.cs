@@ -15,6 +15,7 @@ namespace quentin.tran.ui.popup
 
         private StatisticsPopup statisticsPopup;
         private SettingsPopup settingsPopup;
+        private InfoPopup infoPopup;
 
         private void Awake()
         {
@@ -31,6 +32,10 @@ namespace quentin.tran.ui.popup
             this.settingsPopup = new();
             this.root.Add(this.settingsPopup);
             this.settingsPopup.Hide();
+
+            this.infoPopup = new();
+            this.root.Add(this.infoPopup);
+            this.infoPopup.Hide();
         }
 
         public void OpenPopup(PopupType type)
@@ -43,6 +48,10 @@ namespace quentin.tran.ui.popup
                 case PopupType.Settings:
                     this.settingsPopup.Show();
                     break;
+                case PopupType.Info:
+                    this.infoPopup.Show();
+                    this.infoPopup.Update();
+                    break;
                 default:
                     break;
             }
@@ -52,7 +61,7 @@ namespace quentin.tran.ui.popup
         {
         }
 
-        public enum PopupType { Statistics, Settings }
+        public enum PopupType { Statistics, Settings, Info }
     }
 }
 

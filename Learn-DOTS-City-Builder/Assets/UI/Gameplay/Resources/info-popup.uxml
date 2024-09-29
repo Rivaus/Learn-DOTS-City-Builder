@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Style/popup-style.uss?fileID=7433441132597879392&amp;guid=fe9d002a0ba829a4089c253d365e78f8&amp;type=3#popup-style" />
+    <ui:VisualElement name="body" class="popup" style="transition-property: display; transition-duration: 1s; width: 300px; max-height: 550px;">
+        <ui:VisualElement name="header" class="popup-header">
+            <ui:Label text="Info" name="header-label" class="popup-header__label" />
+            <ui:Button name="close-button" class="popup__close-button" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; flex-direction: column;">
+            <ui:Label text="Label" name="header-entity" class="popup__section__header" style="margin-left: 20px; -unity-font-style: bold;" />
+            <ui:ScrollView name="main-section" class="popup-scrollview" style="flex-grow: 1; color: rgb(255, 255, 255); font-size: 12px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
