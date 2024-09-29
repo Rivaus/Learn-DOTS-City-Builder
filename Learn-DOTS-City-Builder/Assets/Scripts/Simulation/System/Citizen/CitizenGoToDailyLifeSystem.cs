@@ -43,10 +43,15 @@ namespace quentin.tran.simulation.system.citizen
         //[BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
+            TimeManager timeManager = SystemAPI.GetSingleton<TimeManager>();
+            if (timeManager.timeScale == 0)
+                return;
+
             this.housesLookup.Update(ref state);
             this.gridLookup.Update(ref state);
 
-            DateTime now = SystemAPI.GetSingleton<TimeManager>().dateTime;
+            DateTime now = timeManager.dateTime;
+
             EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
             EntityCommandBuffer.ParallelWriter cmd = ecb.AsParallelWriter();
 

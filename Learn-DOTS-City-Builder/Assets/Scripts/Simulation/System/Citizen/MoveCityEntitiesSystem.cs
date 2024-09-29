@@ -34,6 +34,9 @@ namespace quentin.tran.simulation.system.citizen
         {
             TimeManager time = SystemAPI.GetSingleton<TimeManager>();
 
+            if (time.timeScale == 0)
+                return;
+
             EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
             EntityCommandBuffer.ParallelWriter cmd = ecb.AsParallelWriter();
 
