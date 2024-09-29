@@ -1,6 +1,7 @@
 using quentin.tran.gameplay.buildingTool;
 using quentin.tran.simulation.component;
 using quentin.tran.simulation.system.grid;
+using quentin.tran.ui;
 using quentin.tran.ui.popup;
 using System.Collections.Generic;
 using System.Text;
@@ -25,7 +26,7 @@ namespace quentin.tran.gameplay.camera
 
         public void OnUpdate(ref SystemState state)
         {
-            if (BuilderController.Instance.Mode != BuilderController.BuildingMode.None)
+            if (BuilderController.Instance.Mode != BuilderController.BuildingMode.None || !GameplayUIManager.CursorOnGameplay)
                 return;
 
             if (select)

@@ -25,15 +25,15 @@ namespace quentin.tran.ui.popup
             this.root = this.document.rootVisualElement.Q<VisualElement>("popups");
             Debug.Assert(root != null);
 
-            this.statisticsPopup = new();
+            this.statisticsPopup = new() { style = { position = Position.Absolute } };
             this.root.Add(this.statisticsPopup);
             this.statisticsPopup.Hide();
 
-            this.settingsPopup = new();
+            this.settingsPopup = new() { style = { position = Position.Absolute } };
             this.root.Add(this.settingsPopup);
             this.settingsPopup.Hide();
 
-            this.infoPopup = new();
+            this.infoPopup = new() { style = { position = Position.Absolute } };
             this.root.Add(this.infoPopup);
             this.infoPopup.Hide();
         }

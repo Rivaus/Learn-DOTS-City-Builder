@@ -6,6 +6,8 @@ namespace quentin.tran.ui
 {
     public class GameplayUIManager : MonoBehaviour
     {
+        public static bool CursorOnGameplay { get; private set; } = false;
+
         [SerializeField]
         private UIDocument document = null;
 
@@ -28,11 +30,13 @@ namespace quentin.tran.ui
         private void MouseEnter(MouseEnterEvent e)
         {
             BuilderController.Instance.Enable();
+            CursorOnGameplay = true;
         }
 
         private void MouseLeave(MouseLeaveEvent e)
         {
             BuilderController.Instance.Disable();
+            CursorOnGameplay = false;
         }
 
         private void OnDestroy()

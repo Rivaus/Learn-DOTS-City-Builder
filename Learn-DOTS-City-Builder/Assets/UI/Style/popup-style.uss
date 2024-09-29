@@ -8,6 +8,14 @@
     border-bottom-left-radius: 25px;
     background-color: var(--city-builder-dark-grey-color);
     overflow: hidden;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-top-color: var(--city-builder-very-dark-grey-color);
+    border-right-color: var(--city-builder-very-dark-grey-color);
+    border-bottom-color: var(--city-builder-very-dark-grey-color);
+    border-left-color: var(--city-builder-very-dark-grey-color);
 }
 
 #side-container {
