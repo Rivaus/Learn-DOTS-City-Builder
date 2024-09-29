@@ -5,6 +5,8 @@ I want to learn how to structure a game using ECS, make a basic city simulation 
 
 ![image](cover.png)
 
+Current version can be downloaded : [0.0.1](https://github.com/Rivaus/Learn-DOTS-City-Builder/releases/tag/0.0.1)
+
 ## Game simulation
 
 All system I want to implement for my basic simulation, in order :
