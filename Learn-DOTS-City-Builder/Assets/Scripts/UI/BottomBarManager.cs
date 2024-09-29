@@ -1,6 +1,7 @@
 
 using quentin.tran.authoring;
 using quentin.tran.common;
+using quentin.tran.gameplay;
 using quentin.tran.gameplay.buildingTool;
 using quentin.tran.simulation;
 using quentin.tran.ui.popup;
@@ -76,6 +77,12 @@ namespace quentin.tran.ui
             });
 
             Update();
+
+            InputManager.OnViewMode += SetViewModeMode;
+            InputManager.OnHouseMode += SetBuildBuildingMode;
+            InputManager.OnRoadMode += SetBuildRoadMode;
+            InputManager.OnJobMode += SetOfficeBuildingMode;
+            InputManager.OnDeleteMode += SetDestroyBuildingMode;
         }
 
         private async void Update()
@@ -171,6 +178,12 @@ namespace quentin.tran.ui
             this.buildOfficeButton.clickable.clicked -= SetOfficeBuildingMode;
             this.buildBuildingButton.clickable.clicked -= SetBuildBuildingMode;
             this.destroyBuildingButton.clickable.clicked -= SetDestroyBuildingMode;
+
+            InputManager.OnViewMode -= SetViewModeMode;
+            InputManager.OnHouseMode -= SetBuildBuildingMode;
+            InputManager.OnRoadMode -= SetBuildRoadMode;
+            InputManager.OnJobMode -= SetOfficeBuildingMode;
+            InputManager.OnDeleteMode -= SetDestroyBuildingMode;
         }
     }
 }

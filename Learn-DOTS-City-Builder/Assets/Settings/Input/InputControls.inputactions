@@ -229,6 +229,114 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "BuildingMode",
+            "id": "5a6309e6-3a91-4ff9-a052-4fd520208224",
+            "actions": [
+                {
+                    "name": "CreateRoad",
+                    "type": "Button",
+                    "id": "a10d8874-9f2d-4e23-8e7e-a9101bc87f32",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CreateHouse",
+                    "type": "Button",
+                    "id": "75b5745e-e79e-44a7-9e3e-74a4d5d037b4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CreateJob",
+                    "type": "Button",
+                    "id": "6cc3ef3b-d897-45b7-9e95-cc21f5773216",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DeleteBuilding",
+                    "type": "Button",
+                    "id": "19891e03-1f54-4e73-9885-86341ba21c37",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ViewMode",
+                    "type": "Button",
+                    "id": "c403bdac-5a62-468e-aa93-f3554d774559",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "17575d7a-3bd8-4f1d-b48a-65f6e0e8ffeb",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CreateRoad",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d3e54be5-82a9-48cf-8272-7782f336dfd0",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CreateHouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4b7ac136-00c2-4e0d-9d8d-ee337ca02010",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CreateJob",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a8bad46b-0181-4074-bfb6-aba6c8b77c43",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DeleteBuilding",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5a18abb9-2682-456c-8533-83bd6edfa370",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ViewMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

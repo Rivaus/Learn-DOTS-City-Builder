@@ -252,6 +252,114 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""BuildingMode"",
+            ""id"": ""5a6309e6-3a91-4ff9-a052-4fd520208224"",
+            ""actions"": [
+                {
+                    ""name"": ""CreateRoad"",
+                    ""type"": ""Button"",
+                    ""id"": ""a10d8874-9f2d-4e23-8e7e-a9101bc87f32"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CreateHouse"",
+                    ""type"": ""Button"",
+                    ""id"": ""75b5745e-e79e-44a7-9e3e-74a4d5d037b4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CreateJob"",
+                    ""type"": ""Button"",
+                    ""id"": ""6cc3ef3b-d897-45b7-9e95-cc21f5773216"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DeleteBuilding"",
+                    ""type"": ""Button"",
+                    ""id"": ""19891e03-1f54-4e73-9885-86341ba21c37"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ViewMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""c403bdac-5a62-468e-aa93-f3554d774559"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""17575d7a-3bd8-4f1d-b48a-65f6e0e8ffeb"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CreateRoad"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d3e54be5-82a9-48cf-8272-7782f336dfd0"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CreateHouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4b7ac136-00c2-4e0d-9d8d-ee337ca02010"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CreateJob"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8bad46b-0181-4074-bfb6-aba6c8b77c43"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DeleteBuilding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a18abb9-2682-456c-8533-83bd6edfa370"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ViewMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -263,11 +371,19 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         m_CameraMap_OrbitalView = m_CameraMap.FindAction("OrbitalView", throwIfNotFound: true);
         m_CameraMap_Click = m_CameraMap.FindAction("Click", throwIfNotFound: true);
         m_CameraMap_Zoom = m_CameraMap.FindAction("Zoom", throwIfNotFound: true);
+        // BuildingMode
+        m_BuildingMode = asset.FindActionMap("BuildingMode", throwIfNotFound: true);
+        m_BuildingMode_CreateRoad = m_BuildingMode.FindAction("CreateRoad", throwIfNotFound: true);
+        m_BuildingMode_CreateHouse = m_BuildingMode.FindAction("CreateHouse", throwIfNotFound: true);
+        m_BuildingMode_CreateJob = m_BuildingMode.FindAction("CreateJob", throwIfNotFound: true);
+        m_BuildingMode_DeleteBuilding = m_BuildingMode.FindAction("DeleteBuilding", throwIfNotFound: true);
+        m_BuildingMode_ViewMode = m_BuildingMode.FindAction("ViewMode", throwIfNotFound: true);
     }
 
     ~@InputControls()
     {
         Debug.Assert(!m_CameraMap.enabled, "This will cause a leak and performance issues, InputControls.CameraMap.Disable() has not been called.");
+        Debug.Assert(!m_BuildingMode.enabled, "This will cause a leak and performance issues, InputControls.BuildingMode.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -403,6 +519,84 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         }
     }
     public CameraMapActions @CameraMap => new CameraMapActions(this);
+
+    // BuildingMode
+    private readonly InputActionMap m_BuildingMode;
+    private List<IBuildingModeActions> m_BuildingModeActionsCallbackInterfaces = new List<IBuildingModeActions>();
+    private readonly InputAction m_BuildingMode_CreateRoad;
+    private readonly InputAction m_BuildingMode_CreateHouse;
+    private readonly InputAction m_BuildingMode_CreateJob;
+    private readonly InputAction m_BuildingMode_DeleteBuilding;
+    private readonly InputAction m_BuildingMode_ViewMode;
+    public struct BuildingModeActions
+    {
+        private @InputControls m_Wrapper;
+        public BuildingModeActions(@InputControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @CreateRoad => m_Wrapper.m_BuildingMode_CreateRoad;
+        public InputAction @CreateHouse => m_Wrapper.m_BuildingMode_CreateHouse;
+        public InputAction @CreateJob => m_Wrapper.m_BuildingMode_CreateJob;
+        public InputAction @DeleteBuilding => m_Wrapper.m_BuildingMode_DeleteBuilding;
+        public InputAction @ViewMode => m_Wrapper.m_BuildingMode_ViewMode;
+        public InputActionMap Get() { return m_Wrapper.m_BuildingMode; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(BuildingModeActions set) { return set.Get(); }
+        public void AddCallbacks(IBuildingModeActions instance)
+        {
+            if (instance == null || m_Wrapper.m_BuildingModeActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_BuildingModeActionsCallbackInterfaces.Add(instance);
+            @CreateRoad.started += instance.OnCreateRoad;
+            @CreateRoad.performed += instance.OnCreateRoad;
+            @CreateRoad.canceled += instance.OnCreateRoad;
+            @CreateHouse.started += instance.OnCreateHouse;
+            @CreateHouse.performed += instance.OnCreateHouse;
+            @CreateHouse.canceled += instance.OnCreateHouse;
+            @CreateJob.started += instance.OnCreateJob;
+            @CreateJob.performed += instance.OnCreateJob;
+            @CreateJob.canceled += instance.OnCreateJob;
+            @DeleteBuilding.started += instance.OnDeleteBuilding;
+            @DeleteBuilding.performed += instance.OnDeleteBuilding;
+            @DeleteBuilding.canceled += instance.OnDeleteBuilding;
+            @ViewMode.started += instance.OnViewMode;
+            @ViewMode.performed += instance.OnViewMode;
+            @ViewMode.canceled += instance.OnViewMode;
+        }
+
+        private void UnregisterCallbacks(IBuildingModeActions instance)
+        {
+            @CreateRoad.started -= instance.OnCreateRoad;
+            @CreateRoad.performed -= instance.OnCreateRoad;
+            @CreateRoad.canceled -= instance.OnCreateRoad;
+            @CreateHouse.started -= instance.OnCreateHouse;
+            @CreateHouse.performed -= instance.OnCreateHouse;
+            @CreateHouse.canceled -= instance.OnCreateHouse;
+            @CreateJob.started -= instance.OnCreateJob;
+            @CreateJob.performed -= instance.OnCreateJob;
+            @CreateJob.canceled -= instance.OnCreateJob;
+            @DeleteBuilding.started -= instance.OnDeleteBuilding;
+            @DeleteBuilding.performed -= instance.OnDeleteBuilding;
+            @DeleteBuilding.canceled -= instance.OnDeleteBuilding;
+            @ViewMode.started -= instance.OnViewMode;
+            @ViewMode.performed -= instance.OnViewMode;
+            @ViewMode.canceled -= instance.OnViewMode;
+        }
+
+        public void RemoveCallbacks(IBuildingModeActions instance)
+        {
+            if (m_Wrapper.m_BuildingModeActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IBuildingModeActions instance)
+        {
+            foreach (var item in m_Wrapper.m_BuildingModeActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_BuildingModeActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public BuildingModeActions @BuildingMode => new BuildingModeActions(this);
     public interface ICameraMapActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -410,5 +604,13 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         void OnOrbitalView(InputAction.CallbackContext context);
         void OnClick(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
+    }
+    public interface IBuildingModeActions
+    {
+        void OnCreateRoad(InputAction.CallbackContext context);
+        void OnCreateHouse(InputAction.CallbackContext context);
+        void OnCreateJob(InputAction.CallbackContext context);
+        void OnDeleteBuilding(InputAction.CallbackContext context);
+        void OnViewMode(InputAction.CallbackContext context);
     }
 }
