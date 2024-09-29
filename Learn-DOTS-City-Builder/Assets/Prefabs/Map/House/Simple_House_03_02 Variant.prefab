@@ -48,6 +48,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 318090621026519381, guid: c402fb958a641854a8ba3f61884b8666, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5b32e73506394834094e46426328b795, type: 2}
+    - target: {fileID: 318090621026519381, guid: c402fb958a641854a8ba3f61884b8666, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 20a927bbc80076a439c9949165b4ee2f, type: 2}
     - target: {fileID: 584340466287673606, guid: c402fb958a641854a8ba3f61884b8666, type: 3}
       propertyPath: m_Name
       value: Simple_House_03_02 Variant
@@ -57,6 +65,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 5b32e73506394834094e46426328b795, type: 2}
     - target: {fileID: 1376697404632932563, guid: c402fb958a641854a8ba3f61884b8666, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 20a927bbc80076a439c9949165b4ee2f, type: 2}
+    - target: {fileID: 6029651723510534566, guid: c402fb958a641854a8ba3f61884b8666, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5b32e73506394834094e46426328b795, type: 2}
+    - target: {fileID: 6029651723510534566, guid: c402fb958a641854a8ba3f61884b8666, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 20a927bbc80076a439c9949165b4ee2f, type: 2}
+    - target: {fileID: 7208200351450077821, guid: c402fb958a641854a8ba3f61884b8666, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5b32e73506394834094e46426328b795, type: 2}
+    - target: {fileID: 7208200351450077821, guid: c402fb958a641854a8ba3f61884b8666, type: 3}
       propertyPath: 'm_Materials.Array.data[2]'
       value: 
       objectReference: {fileID: 2100000, guid: 20a927bbc80076a439c9949165b4ee2f, type: 2}

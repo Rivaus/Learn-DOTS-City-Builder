@@ -59,7 +59,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a64b2e395e416e143aeeb204a21cb336, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4385364060261959645}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a64b2e395e416e143aeeb204a21cb336, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3747782783294659703}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a64b2e395e416e143aeeb204a21cb336, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3908321092302293477}
   m_SourcePrefab: {fileID: 100100000, guid: a64b2e395e416e143aeeb204a21cb336, type: 3}
+--- !u!23 &3720065391207119202 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8426922151618823606, guid: a64b2e395e416e143aeeb204a21cb336, type: 3}
+  m_PrefabInstance: {fileID: 5139208401213177044}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5445778966794109317 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a64b2e395e416e143aeeb204a21cb336, type: 3}
@@ -79,3 +90,61 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capacity: 4
   nbOfHouses: 1
+--- !u!65 &3747782783294659703
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5445778966794109317}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0855834, y: 1.1670918, z: 0.66989166}
+  m_Center: {x: 0.42180526, y: 0.31584442, z: 0.32807073}
+--- !u!205 &3908321092302293477
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5445778966794109317}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.050084293, y: -0.02586186, z: 0.32642722}
+  m_Size: 1.859741
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.4018482
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 7723265439755820992}
+  - screenRelativeHeight: 0.14728945
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 5822589009134308472}
+  - screenRelativeHeight: 0.017350558
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3720065391207119202}
+  m_Enabled: 1
+--- !u!23 &5822589009134308472 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1702324466925236396, guid: a64b2e395e416e143aeeb204a21cb336, type: 3}
+  m_PrefabInstance: {fileID: 5139208401213177044}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7723265439755820992 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3205628558641849108, guid: a64b2e395e416e143aeeb204a21cb336, type: 3}
+  m_PrefabInstance: {fileID: 5139208401213177044}
+  m_PrefabAsset: {fileID: 0}
