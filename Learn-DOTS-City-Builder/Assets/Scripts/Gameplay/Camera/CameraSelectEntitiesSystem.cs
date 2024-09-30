@@ -19,10 +19,13 @@ namespace quentin.tran.gameplay.camera
 
         public void OnCreate(ref SystemState state)
         {
-            InputManager.OnClick += WantoToSelect;
+            InputManager.OnClick += WanToToSelect;
+            InputManager.OnClickRelease += DontWanToToSelect;
         }
 
-        private void WantoToSelect() => select = true;
+        private void WanToToSelect() => select = true;
+
+        private void DontWanToToSelect() => select = false;
 
         public void OnUpdate(ref SystemState state)
         {
@@ -67,7 +70,7 @@ namespace quentin.tran.gameplay.camera
 
         public void OnDestroy(ref SystemState state)
         {
-            InputManager.OnClick -= WantoToSelect;
+            InputManager.OnClick -= WanToToSelect;
         }
 
         private void Select(Entity entity, ref SystemState _)

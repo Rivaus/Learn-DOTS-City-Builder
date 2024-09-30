@@ -15,7 +15,7 @@ namespace quentin.tran.ui.popup
 
         public SettingsPopup()
         {
-            Application.targetFrameRate = 60;
+            Application.targetFrameRate = -1;
 
             VisualTreeAsset template = Resources.Load("settings-popup") as VisualTreeAsset;
             Debug.Assert(template is not null, "Popup template not found");
