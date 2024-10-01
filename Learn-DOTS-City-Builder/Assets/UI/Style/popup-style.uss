@@ -156,6 +156,14 @@
     background-color: var(--city-builder-very-dark-grey-color);
     margin-top: 2px;
     margin-bottom: 2px;
+    width: 18px;
+}
+
+.popup-scrollview .unity-base-slider--vertical > VisualElement {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
 }
 
 .popup-scrollview #unity-content-container {
@@ -170,4 +178,60 @@
     border-bottom-width: 0;
     border-left-width: 0;
     -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.popup-scrollview .unity-scroll-view__horizontal-scroller {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    overflow: hidden;
+}
+
+.popup-scrollview .unity-scroll-view__horizontal-scroller #unity-tracker {
+    background-color: var(--city-builder-light-grey-color);
+    border-right-color: var(--city-builder-very-dark-grey-color);
+    border-left-color: var(--city-builder-very-dark-grey-color);
+}
+
+.popup-scrollview .unity-scroll-view__horizontal-scroller #unity-dragger {
+    background-color: var(--city-builder-very-dark-grey-color);
+    margin-top: 2px;
+    margin-bottom: 2px;
+    width: 18px;
+}
+
+.popup-scrollview .unity-base-slider--horizontal > VisualElement {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+.popup-scrollview .unity-scroll-view__horizontal-scroller #unity-tracker {
+    background-color: var(--city-builder-light-grey-color);
+    border-top-color: var(--city-builder-very-dark-grey-color);
+    border-bottom-color: var(--city-builder-very-dark-grey-color);
+}
+
+.popup-scrollview .unity-scroll-view__horizontal-scroller #unity-dragger {
+    background-color: var(--city-builder-very-dark-grey-color);
+    height: 18px;
+    top: 1px;
+    margin-right: 0;
+    margin-left: 3px;
+}
+
+.popup__close-button {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-image: url("project://database/Assets/UI/Icons/close.svg?fileID=7388822144124034973&guid=c0d93fb91f45c864eb8ff97148a3d3f0&type=3#close");
+    background-color: rgba(0, 0, 0, 0);
+    right: 8px;
+    top: 8px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
 }

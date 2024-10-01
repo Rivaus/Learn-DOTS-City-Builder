@@ -2,6 +2,7 @@
     <Style src="project://database/Assets/UI/Style/color-style.uss?fileID=7433441132597879392&amp;guid=2ab73c335f956f44586d67b848c18103&amp;type=3#color-style" />
     <Style src="project://database/Assets/UI/Style/gameplay-ui-style.uss?fileID=7433441132597879392&amp;guid=55a89037bec23d54d9f80be5565404ec&amp;type=3#gameplay-ui-style" />
     <Style src="project://database/Assets/UI/Style/input-style.uss?fileID=7433441132597879392&amp;guid=08087dd9c57366c47b33793037ec40cb&amp;type=3#input-style" />
+    <Style src="project://database/Assets/UI/Style/popup-style.uss?fileID=7433441132597879392&amp;guid=fe9d002a0ba829a4089c253d365e78f8&amp;type=3#popup-style" />
     <ui:VisualElement name="body" style="flex-grow: 1;">
         <ui:VisualElement name="top-bar">
             <ui:VisualElement name="top-bar__button_container">
@@ -24,25 +25,40 @@
         </ui:VisualElement>
         <ui:VisualElement name="gameplay" style="flex-grow: 1;" />
         <ui:VisualElement name="bottom-bar">
-            <ui:Label text="04 september 2024 14:58" name="time-label" class="bottom-bar__time-label" style="color: rgb(255, 255, 255);" />
-            <ui:Button text="x 0" name="time-scale-x0" class="time-scale-button" />
-            <ui:Button text="x 1" name="time-scale-x1" class="time-scale-button time-scale-button--selected" />
-            <ui:Button text="x 10" name="time-scale-x10" class="time-scale-button" />
-            <ui:Button text="x 30" name="time-scale-x30" class="time-scale-button" />
-            <quentin.tran.ui.BuildingModeButton name="view-mode-button" icon="project://database/Assets/UI/Icons/mouse-pointer.svg?fileID=7388822144124034973&amp;guid=eeec0178405e4184da5bc0cf4ed6aa3b&amp;type=3#mouse-pointer" color="#FFFFFFFF" selected-color="#F1C40FFF" is-selected="false" />
-            <quentin.tran.ui.BuildingModeButton name="build-road-button" icon="project://database/Assets/UI/Icons/car.svg?fileID=7388822144124034973&amp;guid=a63d76d3f04cea6429375dc0ac1e8858&amp;type=3#car" color="#3498DBFF" selected-color="#2980B9FF" is-selected="false" />
-            <quentin.tran.ui.BuildingModeButton name="build-building-button" icon="project://database/Assets/UI/Icons/building-2.svg?fileID=7388822144124034973&amp;guid=a279240f9a84f744bac1a1b0cd96e6b5&amp;type=3#building-2" color="#2ECC71FF" selected-color="#27AE60FF" />
-            <quentin.tran.ui.BuildingModeButton name="build-office-button" icon="project://database/Assets/UI/Icons/factory.svg?fileID=7388822144124034973&amp;guid=98fb332c08e98704699453ded3bff02f&amp;type=3#factory" color="#E67E23FF" selected-color="#D35400FF" />
-            <quentin.tran.ui.BuildingModeButton name="destroy-building-button" icon="project://database/Assets/UI/Icons/trash-2.svg?fileID=7388822144124034973&amp;guid=52e51da2da99a8743877af87f83a3b09&amp;type=3#trash-2" color="#E74C3CFF" selected-color="#C0392BFF" is-selected="false" />
-            <ui:VisualElement name="separator" class="bottom-bar__separator" style="width: 2px;" />
-            <quentin.tran.ui.BuildingModeButton name="statistics-button" icon="project://database/Assets/UI/Icons/chart-column.svg?fileID=7388822144124034973&amp;guid=a1fe1be7a58914f41809224bf7124c5a&amp;type=3#chart-column" color="#FADB00FF" selected-color="#782323FF" is-selected="false" />
-            <ui:VisualElement name="separator" class="bottom-bar__separator" style="width: 2px;" />
-            <ui:VisualElement name="citizen-container" style="flex-direction: row; margin-left: 10px; margin-right: 10px;">
-                <ui:VisualElement style="background-image: url(&quot;project://database/Assets/UI/Icons/users-round.svg?fileID=7388822144124034973&amp;guid=8c1823bc39af9534b86a6b5f9bfa06b2&amp;type=3#users-round&quot;); -unity-background-scale-mode: scale-to-fit; height: 100%; width: 20px; margin-left: 5px; margin-right: 5px;" />
-                <ui:Label text="200 453" name="citizens-count" style="color: rgb(255, 255, 255);" />
+            <ui:VisualElement name="submenu" class="bottom-bar__submenu popup-scrollview" style="position: absolute; align-self: center; width: 600px; height: 150px; translate: 0 -110px;">
+                <ui:ScrollView name="sub-menu__scrollview" mode="Horizontal" horizontal-scroller-visibility="AlwaysVisible" style="flex-grow: 1;">
+                    <ui:VisualElement name="building-item" class="building-item">
+                        <ui:VisualElement name="building-item__icon" class="building-item__icon" />
+                        <ui:Label text="Label" name="building-item__label" class="building-item__label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="building-item" class="building-item building-item--selected">
+                        <ui:VisualElement name="building-item__icon" class="building-item__icon" />
+                        <ui:Label text="Label" name="building-item__label" class="building-item__label" />
+                    </ui:VisualElement>
+                </ui:ScrollView>
+                <ui:Button name="sub-menu__close" class="popup__close-button" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; position: absolute;" />
             </ui:VisualElement>
-            <ui:VisualElement name="separator" class="bottom-bar__separator" style="width: 2px;" />
-            <ui:Label text="125;456" name="hovered-cell" style="color: rgb(255, 255, 255);" />
+            <ui:VisualElement name="main-menu" style="flex-grow: 1; flex-direction: row;">
+                <ui:Label text="04 september 2024 14:58" name="time-label" class="bottom-bar__time-label" style="color: rgb(255, 255, 255);" />
+                <ui:Button text="x 0" name="time-scale-x0" class="time-scale-button" />
+                <ui:Button text="x 1" name="time-scale-x1" class="time-scale-button time-scale-button--selected" />
+                <ui:Button text="x 10" name="time-scale-x10" class="time-scale-button" />
+                <ui:Button text="x 30" name="time-scale-x30" class="time-scale-button" />
+                <quentin.tran.ui.BuildingModeButton name="view-mode-button" icon="project://database/Assets/UI/Icons/mouse-pointer.svg?fileID=7388822144124034973&amp;guid=eeec0178405e4184da5bc0cf4ed6aa3b&amp;type=3#mouse-pointer" color="#FFFFFFFF" selected-color="#F1C40FFF" is-selected="false" />
+                <quentin.tran.ui.BuildingModeButton name="build-road-button" icon="project://database/Assets/UI/Icons/car.svg?fileID=7388822144124034973&amp;guid=a63d76d3f04cea6429375dc0ac1e8858&amp;type=3#car" color="#3498DBFF" selected-color="#2980B9FF" is-selected="false" />
+                <quentin.tran.ui.BuildingModeButton name="build-building-button" icon="project://database/Assets/UI/Icons/building-2.svg?fileID=7388822144124034973&amp;guid=a279240f9a84f744bac1a1b0cd96e6b5&amp;type=3#building-2" color="#2ECC71FF" selected-color="#27AE60FF" />
+                <quentin.tran.ui.BuildingModeButton name="build-office-button" icon="project://database/Assets/UI/Icons/factory.svg?fileID=7388822144124034973&amp;guid=98fb332c08e98704699453ded3bff02f&amp;type=3#factory" color="#E67E23FF" selected-color="#D35400FF" />
+                <quentin.tran.ui.BuildingModeButton name="destroy-building-button" icon="project://database/Assets/UI/Icons/trash-2.svg?fileID=7388822144124034973&amp;guid=52e51da2da99a8743877af87f83a3b09&amp;type=3#trash-2" color="#E74C3CFF" selected-color="#C0392BFF" is-selected="false" />
+                <ui:VisualElement name="separator" class="bottom-bar__separator" style="width: 2px;" />
+                <quentin.tran.ui.BuildingModeButton name="statistics-button" icon="project://database/Assets/UI/Icons/chart-column.svg?fileID=7388822144124034973&amp;guid=a1fe1be7a58914f41809224bf7124c5a&amp;type=3#chart-column" color="#FADB00FF" selected-color="#782323FF" is-selected="false" />
+                <ui:VisualElement name="separator" class="bottom-bar__separator" style="width: 2px;" />
+                <ui:VisualElement name="citizen-container" style="flex-direction: row; margin-left: 10px; margin-right: 10px;">
+                    <ui:VisualElement style="background-image: url(&quot;project://database/Assets/UI/Icons/users-round.svg?fileID=7388822144124034973&amp;guid=8c1823bc39af9534b86a6b5f9bfa06b2&amp;type=3#users-round&quot;); -unity-background-scale-mode: scale-to-fit; height: 100%; width: 20px; margin-left: 5px; margin-right: 5px;" />
+                    <ui:Label text="200 453" name="citizens-count" style="color: rgb(255, 255, 255);" />
+                </ui:VisualElement>
+                <ui:VisualElement name="separator" class="bottom-bar__separator" style="width: 2px;" />
+                <ui:Label text="125;456" name="hovered-cell" style="color: rgb(255, 255, 255);" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="popups" picking-mode="Ignore" style="flex-grow: 1; position: absolute; align-items: center; justify-content: center; width: 100%; height: 100%;" />
