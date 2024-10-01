@@ -1,3 +1,4 @@
+using quentin.tran.ui;
 using UnityEngine;
 
 namespace quentin.tran.gameplay.camera
@@ -77,6 +78,9 @@ namespace quentin.tran.gameplay.camera
 
         private void Zoom(float zoomInput)
         {
+            if (!GameplayUIManager.CursorOnGameplay)
+                return;
+
             Vector3 offset = this.transform.position - this.focusPoint.position;
             float distanceFromFocus = offset.magnitude;
 
