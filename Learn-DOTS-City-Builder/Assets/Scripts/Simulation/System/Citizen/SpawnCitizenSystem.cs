@@ -23,12 +23,25 @@ namespace quentin.tran.simulation.system.citizen
 
         private Random random;
 
-        [BurstCompile]
+        public static NativeArray<FixedString32Bytes> maleNames, femaleNames, lastNames;
+
         public void OnCreate(ref SystemState state)
         {
             state.RequireForUpdate<CitizenSpawner>();
             state.RequireForUpdate<TimeManager>();
             state.RequireForUpdate<House>();
+
+            maleNames = new NativeArray<FixedString32Bytes>(CitizenNames.MALE_NAMES, Allocator.Persistent);
+            femaleNames = new NativeArray<FixedString32Bytes>(CitizenNames.FEMALE_NAMES, Allocator.Persistent);
+            lastNames = new NativeArray<FixedString32Bytes>(CitizenNames.LAST_NAMES, Allocator.Persistent);
+        }
+
+        [BurstCompile]
+        private void OnDestroy()
+        {
+            maleNames.Dispose();
+            femaleNames.Dispose();
+            lastNames.Dispose();
         }
 
         //[BurstCompile]
@@ -76,10 +89,12 @@ namespace quentin.tran.simulation.system.citizen
                             int ageA = random.NextInt(25, 60);
                             int ageB = math.clamp(random.NextInt(ageA - 10, ageA + 10), 20, 60);
 
-                            CreateCitizen("Jean", "Dupont", ageA, ref cmd, citizenSpawner.citizenPrefab, houseEntity, buildingTransform.ValueRO.Position,
+                            FixedString32Bytes lastName = lastNames[random.NextInt(0, lastNames.Length)];
+
+                            CreateCitizen(lastName, ageA, ref cmd, citizenSpawner.citizenPrefab, houseEntity, buildingTransform.ValueRO.Position,
                                 citizenPrefabTransform.ValueRO.Rotation, citizenPrefabTransform.ValueRO.Scale);
 
-                            CreateCitizen("Jean", "Dupont", ageB, ref cmd, citizenSpawner.citizenPrefab, houseEntity, buildingTransform.ValueRO.Position,
+                            CreateCitizen(lastName, ageB, ref cmd, citizenSpawner.citizenPrefab, houseEntity, buildingTransform.ValueRO.Position,
                                 citizenPrefabTransform.ValueRO.Rotation, citizenPrefabTransform.ValueRO.Scale);
 
                             nbResidents++;
@@ -91,7 +106,7 @@ namespace quentin.tran.simulation.system.citizen
                             {
                                 nbResidents++;
 
-                                CreateCitizen("Jean", "Dupont", random.NextInt(1, 20), ref cmd, citizenSpawner.citizenPrefab, houseEntity, buildingTransform.ValueRO.Position,
+                                CreateCitizen(lastName, random.NextInt(1, 20), ref cmd, citizenSpawner.citizenPrefab, houseEntity, buildingTransform.ValueRO.Position,
                                     citizenPrefabTransform.ValueRO.Rotation, citizenPrefabTransform.ValueRO.Scale);
                             }
                         }
@@ -101,7 +116,7 @@ namespace quentin.tran.simulation.system.citizen
 
                             for (int i = 0; i < nbCitizens; i++)
                             {
-                                CreateCitizen("Jean", "Dupont", random.NextInt(22, 70), ref cmd, citizenSpawner.citizenPrefab, houseEntity, buildingTransform.ValueRO.Position,
+                                CreateCitizen(lastNames[random.NextInt(0, lastNames.Length)], random.NextInt(18, 77), ref cmd, citizenSpawner.citizenPrefab, houseEntity, buildingTransform.ValueRO.Position,
                                     citizenPrefabTransform.ValueRO.Rotation, citizenPrefabTransform.ValueRO.Scale);
                             }
 
@@ -119,15 +134,18 @@ namespace quentin.tran.simulation.system.citizen
             }
         }
 
-        private void CreateCitizen(string firstName, string lastName, int age, ref EntityCommandBuffer cmd,
-            Entity prefab, Entity house, float3 pos, quaternion rot, float scale)
+        private void CreateCitizen(FixedString32Bytes lastName, int age, ref EntityCommandBuffer cmd, Entity prefab, Entity house, float3 pos, quaternion rot, float scale)
         {
             Entity citizen = cmd.Instantiate(prefab);
+
+            CitizenGender gender = random.NextBool() ? CitizenGender.Male : CitizenGender.Female;
+            FixedString32Bytes name = (gender == CitizenGender.Male) ? maleNames[random.NextInt(0, maleNames.Length)] : femaleNames[random.NextInt(0, maleNames.Length)];
+
             cmd.AddComponent(citizen, new Citizen()
             {
                 age = age,
-                name = firstName + " " + lastName,
-                gender = random.NextBool() ? CitizenGender.Male : CitizenGender.Female,
+                name = name + " " + lastName,
+                gender = gender,
                 house = house,
                 happiness = 50
             });
