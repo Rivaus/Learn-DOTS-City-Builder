@@ -133,7 +133,10 @@ namespace quentin.tran.gameplay.buildingTool
         private void Update()
         {
             if (this.Mode == BuildingMode.None)
+            {
+                this.cellGridSelectedFeedback.gameObject.SetActive(false);
                 return;
+            }
 
             Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
 
@@ -143,7 +146,7 @@ namespace quentin.tran.gameplay.buildingTool
                 this.hoveredCell = new int2((int)(point.x / GridProperties.GRID_CELL_SIZE), (int)(point.z / GridProperties.GRID_CELL_SIZE));
                 statistics.HoveredCell = this.hoveredCell;
 
-                if (this.hoveredCell.x < 0 || this.hoveredCell.y < 0 || this.hoveredCell.x > GridProperties.GRID_SIZE || this.hoveredCell.y > GridProperties.GRID_SIZE)
+                if (this.hoveredCell.x < 0 || this.hoveredCell.y < 0 || this.hoveredCell.x >= GridProperties.GRID_SIZE || this.hoveredCell.y >= GridProperties.GRID_SIZE)
                 {
                     this.cellGridSelectedFeedback.gameObject.SetActive(false);
                     return;
@@ -180,7 +183,7 @@ namespace quentin.tran.gameplay.buildingTool
             if (this.Mode == BuildingMode.None || this.enabled == false)
                 return;
 
-            if (this.hoveredCell.x < 0 || this.hoveredCell.y < 0 || this.hoveredCell.x > GridProperties.GRID_SIZE || this.hoveredCell.y > GridProperties.GRID_SIZE)
+            if (this.hoveredCell.x < 0 || this.hoveredCell.y < 0 || this.hoveredCell.x >= GridProperties.GRID_SIZE || this.hoveredCell.y >= GridProperties.GRID_SIZE)
                 return;
 
             if ((this.Mode is not BuildingMode.Delete) && !GridManager.Instance.IsCellBuildable(this.hoveredCell.x, this.hoveredCell.y))
