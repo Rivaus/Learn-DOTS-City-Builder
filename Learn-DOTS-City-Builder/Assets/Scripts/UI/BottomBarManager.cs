@@ -1,6 +1,5 @@
 
 using quentin.tran.authoring;
-using quentin.tran.common;
 using quentin.tran.gameplay;
 using quentin.tran.gameplay.buildingTool;
 using quentin.tran.simulation;
@@ -15,6 +14,9 @@ namespace quentin.tran.ui
 {
     public class BottomBarManager
     {
+        private List<BuildingItemData> houseItems = null;
+        private List<BuildingItemData> officeItems = null;
+
         private BuildingModeButton viewModeButton, buildRoadButton, buildBuildingButton, buildOfficeButton, destroyBuildingButton;
 
         private Label timeLabel;
@@ -23,8 +25,13 @@ namespace quentin.tran.ui
 
         private List<Button> timeScaleButtons = new();
 
-        public BottomBarManager(VisualElement root)
+        private BottomBarManagerSubMenu subMenu;
+
+        public BottomBarManager(VisualElement root, List<BuildingItemData> houseItems, List<BuildingItemData> officeItems)
         {
+            this.houseItems = houseItems;
+            this.officeItems = officeItems;
+
             this.viewModeButton = root.Q<BuildingModeButton>("view-mode-button");
             this.viewModeButton.clickable.clicked += SetViewModeMode;
             this.buildRoadButton = root.Q<BuildingModeButton>("build-road-button");
@@ -76,6 +83,8 @@ namespace quentin.tran.ui
                 bindingMode = BindingMode.ToTarget
             });
 
+            subMenu = new(root.Q<VisualElement>("submenu"));
+
             Update();
 
             InputManager.OnViewMode += SetViewModeMode;
@@ -98,30 +107,29 @@ namespace quentin.tran.ui
         private void SetViewModeMode()
         {
             BuilderController.Instance.Mode = BuilderController.BuildingMode.None;
+            this.subMenu.Hide();
         }
 
         private void SetBuildRoadMode()
         {
             BuilderController.Instance.Mode = BuilderController.BuildingMode.Road;
+            this.subMenu.Hide();
         }
 
         private void SetBuildBuildingMode()
         {
-            BuilderController.Instance.CurrentBuilding = GridCellKeys.SIMPLE_HOUSE_01;
-            BuilderController.Instance.CurrentBuildingCategory = models.grid.GridCellType.House;
-            BuilderController.Instance.Mode = BuilderController.BuildingMode.Building;
+            this.subMenu.Show(this.houseItems);
         }
 
         private void SetOfficeBuildingMode()
         {
-            BuilderController.Instance.CurrentBuilding = GridCellKeys.SIMPLE_JOB_OFFICE_01;
-            BuilderController.Instance.CurrentBuildingCategory = models.grid.GridCellType.Office;
-            BuilderController.Instance.Mode = BuilderController.BuildingMode.Building;
+            this.subMenu.Show(this.officeItems);
         }
 
         private void SetDestroyBuildingMode()
         {
             BuilderController.Instance.Mode = BuilderController.BuildingMode.Delete;
+            this.subMenu.Hide();
         }
 
         private void UpdateBuildingButtons(BuilderController.BuildingMode mode)

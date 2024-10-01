@@ -26,7 +26,7 @@
                     <ui:VisualElement class="popup__tab-button__icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/UI/Icons/users-round.svg?fileID=7388822144124034973&amp;guid=8c1823bc39af9534b86a6b5f9bfa06b2&amp;type=3#users-round&quot;);" />
                 </quentin.tran.ui.customElements.TabButtonElement>
             </ui:VisualElement>
-            <ui:ScrollView name="main-section" vertical-scroller-visibility="AlwaysVisible" class="popup-scrollview" style="flex-grow: 1;">
+            <ui:ScrollView name="main-section" horizontal-scroller-visibility="AlwaysVisible" class="popup-scrollview" style="flex-grow: 1;">
                 <ui:Label text="Label" class="popup__section__header" />
                 <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />
                 <quentin.tran.ui.customElements.TableEntryElement title="Pomme" value="24" />

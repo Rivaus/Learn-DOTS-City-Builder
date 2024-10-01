@@ -1,4 +1,5 @@
 using quentin.tran.gameplay.buildingTool;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,11 +16,16 @@ namespace quentin.tran.ui
 
         private VisualElement gameplayContainer;
 
+        [Header("Building Items"), SerializeField]
+        private List<BuildingItemData> houseItems = null;
+        [SerializeField]
+        private List<BuildingItemData> officeItems = null;
+
         private void Start()
         {
             VisualElement root = this.document.rootVisualElement;
 
-            this.bottomBarManager = new BottomBarManager(root.Q<VisualElement>("bottom-bar"));
+            this.bottomBarManager = new BottomBarManager(root.Q<VisualElement>("bottom-bar"), this.houseItems, this.officeItems);
             TopBarManager topBarManager = new TopBarManager(root.Q<VisualElement>("top-bar"));
 
             this.gameplayContainer = root.Q<VisualElement>("gameplay");
