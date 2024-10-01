@@ -16,6 +16,8 @@ namespace quentin.tran.simulation.system.citizen
     {
         private Random random;
 
+        private const float MAX_DISTANCE_TO_APPLY = 150;
+
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
@@ -38,6 +40,7 @@ namespace quentin.tran.simulation.system.citizen
                 DynamicBuffer<LinkedEntityBuffer> workers = default;
 
                 float sqDistanceToOffice = float.MaxValue;
+                float sqMaxDistance = MAX_DISTANCE_TO_APPLY * MAX_DISTANCE_TO_APPLY;
 
                 // Find closest office with an available job
                 foreach ((RefRW<OfficeBuilding> office, RefRO<LocalToWorld> transform, DynamicBuffer<LinkedEntityBuffer> w, Entity officeEntity) in
@@ -45,7 +48,7 @@ namespace quentin.tran.simulation.system.citizen
                 {
                     float currentDistance = math.lengthsq(transform.ValueRO.Position - citizenTransform.ValueRO.Position);
 
-                    if (office.ValueRO.nbOfAvailableJob > 0 && currentDistance < sqDistanceToOffice)
+                    if (office.ValueRO.nbOfAvailableJob > 0 && currentDistance < sqDistanceToOffice && currentDistance < sqMaxDistance)
                     {
                         sqDistanceToOffice = currentDistance;
 
