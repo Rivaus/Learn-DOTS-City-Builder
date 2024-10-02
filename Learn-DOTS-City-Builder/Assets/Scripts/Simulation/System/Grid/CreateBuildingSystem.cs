@@ -2,6 +2,7 @@ using quentin.tran.authoring.grid;
 using quentin.tran.common;
 using quentin.tran.gameplay.buildingTool;
 using quentin.tran.simulation.component;
+using quentin.tran.simulation.component.map;
 using System.Collections.Generic;
 using Unity.Burst;
 using Unity.Collections;
@@ -79,7 +80,10 @@ namespace quentin.tran.simulation.system.grid
 
             while (commands.Count > 0)
             {
-                Create(ref state, commands.Dequeue(), ref entityCmdBuffer, ref roadPrefabs);
+                CreateBuildingEntityCommand cmd = commands.Dequeue();
+
+                Create(ref state, cmd, ref entityCmdBuffer, ref roadPrefabs);
+                DestroyDecoration(ref state, cmd.index, ref entityCmdBuffer);
             }
 
             entityCmdBuffer.Playback(state.EntityManager);
@@ -143,6 +147,16 @@ namespace quentin.tran.simulation.system.grid
                     });
                     entityCmdBuffer.AddBuffer<LinkedEntityBuffer>(house); // A buffer to store all inhabitants
                 }
+            }
+        }
+
+        [BurstCompile]
+        private void DestroyDecoration(ref SystemState _, int2 index, ref EntityCommandBuffer entityCmdBuffer)
+        {
+            foreach ((RefRO<MapDecoration> decoration, Entity e) in SystemAPI.Query<RefRO<MapDecoration>>().WithEntityAccess())
+            {
+                if (decoration.ValueRO.index.Equals(index))
+                    entityCmdBuffer.DestroyEntity(e);
             }
         }
     }
