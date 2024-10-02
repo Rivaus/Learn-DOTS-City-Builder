@@ -98,13 +98,13 @@
 }
 
 .bottom-bar__submenu {
-    background-color: var(--city-builder-dark-grey-color);
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
     border-bottom-left-radius: 25px;
     padding-right: 12px;
     padding-left: 12px;
+    background-color: rgba(44, 62, 80, 0.75);
 }
 
 .building-item {
@@ -117,6 +117,8 @@
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     padding-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .building-item--selected {
