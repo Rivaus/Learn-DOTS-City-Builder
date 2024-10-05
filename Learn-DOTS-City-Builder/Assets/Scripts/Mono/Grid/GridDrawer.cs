@@ -12,24 +12,28 @@ namespace quentin.tran.mono.grid
         {
             this.filter = GetComponent<MeshFilter>();
 
-            Vector3[] vertices = new Vector3[2 * GridProperties.GRID_SIZE];
-            int[] indices = new int[2 * GridProperties.GRID_SIZE];
+            Vector3[] vertices = new Vector3[2 * 2 * (GridProperties.GRID_SIZE + 1)];
+            int[] indices = new int[2 * 2 * (GridProperties.GRID_SIZE + 1)];
 
-            for (int i = 0; i < GridProperties.GRID_SIZE; i += 2)
+            for (int i = 0; i < GridProperties.GRID_SIZE + 1; i ++)
             {
-                vertices[i] = new Vector3(i * GridProperties.GRID_CELL_SIZE, 0, 0) / 2f;
-                vertices[i + 1] = new Vector3(i * GridProperties.GRID_CELL_SIZE, 0, GridProperties.GRID_CELL_SIZE * GridProperties.GRID_SIZE) / 2f;
+                int indice = 2 * i;
+                vertices[indice] = new Vector3(i * GridProperties.GRID_CELL_SIZE, 0, 0);
+                vertices[indice + 1] = new Vector3(i * GridProperties.GRID_CELL_SIZE, 0, GridProperties.GRID_CELL_SIZE * GridProperties.GRID_SIZE);
 
-                indices[i] = i;
-                indices[i + 1] = i + 1;
+                indices[indice] = indice;
+                indices[indice + 1] = indice + 1;
+
+                UnityEngine.Debug.Log("POMMEE");
             }
 
-            for (int i = 0; i < GridProperties.GRID_SIZE; i += 2)
+            for (int i = 0; i < GridProperties.GRID_SIZE + 1; i ++)
             {
-                int j = GridProperties.GRID_SIZE + i;
+                int indice = 2 * i;
+                int j = 2 * (GridProperties.GRID_SIZE + 1) + indice;
 
-                vertices[j] = new Vector3(0, 0, i * GridProperties.GRID_CELL_SIZE) / 2f;
-                vertices[j + 1] = new Vector3(GridProperties.GRID_CELL_SIZE * GridProperties.GRID_SIZE, 0, i * GridProperties.GRID_CELL_SIZE) / 2f;
+                vertices[j] = new Vector3(0, 0, i * GridProperties.GRID_CELL_SIZE); 
+                vertices[j + 1] = new Vector3(GridProperties.GRID_CELL_SIZE * GridProperties.GRID_SIZE, 0, i * GridProperties.GRID_CELL_SIZE);
 
                 indices[j] = j;
                 indices[j + 1] = j + 1;

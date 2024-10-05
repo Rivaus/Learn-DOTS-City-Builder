@@ -23,6 +23,9 @@ namespace quentin.tran.gameplay.buildingTool
         [SerializeField]
         private Transform cellGridSelectedFeedback;
 
+        [SerializeField]
+        private GameObject grid;
+
         #endregion
 
         #region Data Fields
@@ -104,6 +107,7 @@ namespace quentin.tran.gameplay.buildingTool
         {
             Debug.Assert(cam != null);
             Debug.Assert(cellGridSelectedFeedback != null);
+            Debug.Assert(grid != null);
 
             this.gridPlane = new Plane(Vector3.up, Vector3.zero);
 
@@ -135,8 +139,11 @@ namespace quentin.tran.gameplay.buildingTool
             if (this.Mode == BuildingMode.None)
             {
                 this.cellGridSelectedFeedback.gameObject.SetActive(false);
+                this.grid.SetActive(false);
                 return;
             }
+
+            this.grid.SetActive(true);
 
             Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
 
