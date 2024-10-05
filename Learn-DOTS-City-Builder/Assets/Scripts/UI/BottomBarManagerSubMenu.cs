@@ -29,7 +29,11 @@ namespace quentin.tran.ui
             Hide();
         }
 
-        public void Hide() => this.root.Hide();
+        public void Hide()
+        {
+            this.cuurentCategory = null;
+            this.root.Hide();
+        }
 
         public void Show(IEnumerable<CategoryItemData> categories)
         {
