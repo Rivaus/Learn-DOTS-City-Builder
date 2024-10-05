@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: d91a2c44e6cba1e4399baf47fa05b89b, type: 3}
   m_Name: House_Low_Density
   m_EditorClassIdentifier: Assembly-CSharp:quentin.tran.ui:BuildingItemData
   icon: {fileID: 2800000, guid: 3f470343b326b9f4496c7029f5e7b198, type: 3}

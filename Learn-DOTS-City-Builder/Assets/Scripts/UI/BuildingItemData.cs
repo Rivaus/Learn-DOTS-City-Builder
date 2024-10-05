@@ -1,4 +1,5 @@
 using quentin.tran.models.grid;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace quentin.tran.ui
@@ -13,5 +14,13 @@ namespace quentin.tran.ui
         public uint key;
 
         public GridCellType type;
+    }
+
+    [System.Serializable]
+    public class CategoryItemData
+    {
+        public string label;
+
+        public List<BuildingItemData> items = new();
     }
 }

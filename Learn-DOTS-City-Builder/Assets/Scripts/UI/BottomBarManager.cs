@@ -9,13 +9,14 @@ using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static quentin.tran.simulation.Statistics;
+using static quentin.tran.ui.GameplayUIManager;
 
 namespace quentin.tran.ui
 {
     public class BottomBarManager
     {
-        private List<BuildingItemData> houseItems = null;
-        private List<BuildingItemData> officeItems = null;
+        private List<CategoryItemData> houseItems = null;
+        private List<CategoryItemData> officeItems = null;
 
         private BuildingModeButton viewModeButton, buildRoadButton, buildBuildingButton, buildOfficeButton, destroyBuildingButton;
 
@@ -27,7 +28,7 @@ namespace quentin.tran.ui
 
         private BottomBarManagerSubMenu subMenu;
 
-        public BottomBarManager(VisualElement root, List<BuildingItemData> houseItems, List<BuildingItemData> officeItems)
+        public BottomBarManager(VisualElement root, List<CategoryItemData> houseItems, List<CategoryItemData> officeItems)
         {
             this.houseItems = houseItems;
             this.officeItems = officeItems;

@@ -7,9 +7,13 @@ namespace quentin.tran.ui
 {
     public class BottomBarManagerSubMenu
     {
+        private VisualElement header;
+
         private ScrollView scrollView;
 
         private VisualElement root;
+
+        private CategoryItemData cuurentCategory;
 
         public BottomBarManagerSubMenu(VisualElement root)
         {
@@ -19,26 +23,40 @@ namespace quentin.tran.ui
             this.scrollView = root.Q<ScrollView>("sub-menu__scrollview");
             this.scrollView.Clear();
 
+            this.header = root.Q<VisualElement>("sub-menu__header");
+            this.header.Clear();
+
             Hide();
         }
 
         public void Hide() => this.root.Hide();
 
-        public void Show(IEnumerable<BuildingItemData> items)
+        public void Show(IEnumerable<CategoryItemData> categories)
         {
             this.root.Show();
             this.scrollView.Clear();
+            this.header.Clear();
 
             VisualElement elt;
 
-            for (int i = 0; i < items.Count(); i++)
+            for (int i = 0; i < categories.Count(); i++)
             {
-                elt = GenerateItemElement(items.ElementAt(i));
+                elt = GenerateCategoryElement(categories.ElementAt(i));
                 if (i == 0)
-                    Select(elt);
+                    SelectCategory(elt);
 
-                this.scrollView.Add(elt);
+                this.header.Add(elt);
             }
+        }
+
+        private VisualElement GenerateCategoryElement(CategoryItemData category)
+        {
+            Button categoryButton = new() { name = "category-button", text = category.label };
+            categoryButton.AddToClassList("sub-menu__header__item");
+            categoryButton.clickable.clicked += () => SelectCategory(categoryButton);
+            categoryButton.userData = category;
+
+            return categoryButton;
         }
 
         private VisualElement GenerateItemElement(BuildingItemData item)
@@ -65,6 +83,34 @@ namespace quentin.tran.ui
             });
 
             return container;
+        }
+
+        private void SelectCategory(VisualElement selected)
+        {
+            CategoryItemData category = selected.userData as CategoryItemData;
+
+            if (this.cuurentCategory == category)
+                return;
+
+            this.cuurentCategory = category;
+
+            foreach (VisualElement item in this.header.Children())
+                item.RemoveFromClassList("sub-menu__header__item--selected");
+
+            selected.AddToClassList("sub-menu__header__item--selected");
+
+            this.scrollView.Clear();
+
+            VisualElement elt;
+
+            for (int i = 0; i < category.items.Count(); i++)
+            {
+                elt = GenerateItemElement(category.items.ElementAt(i));
+                if (i == 0)
+                    Select(elt);
+
+                this.scrollView.Add(elt);
+            }
         }
 
         private void Select(VisualElement selected)
