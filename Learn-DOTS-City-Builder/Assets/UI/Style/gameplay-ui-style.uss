@@ -102,9 +102,59 @@
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
     border-bottom-left-radius: 25px;
-    padding-right: 12px;
-    padding-left: 12px;
-    background-color: rgba(44, 62, 80, 0.75);
+    padding-right: 30px;
+    padding-left: 30px;
+    background-color: var(--city-builder-dark-grey-color);
+}
+
+.sub-menu__header {
+    height: 25px;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.sub-menu__header__item {
+    margin-top: 0;
+    margin-right: 5px;
+    margin-bottom: 0;
+    margin-left: 5px;
+    padding-top: 0;
+    padding-right: 5px;
+    padding-bottom: 0;
+    padding-left: 5px;
+    height: 20px;
+    flex-grow: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    color: rgb(255, 255, 255);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-left-color: var(--city-builder-very-dark-grey-color);
+    border-right-color: var(--city-builder-very-dark-grey-color);
+    border-top-color: var(--city-builder-very-dark-grey-color);
+    border-bottom-color: var(--city-builder-very-dark-grey-color);
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 12px;
+}
+
+.sub-menu__header__item:hover {
+    background-color: var(--city-builder-light-grey-color);
+}
+
+.sub-menu__header__item--selected {
+    background-color: var(--city-builder-very-dark-grey-color);
+}
+
+.sub-menu__header__item--selected:hover {
+    border-left-color: rgb(183, 183, 183);
+    border-right-color: rgb(183, 183, 183);
+    border-top-color: rgb(183, 183, 183);
+    border-bottom-color: rgb(183, 183, 183);
+    background-color: var(--city-builder-very-dark-grey-color);
 }
 
 .building-item {
@@ -119,14 +169,18 @@
     padding-top: 5px;
     margin-left: 5px;
     margin-right: 5px;
-}
-
-.building-item--selected {
-    background-color: var(--city-builder-light-grey-color);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
 }
 
 .building-item:hover {
     background-color: var(--city-builder-light-grey-color);
+}
+
+.building-item--selected {
+    background-color: var(--city-builder-very-dark-grey-color);
 }
 
 .building-item--selected:hover {
@@ -138,6 +192,7 @@
     border-right-width: 1px;
     border-bottom-width: 1px;
     border-left-width: 1px;
+    background-color: var(--city-builder-very-dark-grey-color);
 }
 
 .building-item__icon {

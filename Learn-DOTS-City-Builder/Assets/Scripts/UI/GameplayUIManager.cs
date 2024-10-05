@@ -17,9 +17,9 @@ namespace quentin.tran.ui
         private VisualElement gameplayContainer;
 
         [Header("Building Items"), SerializeField]
-        private List<BuildingItemData> houseItems = null;
+        private List<CategoryItemData> houseItems = null;
         [SerializeField]
-        private List<BuildingItemData> officeItems = null;
+        private List<CategoryItemData> officeItems = null;
 
         private void Start()
         {

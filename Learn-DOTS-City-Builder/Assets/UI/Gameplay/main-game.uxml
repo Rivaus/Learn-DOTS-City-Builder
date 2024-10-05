@@ -25,7 +25,12 @@
         </ui:VisualElement>
         <ui:VisualElement name="gameplay" style="flex-grow: 1;" />
         <ui:VisualElement name="bottom-bar">
-            <ui:VisualElement name="submenu" class="bottom-bar__submenu popup-scrollview" style="position: absolute; align-self: center; width: 600px; height: 150px; translate: 0 -110px;">
+            <ui:VisualElement name="submenu" class="bottom-bar__submenu popup-scrollview" style="position: absolute; align-self: center; width: 600px; translate: 0 -124px;">
+                <ui:VisualElement name="sub-menu__header" class="sub-menu__header" style="flex-grow: 1;">
+                    <ui:Button text="Pomme" name="sub-menu__header__item" class="sub-menu__header__item" />
+                    <ui:Button text="Pomme" name="sub-menu__header__item" class="sub-menu__header__item" />
+                    <ui:Button text="Pomme" name="sub-menu__header__item" class="sub-menu__header__item sub-menu__header__item--selected" />
+                </ui:VisualElement>
                 <ui:ScrollView name="sub-menu__scrollview" mode="Horizontal" horizontal-scroller-visibility="AlwaysVisible" style="flex-grow: 1;">
                     <ui:VisualElement name="building-item" class="building-item">
                         <ui:VisualElement name="building-item__icon" class="building-item__icon" />
