@@ -23,8 +23,6 @@ namespace quentin.tran.mono.grid
 
                 indices[indice] = indice;
                 indices[indice + 1] = indice + 1;
-
-                UnityEngine.Debug.Log("POMMEE");
             }
 
             for (int i = 0; i < GridProperties.GRID_SIZE + 1; i ++)
