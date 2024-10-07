@@ -1,14 +1,18 @@
 using quentin.tran.gameplay.buildingTool;
 using quentin.tran.simulation.component;
+using quentin.tran.simulation.component.material;
 using quentin.tran.simulation.system.grid;
 using quentin.tran.ui;
 using quentin.tran.ui.popup;
 using System.Collections.Generic;
 using System.Text;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
+using Unity.Rendering;
+using Unity.Transforms;
 
 namespace quentin.tran.gameplay.camera
 {
@@ -16,6 +20,8 @@ namespace quentin.tran.gameplay.camera
     partial struct CameraSelectEntitiesSystem : ISystem
     {
         private static bool select;
+
+        private static Entity hovered;
 
         public void OnCreate(ref SystemState state)
         {
@@ -32,19 +38,48 @@ namespace quentin.tran.gameplay.camera
             if (BuilderController.Instance.Mode != BuilderController.BuildingMode.None || !GameplayUIManager.CursorOnGameplay)
                 return;
 
-            if (select)
+            Hover(BuilderController.Instance.RayFromCamera(), ref state);
+
+            if (select && hovered != Entity.Null)
             {
-                UnityEngine.Ray rayFromCamera = BuilderController.Instance.RayFromCamera();
-
-                Entity selected = Raycast(rayFromCamera.origin, rayFromCamera.origin + rayFromCamera.direction * 50);
-
-                Select(selected, ref state);
+                Select(hovered, ref state);
 
                 select = false;
             }
         }
 
-        public Entity Raycast(float3 from, float3 to)
+        [BurstCompile]
+        private void Hover(UnityEngine.Ray rayFromCamera, ref SystemState state)
+        {
+            Entity hoveredEntity = Raycast(rayFromCamera.origin, rayFromCamera.origin + rayFromCamera.direction * 50);
+
+            if (hovered != hoveredEntity)
+            {
+                EntityCommandBuffer cmd = new(Allocator.Temp);
+
+                var query = SystemAPI.QueryBuilder().WithAll<SelectionMode>().Build();
+                var queryMask = query.GetEntityQueryMask();
+
+                if (hovered != Entity.Null)
+                {
+                    cmd.SetComponentForLinkedEntityGroup(hovered, queryMask, new SelectionMode() { mode = 0 });
+                }
+
+                hovered = hoveredEntity;
+
+                if (hoveredEntity != Entity.Null)
+                {
+                    cmd.SetComponentForLinkedEntityGroup(hovered, queryMask, new SelectionMode() { mode = 2 });
+                }
+
+                cmd.Playback(state.EntityManager);
+                cmd.Dispose();
+            }
+        }
+
+
+        [BurstCompile]
+        private Entity Raycast(float3 from, float3 to)
         {
             EntityQueryBuilder builder = new EntityQueryBuilder(Allocator.Temp).WithAll<PhysicsWorldSingleton>();
 
@@ -71,9 +106,11 @@ namespace quentin.tran.gameplay.camera
         public void OnDestroy(ref SystemState state)
         {
             InputManager.OnClick -= WanToToSelect;
+            select = false;
+            hovered = Entity.Null;
         }
 
-        private void Select(Entity entity, ref SystemState _)
+        private void Select(Entity entity, ref SystemState state)
         {
             if (entity == Entity.Null)
                 return;

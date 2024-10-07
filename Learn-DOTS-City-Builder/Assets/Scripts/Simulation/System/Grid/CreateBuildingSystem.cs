@@ -3,11 +3,13 @@ using quentin.tran.common;
 using quentin.tran.gameplay.buildingTool;
 using quentin.tran.simulation.component;
 using quentin.tran.simulation.component.map;
+using quentin.tran.simulation.component.material;
 using System.Collections.Generic;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Rendering;
 using Unity.Transforms;
 
 namespace quentin.tran.simulation.system.grid
@@ -128,6 +130,10 @@ namespace quentin.tran.simulation.system.grid
             {
                 index = createCmd.index,
             });
+
+            var query = SystemAPI.QueryBuilder().WithAll<MaterialMeshInfo>().Build();
+            var queryMask = query.GetEntityQueryMask();
+            entityCmdBuffer.AddComponentForLinkedEntityGroup(createdBuilding, queryMask, new SelectionMode() { mode = 0 });
 
             // 3. If it's a house building, create entity for each of its apartment. (a simple house has one apartment)
             if (SystemAPI.HasComponent<HouseBuilding>(entity))
