@@ -1,5 +1,6 @@
 using quentin.tran.gameplay;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 
 namespace quentin.tran.ui.popup
@@ -11,6 +12,9 @@ namespace quentin.tran.ui.popup
         [SerializeField]
         private UIDocument document;
 
+        [SerializeField]
+        private UniversalRendererData renderData;
+
         private VisualElement root;
 
         private StatisticsPopup statisticsPopup;
@@ -21,6 +25,8 @@ namespace quentin.tran.ui.popup
         {
             Instance = this;
 
+            Debug.Assert(renderData != null);
+
             Debug.Assert(document != null);
             this.root = this.document.rootVisualElement.Q<VisualElement>("popups");
             Debug.Assert(root != null);
@@ -29,7 +35,7 @@ namespace quentin.tran.ui.popup
             this.root.Add(this.statisticsPopup);
             this.statisticsPopup.Hide();
 
-            this.settingsPopup = new() { style = { position = Position.Absolute } };
+            this.settingsPopup = new(this.renderData) { style = { position = Position.Absolute } };
             this.root.Add(this.settingsPopup);
             this.settingsPopup.Hide();
 

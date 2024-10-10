@@ -1,5 +1,6 @@
 using quentin.tran.ui.manipulator;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 
 namespace quentin.tran.ui.popup
@@ -13,9 +14,19 @@ namespace quentin.tran.ui.popup
         private EnumField visualsModeDropdown;
         private Toggle vsyncToggle;
 
-        public SettingsPopup()
+        private UniversalRendererData renderData;
+
+
+        public SettingsPopup() : this(null)
+        {
+
+        }
+
+        public SettingsPopup(UniversalRendererData renderData)
         {
             Application.targetFrameRate = -1;
+
+            this.renderData = renderData;
 
             VisualTreeAsset template = Resources.Load("settings-popup") as VisualTreeAsset;
             Debug.Assert(template is not null, "Popup template not found");
@@ -53,6 +64,11 @@ namespace quentin.tran.ui.popup
 
         private void SetQualitySettings(VisualQualityPresets qualityPreset)
         {
+            if (renderData.TryGetRendererFeature(out ScreenSpaceAmbientOcclusion ssaoPass))
+            {
+                ssaoPass.SetActive(qualityPreset != VisualQualityPresets.Low);
+            }
+
             switch (qualityPreset)
             {
                 case VisualQualityPresets.Low:
