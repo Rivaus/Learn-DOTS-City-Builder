@@ -569,20 +569,6 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "e03616a9767f491f9ce3147bbbf55c62"
-                },
-                "m_SlotId": 2
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "0696464df6d34b83afe73d079604aed9"
-                },
-                "m_SlotId": 1
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
                     "m_Id": "fb30bb71d72a46cdb8c9e3151f95a762"
                 },
                 "m_SlotId": 3
@@ -3737,7 +3723,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Scale",
     "m_StageCapability": 3,
-    "m_Value": 100.0,
+    "m_Value": 1000.0,
     "m_DefaultValue": 500.0,
     "m_Labels": []
 }
