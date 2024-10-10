@@ -1,6 +1,5 @@
 using quentin.tran.gameplay.buildingTool;
 using quentin.tran.simulation.component;
-using quentin.tran.simulation.component.material;
 using quentin.tran.simulation.system.grid;
 using quentin.tran.ui;
 using quentin.tran.ui.popup;
@@ -57,19 +56,14 @@ namespace quentin.tran.gameplay.camera
             {
                 EntityCommandBuffer cmd = new(Allocator.Temp);
 
-                var query = SystemAPI.QueryBuilder().WithAll<SelectionMode>().Build();
-                var queryMask = query.GetEntityQueryMask();
-
                 if (hovered != Entity.Null)
                 {
-                    cmd.SetComponentForLinkedEntityGroup(hovered, queryMask, new SelectionMode() { mode = 0 });
                 }
 
                 hovered = hoveredEntity;
 
                 if (hoveredEntity != Entity.Null)
                 {
-                    cmd.SetComponentForLinkedEntityGroup(hovered, queryMask, new SelectionMode() { mode = 2 });
                 }
 
                 cmd.Playback(state.EntityManager);
