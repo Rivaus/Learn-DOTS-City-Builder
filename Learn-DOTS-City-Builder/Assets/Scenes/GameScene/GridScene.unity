@@ -344,15 +344,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simpleOffice01Prefabs:
-  - {fileID: 5894051482073591292, guid: 191b712e1a6314d4a836241776e67444, type: 3}
-  - {fileID: 6401893636381508655, guid: 4b62146e1542d5e448ccd87684e1a68e, type: 3}
-  - {fileID: 8176746862389715886, guid: 5b1d19db88c98cd448ff209e3af05e80, type: 3}
-  - {fileID: 6292262346189974767, guid: b0a2443ea3144774cbb086849269811e, type: 3}
-  - {fileID: 4173163315992199728, guid: 0161637ddf2b9e042ae5c8fdd398d72c, type: 3}
-  - {fileID: 6642063002034077825, guid: 3cb09f52ce4191a43b5cb2ab6814e932, type: 3}
   - {fileID: 5500055959604745661, guid: 241815a35a8d05b478a5eb4b08a82188, type: 3}
   - {fileID: 3953015943738741509, guid: a51998c29043a3141b479a9ad131892a, type: 3}
   - {fileID: 2812742901271361505, guid: 2ec3023eb30023a4185d5c56c54d0f95, type: 3}
+  - {fileID: 3931037209308937938, guid: b93c0d3a0a722b24791591ac949adc47, type: 3}
+  - {fileID: 158482693698185412, guid: 41eea07a94ca67f4ea5e518e763fb433, type: 3}
+  - {fileID: 4957797792296238049, guid: 20b18fc24695df1438280f1e7c84336c, type: 3}
 --- !u!1 &2029933367
 GameObject:
   m_ObjectHideFlags: 0

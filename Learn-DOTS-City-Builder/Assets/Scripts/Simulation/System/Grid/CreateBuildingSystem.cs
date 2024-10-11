@@ -22,14 +22,14 @@ namespace quentin.tran.simulation.system.grid
         private Random random;
 
         public NativeArray<Entity> simpleHouse01Prefabs;
-        public NativeArray<Entity> simpleOffice01Prefabs;
+        public NativeArray<Entity> simpleShopPrefabs;
 
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
             state.RequireForUpdate<RoadPrefab>();
             state.RequireForUpdate<HouseBuildingPrefabs>();
-            state.RequireForUpdate<JobBuildingPrefabs>();
+            state.RequireForUpdate<ShopBuildingPrefabs>();
         }
 
         public void OnStartRunning(ref SystemState state)
@@ -47,18 +47,15 @@ namespace quentin.tran.simulation.system.grid
             this.simpleHouse01Prefabs[7] = housePrefabs.ValueRO.simpleHouse01_08;
             this.simpleHouse01Prefabs[8] = housePrefabs.ValueRO.simpleHouse01_09;
 
-            RefRW<JobBuildingPrefabs> simpleOffice01Prefabs = SystemAPI.GetSingletonRW<JobBuildingPrefabs>();
-            this.simpleOffice01Prefabs = new(9, Allocator.Persistent);
+            RefRW<ShopBuildingPrefabs> shopPRefabs = SystemAPI.GetSingletonRW<ShopBuildingPrefabs>();
+            this.simpleShopPrefabs = new(6, Allocator.Persistent);
 
-            this.simpleOffice01Prefabs[0] = simpleOffice01Prefabs.ValueRO.simpleOffice01;
-            this.simpleOffice01Prefabs[1] = simpleOffice01Prefabs.ValueRO.simpleOffice02;
-            this.simpleOffice01Prefabs[2] = simpleOffice01Prefabs.ValueRO.simpleOffice03;
-            this.simpleOffice01Prefabs[3] = simpleOffice01Prefabs.ValueRO.simpleOffice04;
-            this.simpleOffice01Prefabs[4] = simpleOffice01Prefabs.ValueRO.simpleOffice05;
-            this.simpleOffice01Prefabs[5] = simpleOffice01Prefabs.ValueRO.simpleOffice06;
-            this.simpleOffice01Prefabs[6] = simpleOffice01Prefabs.ValueRO.restaurant01;
-            this.simpleOffice01Prefabs[7] = simpleOffice01Prefabs.ValueRO.restaurant02;
-            this.simpleOffice01Prefabs[8] = simpleOffice01Prefabs.ValueRO.restaurant03;
+            this.simpleShopPrefabs[0] = shopPRefabs.ValueRO.restaurant01;
+            this.simpleShopPrefabs[1] = shopPRefabs.ValueRO.restaurant02;
+            this.simpleShopPrefabs[2] = shopPRefabs.ValueRO.restaurant03;
+            this.simpleShopPrefabs[3] = shopPRefabs.ValueRO.floristAndBakery1;
+            this.simpleShopPrefabs[4] = shopPRefabs.ValueRO.floristAndBakery2;
+            this.simpleShopPrefabs[5] = shopPRefabs.ValueRO.floristAndBakery3;
 
             var now = System.DateTime.Now;
 
@@ -68,7 +65,7 @@ namespace quentin.tran.simulation.system.grid
         public void OnStopRunning(ref SystemState state)
         {
             this.simpleHouse01Prefabs.Dispose();
-            this.simpleOffice01Prefabs.Dispose();
+            this.simpleShopPrefabs.Dispose();
         }
 
         public void OnUpdate(ref SystemState state)
@@ -107,7 +104,7 @@ namespace quentin.tran.simulation.system.grid
 
                 GridCellKeys.SIMPLE_HOUSE_01 => this.simpleHouse01Prefabs[this.random.NextInt(0, this.simpleHouse01Prefabs.Length)],
 
-                GridCellKeys.SIMPLE_JOB_OFFICE_01 => this.simpleOffice01Prefabs[this.random.NextInt(0, this.simpleOffice01Prefabs.Length)],
+                GridCellKeys.SIMPLE_SHOP_01 => this.simpleShopPrefabs[this.random.NextInt(0, this.simpleShopPrefabs.Length)],
 
                 _ => Entity.Null
             };

@@ -679,7 +679,7 @@ MonoBehaviour:
     items:
     - {fileID: 11400000, guid: 5eb800eb8e4a372449b680eebbcf0d84, type: 2}
   officeItems:
-  - label: Office
+  - label: Shop
     items:
     - {fileID: 11400000, guid: db6cb00dc85e1514ab4ebfc03ded20ea, type: 2}
 --- !u!114 &600447326

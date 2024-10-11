@@ -26,7 +26,7 @@ namespace quentin.tran.common
 
         #region Job 10000 - 14999
 
-        public const uint SIMPLE_JOB_OFFICE_01 = 10000;
+        public const uint SIMPLE_SHOP_01 = 10000;
 
         #endregion
     }
