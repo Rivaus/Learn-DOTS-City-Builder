@@ -1,8 +1,10 @@
 using quentin.tran.authoring.map;
 using quentin.tran.common;
 using quentin.tran.simulation.component.map;
+using quentin.tran.simulation.component.material;
 using quentin.tran.simulation.system.grid;
 using System;
+using System.Text.RegularExpressions;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
@@ -84,6 +86,20 @@ namespace quentin.tran.simulation.map
                     }
                 }
             }
+
+            int v = 0;
+            EntityCommandBuffer cmd = new(Allocator.Temp);
+            foreach(DynamicBuffer<LinkedEntityGroup> tree in SystemAPI.Query<DynamicBuffer<LinkedEntityGroup>>().WithAll<MapDecoration>())
+            {
+                v++;
+                for(int i = 0; i < tree.Length; i++)
+                {
+                    cmd.AddComponent<SnowLevel>(tree[i].Value);
+                }
+            }
+
+            cmd.Playback(state.EntityManager);
+            cmd.Dispose();
 
             countByCell.Dispose();
             prefabs.Dispose();

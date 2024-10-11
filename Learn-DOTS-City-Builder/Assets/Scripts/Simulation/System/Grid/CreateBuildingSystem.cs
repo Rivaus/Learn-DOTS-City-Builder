@@ -3,6 +3,7 @@ using quentin.tran.common;
 using quentin.tran.gameplay.buildingTool;
 using quentin.tran.simulation.component;
 using quentin.tran.simulation.component.map;
+using quentin.tran.simulation.component.material;
 using System.Collections.Generic;
 using Unity.Burst;
 using Unity.Collections;
@@ -23,6 +24,9 @@ namespace quentin.tran.simulation.system.grid
 
         public NativeArray<Entity> simpleHouse01Prefabs;
         public NativeArray<Entity> simpleShopPrefabs;
+
+
+        EntityQuery renderersQuery;
 
         [BurstCompile]
         public void OnCreate(ref SystemState state)
@@ -60,6 +64,7 @@ namespace quentin.tran.simulation.system.grid
             var now = System.DateTime.Now;
 
             this.random = Random.CreateFromIndex((uint)(now.Second + now.Minute + now.Hour));
+            this.renderersQuery = SystemAPI.QueryBuilder().WithAll<RenderMeshArray>().Build();
         }
 
         public void OnStopRunning(ref SystemState state)
@@ -146,6 +151,9 @@ namespace quentin.tran.simulation.system.grid
                     entityCmdBuffer.AddBuffer<LinkedEntityBuffer>(house); // A buffer to store all inhabitants
                 }
             }
+
+            var queryMask = renderersQuery.GetEntityQueryMask();
+            entityCmdBuffer.AddComponentForLinkedEntityGroup(createdBuilding, queryMask, new SnowLevel { level = 0 });
         }
 
         [BurstCompile]

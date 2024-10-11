@@ -19,7 +19,7 @@ namespace quentin.tran.simulation
 
         public void Clear()
         {
-            this.timeManagerEntityQuery.Dispose();
+            //this.timeManagerEntityQuery.Dispose();
         }
 
         public void Update(float dt)

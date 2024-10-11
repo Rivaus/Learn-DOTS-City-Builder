@@ -121,18 +121,6 @@ namespace quentin.tran.simulation
         public void Clear()
         {
             Instance = null;
-
-            this.citizensQuery.Dispose();
-            this.babiesQuery.Dispose();
-            this.childrenQuery.Dispose();
-            this.teenagersQuery.Dispose();
-            this.adultsQuery.Dispose();
-            this.seniorsQuery.Dispose();
-
-            this.nbOfHouseBuildingsQuery.Dispose();
-            this.housesQuery.Dispose();
-            this.jobBuildingsQuery.Dispose();
-            this.workersQuery.Dispose();
         }
     }
 }

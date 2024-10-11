@@ -556,6 +556,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c34283b3e698684b98c5ea8ec1508c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snowLevel: 0
+  groundRenderer: {fileID: 917706377}
 --- !u!1 &447978142
 GameObject:
   m_ObjectHideFlags: 0
