@@ -24,6 +24,7 @@
                 <ui:Label text="Advanced Settings" class="popup__section__header" />
                 <ui:EnumField label="Anti Aliasing" value="Center" type="quentin.tran.ui.popup.VisualQualityPresets, Assembly-CSharp" enabled="false" />
                 <ui:EnumField label="Shadow Quality" value="Center" type="quentin.tran.ui.popup.VisualQualityPresets, Assembly-CSharp" enabled="false" />
+                <ui:Toggle label="SSAO" name="ssao-toggle" value="true" />
             </ui:ScrollView>
         </ui:VisualElement>
     </ui:VisualElement>

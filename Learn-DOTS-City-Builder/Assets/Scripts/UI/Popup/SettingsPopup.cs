@@ -11,8 +11,10 @@ namespace quentin.tran.ui.popup
         private const string PLAYER_PREF_QUALITY_PRESET = "PlayerPref.Settings.QualitySettings";
         private const string PLAYER_PREF_VSYNC = "PlayerPref.Settings.VSync";
 
+        private const string PLAYER_PREF_SSAO = "PlayerPref.Settings.SSAO";
+
         private EnumField visualsModeDropdown;
-        private Toggle vsyncToggle;
+        private Toggle vsyncToggle, ssaoToggle;
 
         private UniversalRendererData renderData;
 
@@ -44,6 +46,9 @@ namespace quentin.tran.ui.popup
 
             if (PlayerPrefs.HasKey(PLAYER_PREF_VSYNC))
                 SetVSync(PlayerPrefs.GetInt(PLAYER_PREF_VSYNC) == 1);
+
+            if (PlayerPrefs.HasKey(PLAYER_PREF_SSAO))
+                SetSSAO(PlayerPrefs.GetInt(PLAYER_PREF_SSAO) == 1);
         }
 
         private void BindVisualSettings()
@@ -60,15 +65,13 @@ namespace quentin.tran.ui.popup
 
             this.vsyncToggle = this.Q<Toggle>("vsync-toggle");
             this.vsyncToggle.RegisterValueChangedCallback(e => SetVSync(e.newValue));
+
+            this.ssaoToggle = this.Q<Toggle>("ssao-toggle");
+            this.ssaoToggle.RegisterValueChangedCallback(e => SetSSAO(e.newValue));
         }
 
         private void SetQualitySettings(VisualQualityPresets qualityPreset)
         {
-            if (renderData.TryGetRendererFeature(out ScreenSpaceAmbientOcclusion ssaoPass))
-            {
-                ssaoPass.SetActive(qualityPreset != VisualQualityPresets.Low);
-            }
-
             switch (qualityPreset)
             {
                 case VisualQualityPresets.Low:
@@ -96,6 +99,17 @@ namespace quentin.tran.ui.popup
 
             this.vsyncToggle.SetValueWithoutNotify(vSync);
             PlayerPrefs.SetInt(PLAYER_PREF_VSYNC, vSync ? 1 : 0);
+        }
+
+        private void SetSSAO(bool enableSSAO)
+        {
+            if (renderData.TryGetRendererFeature(out ScreenSpaceAmbientOcclusion ssaoPass))
+            {
+                ssaoPass.SetActive(enableSSAO);
+            }
+
+            this.ssaoToggle.SetValueWithoutNotify(enableSSAO);
+            PlayerPrefs.SetInt(PLAYER_PREF_SSAO, enableSSAO ? 1 : 0);
         }
     }
 

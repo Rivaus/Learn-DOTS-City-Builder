@@ -1,46 +1,4 @@
-using Mono.Cecil.Cil;
-using System.Runtime.InteropServices;
-using System.Security.Claims;
-using System;
-using Unity.Burst.Intrinsics;
 using Unity.Collections;
-using UnityEditor.SceneManagement;
-using UnityEditor.Search;
-using UnityEditor;
-using UnityEngine;
-using static Unity.Burst.Intrinsics.Arm;
-using static UnityEditor.Experimental.GraphView.GraphView;
-using static UnityEngine.InputManagerEntry;
-using static UnityEngine.Rendering.DebugUI;
-using static UnityEngine.UI.GridLayoutGroup;
-using UnityEngine.Analytics;
-using UnityEngine.InputSystem.EnhancedTouch;
-using UnityEngine.UIElements;
-using NUnit.Framework.Internal;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
-using static UnityEditor.UIElements.ToolbarMenu;
-using static UnityEngine.AudioSettings;
-using static UnityEngine.InputSystem.Controls.AxisControl;
-using static UnityEngine.Rendering.DebugUI.MessageBox;
-using static UnityEngine.Rendering.DebugUI.Table;
-using static UnityEngine.Rendering.VirtualTexturing.Debugging;
-using System.Reflection.Emit;
-using System.Security.Cryptography;
-using UnityEngine.InputSystem.HID;
-using UnityEngine.InputSystem;
-using UnityEngine.Timeline;
-using UnityEngine.XR;
-using static Unity.Burst.Intrinsics.X86.Sse4_2;
-using static Unity.Collections.AllocatorManager;
-using static Unity.Collections.Unicode;
-using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.EventSystems.EventTrigger;
-using Unity.Physics;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.UIElements;
-using UnityEngine.InputSystem.XR;
-using UnityEngine.WSA;
 
 namespace quentin.tran.simulation.system.citizen
 {
