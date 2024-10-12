@@ -3,7 +3,6 @@ using quentin.tran.common;
 using quentin.tran.gameplay.buildingTool;
 using quentin.tran.simulation.component;
 using quentin.tran.simulation.component.map;
-using quentin.tran.simulation.component.material;
 using System.Collections.Generic;
 using Unity.Burst;
 using Unity.Collections;
@@ -151,9 +150,6 @@ namespace quentin.tran.simulation.system.grid
                     entityCmdBuffer.AddBuffer<LinkedEntityBuffer>(house); // A buffer to store all inhabitants
                 }
             }
-
-            var queryMask = renderersQuery.GetEntityQueryMask();
-            entityCmdBuffer.AddComponentForLinkedEntityGroup(createdBuilding, queryMask, new SnowLevel { level = 0 });
         }
 
         [BurstCompile]
