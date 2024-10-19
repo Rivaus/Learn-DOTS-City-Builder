@@ -6,7 +6,6 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
-using Unity.Mathematics;
 using Unity.Transforms;
 
 namespace quentin.tran.simulation.system.citizen
@@ -33,38 +32,26 @@ namespace quentin.tran.simulation.system.citizen
         {
             waypoints.Update(ref state);
 
-            RoadGridManager manager = RoadGridManager.Instance;
-
             EntityCommandBuffer cmd = new(Allocator.TempJob);
-
-            NativeArray<PathFindingNode> nodes = new(manager.GetGraphSize(), Allocator.TempJob);
-            manager.GetGraphNode(nodes);
-            NativeArray<RoadCell>.ReadOnly roadsArray = manager.RoadGridArray;
             NativeList<JobHandle> jobs = new(Allocator.TempJob);
 
             foreach ((var pathFindingRequest, var transform, var waypoints, Entity e) in
                 SystemAPI.Query<RefRO<PathFindingRequest>, RefRO<LocalTransform>, DynamicBuffer<Waypoint>>()
-                .WithAbsent<HasPathFindingPath>()
+                .WithDisabled<HasPathFindingPath>()
                 .WithEntityAccess())
             {
                 waypoints.Clear();
 
-                cmd.RemoveComponent<PathFindingRequest>(e);
-                cmd.AddComponent<HasPathFindingPath>(e);
+                cmd.SetComponentEnabled<PathFindingRequest>(e, false);
+                cmd.SetComponent(e, new HasPathFindingPath() { currentWaypointIndex = 0 });
+                cmd.SetComponentEnabled<HasPathFindingPath>(e, true);
 
-                int2 start = FindStartRoad(transform, roadsArray, manager.MovementDirections);
-
-                RoadPathFindingJob pathFinder = new()
+                PathFindingJob pathFinder = new()
                 {
-                    startIndex = start,
-                    endIndex = pathFindingRequest.ValueRO.roadTarget,
-                    roads = roadsArray,
-                    gridWidth = manager.GetGridSize().x,
-                    directions = manager.MovementDirections,
-                    baseNodes = nodes,
-                    result = waypoints,
-                    addExtraWaypoint = true,
-                    extraWaypoint = pathFindingRequest.ValueRO.target
+                    startPosition = transform.ValueRO.Position,
+                    endPosition = pathFindingRequest.ValueRO.target,
+                    baseNodes = WalkingNetworkManager.Instance.Nodes,
+                    result = waypoints
                 };
 
                 jobs.Add(pathFinder.Schedule());
@@ -74,55 +61,10 @@ namespace quentin.tran.simulation.system.citizen
             JobHandle.CompleteAll(jobsArray);
             jobsArray.Dispose(); // required ?
             jobs.Dispose();
-            nodes.Dispose();
 
             cmd.Playback(state.EntityManager);
             cmd.Dispose();
         }
 
-        /// <summary>
-        /// Find closest road tile next to <paramref name="transform"/>.
-        /// </summary>
-        /// <param name="transform"></param>
-        /// <param name="roads"></param>
-        /// <param name="directions"></param>
-        /// <returns></returns>
-        [BurstCompile]
-        private int2 FindStartRoad(RefRO<LocalTransform> transform, NativeArray<RoadCell>.ReadOnly roads, NativeArray<int2>.ReadOnly directions)
-        {
-            int2 start = new int2((int)(transform.ValueRO.Position.x / GridProperties.GRID_CELL_SIZE), (int)(transform.ValueRO.Position.z / GridProperties.GRID_CELL_SIZE));
-            int tmp;
-
-            int res = -1;
-
-            foreach (int2 direction in directions)
-            {
-                tmp = IndexToArrayIndex(start + direction);
-
-                if (tmp < roads.Length && roads[tmp].Type != RoadType.None)
-                {
-                    res = tmp;
-
-                    break;
-                }
-            }
-
-            if (res >= 0)
-                return ArrayIndexToIndex(res);
-            else
-                return int2.zero;
-        }
-
-        [BurstCompile]
-        private int IndexToArrayIndex(int2 index) => index.x + index.y * GridProperties.GRID_SIZE;
-
-        [BurstCompile]
-        private int2 ArrayIndexToIndex(int index)
-        {
-            int y = index / GridProperties.GRID_SIZE;
-            int x = index - (y * GridProperties.GRID_SIZE);
-
-            return new int2(x, y);
-        }
     }
 }

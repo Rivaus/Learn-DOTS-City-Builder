@@ -16,8 +16,8 @@ namespace quentin.tran.gameplay
             this.managers.Add(new InputManager());
             this.managers.Add(new GridManager());
             this.managers.Add(new StatisticsManager());
-            this.managers.Add(new RoadGridManager());
             this.managers.Add(new TimeManagerMonoHandler());
+            this.managers.Add(new WalkingNetworkManager());
         }
 
         private void Update()

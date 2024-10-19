@@ -31,7 +31,7 @@ namespace quentin.tran.gameplay.buildingTool
                 // 1. Create new road
                 GridCellModel road = new GridCellModel { Index = index, Type = GridCellType.Road, Key = roadKey, RotationOffset = rotation };
                 GridManager.Instance.Build(x, y, road);
-                RoadGridManager.Instance.Build(x, y, isIntersection);
+                WalkingNetworkManager.Instance.AddRoad(index);
 
                 this.commandBuffer.Add(new CreateBuildingEntityCommand()
                 {
@@ -44,8 +44,6 @@ namespace quentin.tran.gameplay.buildingTool
                 // 2. Check if neighbours need to be updated
                 UpdateRoadNeighbours(x, y, this.commandBuffer);
             }
-
-            RoadGridManager.Instance.UpdateGraph();
 
             return this.commandBuffer;
         }
@@ -71,7 +69,8 @@ namespace quentin.tran.gameplay.buildingTool
                     {
                         index = neighbour.Index,
                     });
-                    RoadGridManager.Instance.Destroy(neighbour.Index.x, neighbour.Index.y);
+                    //RoadGridManager.Instance.Destroy(neighbour.Index.x, neighbour.Index.y);
+                    WalkingNetworkManager.Instance.RemoveRoad(neighbour.Index);
 
                     commands.Add(new CreateBuildingEntityCommand()
                     {
@@ -80,7 +79,8 @@ namespace quentin.tran.gameplay.buildingTool
                         position = position,
                         rotation = rotation
                     });
-                    RoadGridManager.Instance.Build(neighbour.Index.x, neighbour.Index.y, isIntersection);
+                    //RoadGridManager.Instance.Build(neighbour.Index.x, neighbour.Index.y, isIntersection);
+                    WalkingNetworkManager.Instance.AddRoad(neighbour.Index);
                 }
             }
         }
