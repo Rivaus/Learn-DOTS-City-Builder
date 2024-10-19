@@ -1,3 +1,4 @@
+using quentin.tran.simulation.component;
 using Unity.Entities;
 using UnityEngine;
 

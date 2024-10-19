@@ -36,8 +36,7 @@ namespace quentin.tran.simulation.system.citizen
             lastNames = new NativeArray<FixedString32Bytes>(CitizenNames.LAST_NAMES, Allocator.Persistent);
         }
 
-        [BurstCompile]
-        private void OnDestroy()
+        private void OnDestroy(ref SystemState _)
         {
             maleNames.Dispose();
             femaleNames.Dispose();
@@ -178,6 +177,11 @@ namespace quentin.tran.simulation.system.citizen
 
             cmd.AddBuffer<Waypoint>(citizen);
             cmd.AppendToBuffer<LinkedEntityBuffer>(house, new LinkedEntityBuffer() { entity = citizen });
+
+            cmd.AddComponent<PathFindingRequest>(citizen);
+            cmd.SetComponentEnabled<PathFindingRequest>(citizen, false);
+            cmd.AddComponent<HasPathFindingPath>(citizen);
+            cmd.SetComponentEnabled<HasPathFindingPath>(citizen, false);
         }
     }
 }

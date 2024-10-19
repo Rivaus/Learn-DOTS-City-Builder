@@ -28,7 +28,7 @@ namespace quentin.tran.gameplay.buildingTool
                 case GridCellType.None:
                     return this.commandBuffer;
                 case GridCellType.Road:
-                    RoadGridManager.Instance.Destroy(x, y);
+                    WalkingNetworkManager.Instance.RemoveRoad(new int2(x, y));
                     break;
             }
 
@@ -36,7 +36,6 @@ namespace quentin.tran.gameplay.buildingTool
 
             GridManager.Instance.Destroy(x, y);
             this.roadBuilder.UpdateRoadNeighbours(x, y, this.commandBuffer);
-            RoadGridManager.Instance.UpdateGraph();
 
             return this.commandBuffer;
         }

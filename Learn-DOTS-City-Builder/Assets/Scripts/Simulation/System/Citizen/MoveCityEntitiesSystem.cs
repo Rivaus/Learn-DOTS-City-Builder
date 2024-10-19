@@ -75,7 +75,8 @@ namespace quentin.tran.simulation.system.citizen
         {
             if (waypoints.Length == 0)
             {
-                cmd.RemoveComponent<HasPathFindingPath>(sortKey, e); ;
+                path.currentWaypointIndex = 0;
+                cmd.SetComponentEnabled<HasPathFindingPath>(sortKey, e, false);
                 return;
             }
 
@@ -84,10 +85,8 @@ namespace quentin.tran.simulation.system.citizen
 
             while (distanceThatCanBeTravelled >= 0)
             {
-                int2 targetIndex = waypoints[^(path.currentWaypointIndex + 1)].cellIndex;
-                float3 target = (new float3(targetIndex.x, 0, targetIndex.y) + new float3(0.5f, 0, 0.5f)) * GridProperties.GRID_CELL_SIZE;
-
-                target = target + math.rotate(quaternion.Euler(0, this.random.NextInt(0, 360), 0), new float3(0, 0, .2f));
+                float3 target = waypoints[^(path.currentWaypointIndex + 1)].position;
+                target += math.rotate(quaternion.Euler(0, this.random.NextInt(0, 360), 0), new float3(0, 0, .15f)); // random offset around waypoint.
 
                 float3 direction = target - transform.Position;
                 float speed = math.clamp(distanceThatCanBeTravelled, 0, math.length(direction));
@@ -102,7 +101,7 @@ namespace quentin.tran.simulation.system.citizen
 
                     if (path.currentWaypointIndex >= waypoints.Length)
                     {
-                        cmd.RemoveComponent<HasPathFindingPath>(sortKey, e);
+                        cmd.SetComponentEnabled<HasPathFindingPath>(sortKey, e, false);
                         return;
                     }
                 }
