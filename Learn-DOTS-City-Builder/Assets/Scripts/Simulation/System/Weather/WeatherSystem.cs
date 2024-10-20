@@ -12,6 +12,8 @@ namespace quentin.tran.simulation.weather
     {
         private int lastDay;
 
+        private int lastMonth;
+
         [BurstCompile]
         private void OnCreate(ref SystemState state)
         {
@@ -24,6 +26,13 @@ namespace quentin.tran.simulation.weather
         {
             RefRW<Weather> weather = SystemAPI.GetSingletonRW<Weather>();
             TimeManager time = SystemAPI.GetSingleton<TimeManager>();
+
+            // For now every month, it snows from the 5th to the 9th
+            if (this.lastMonth != time.dateTime.Month && this.lastDay == 5)
+            {
+                this.lastMonth = time.dateTime.Month;
+                weather.ValueRW.daysOfRain = 4;
+            }
 
             bool isRaining = weather.ValueRO.daysOfRain > 0;
 
