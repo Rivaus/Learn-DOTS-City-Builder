@@ -12,6 +12,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_MasterShader
+    second: {fileID: 2100000, guid: 9091ed24a7a98a54ea692ec666ec43b8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Tronc
     second: {fileID: 2100000, guid: 05bcbd459033558449ad7df21baf7eb9, type: 2}
   materials:

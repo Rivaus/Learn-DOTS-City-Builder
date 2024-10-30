@@ -2137,7 +2137,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "isMainTexture": false,
@@ -2182,8 +2182,8 @@
     "m_ObjectId": "8cc9beae172a424e82da9c0f05eadd51",
     "m_Title": "Albedo",
     "m_Position": {
-        "x": -1446.0,
-        "y": -171.00001525878907
+        "x": -1560.0,
+        "y": -180.0
     }
 }
 
@@ -2755,7 +2755,7 @@
     "m_StageCapability": 3,
     "m_BareResource": false,
     "m_Texture": {
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "m_DefaultType": 0
@@ -3066,8 +3066,8 @@
     "m_ObjectId": "d739415d45e54d2881c3f3d4e04e2655",
     "m_Title": "Angle Mask",
     "m_Position": {
-        "x": -2575.42626953125,
-        "y": 1086.0003662109375
+        "x": -2575.0,
+        "y": 1085.9998779296875
     }
 }
 

@@ -27,16 +27,7 @@ namespace quentin.tran.simulation.map
             state.Enabled = false;
 
             TreePrefabs trees = SystemAPI.GetSingleton<TreePrefabs>();
-
-            NativeArray<Entity> prefabs = new(new Entity[]
-            {
-                trees.tree01_01, trees.tree01_02, trees.tree01_03,
-                trees.tree02_01,  trees.tree02_02,  trees.tree02_03,
-                trees.tree03_01,  trees.tree03_02,  trees.tree03_03,
-                trees.tree04_01,  trees.tree04_02,  trees.tree04_03,
-                trees.tree05_01,  trees.tree05_02,  trees.tree05_03,
-            },
-            Allocator.Temp);
+            DynamicBuffer<TreeCollection> treePrefabs = SystemAPI.GetSingletonBuffer<TreeCollection>();
 
             NativeHashMap<int2, int> countByCell = new(GridProperties.GRID_SIZE * GridProperties.GRID_SIZE, Allocator.Temp);
 
@@ -44,9 +35,11 @@ namespace quentin.tran.simulation.map
 
             float3 maxPosition = GridProperties.GRID_SIZE * GridProperties.GRID_CELL_SIZE * new float3(1, 0, 1);
 
+            EntityCommandBuffer cmd = new(Allocator.Temp);
+
             while (nbTreeSpawned < trees.firstLayerNbTrees)
             {
-                int2 index = SpawnTree(ref state, float3.zero, maxPosition, prefabs[random.NextInt(0, prefabs.Length)]);
+                int2 index = SpawnTree(ref state, float3.zero, maxPosition, treePrefabs[random.NextInt(0, treePrefabs.Length)].entity, ref cmd);
 
                 if (countByCell.ContainsKey(index))
                     countByCell[index]++;
@@ -74,7 +67,7 @@ namespace quentin.tran.simulation.map
                         for (int k = 0; k < random.NextInt(0, countByCell[index]); k++)
                         {
                             additional++;
-                            SpawnTree(ref state, min, max, prefabs[random.NextInt(0, prefabs.Length)]);
+                            SpawnTree(ref state, min, max, treePrefabs[random.NextInt(0, treePrefabs.Length)].entity, ref cmd);
                         }
 
                         countByCell[index] += additional;
@@ -82,17 +75,19 @@ namespace quentin.tran.simulation.map
                 }
             }
 
+            cmd.Playback(state.EntityManager);
+            cmd.Dispose();
+
             countByCell.Dispose();
-            prefabs.Dispose();
         }
 
         [BurstCompile]
-        private int2 SpawnTree(ref SystemState state, float3 minPosition, float3 maxPosition, Entity prefab)
+        private int2 SpawnTree(ref SystemState state, float3 minPosition, float3 maxPosition, Entity prefab, ref EntityCommandBuffer cmd)
         {
             float3 position = random.NextFloat3(minPosition, maxPosition);
 
-            Entity tree = state.EntityManager.Instantiate(prefab);
-            state.EntityManager.SetComponentData(tree, new LocalTransform()
+            Entity tree = cmd.Instantiate(prefab);
+            cmd.SetComponent(tree, new LocalTransform()
             {
                 Position = position,
                 Rotation = quaternion.Euler(-math.PIHALF, random.NextFloat(0, math.PI2), 0),
@@ -101,7 +96,7 @@ namespace quentin.tran.simulation.map
 
             int2 index = new((int)(position.x / GridProperties.GRID_CELL_SIZE), (int)(position.z / GridProperties.GRID_CELL_SIZE));
 
-            state.EntityManager.AddComponentData(tree, new MapDecoration()
+            cmd.AddComponent(tree, new MapDecoration()
             {
                 index = index
             });

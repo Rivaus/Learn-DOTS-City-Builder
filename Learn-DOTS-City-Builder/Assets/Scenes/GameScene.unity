@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -567,7 +568,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 447978144}
-  - component: {fileID: 447978146}
   - component: {fileID: 447978147}
   m_Layer: 0
   m_Name: Debug
@@ -591,20 +591,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &447978146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 447978142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb9c58f3da421146910f8c05ff64708, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  start: {x: 45, y: 50}
-  end: {x: 54, y: 50}
 --- !u!114 &447978147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1090,7 +1076,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7257394850603791089, guid: a64b2e395e416e143aeeb204a21cb336, type: 3}
+  - {fileID: 2100000, guid: e15c05b5a9ebfd74e870ab5a0b4210ff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

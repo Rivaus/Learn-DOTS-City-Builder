@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -164,20 +165,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   treePrefabs:
   - {fileID: 3718234547991453521, guid: 059a5575049acf743a2ce2fd879cf09c, type: 3}
-  - {fileID: 2671562242989352339, guid: f760a7b374c71694bb14295217e724a3, type: 3}
-  - {fileID: 3734365466723298963, guid: 07e884a2900ea4d4ca0fb07f68d4c907, type: 3}
   - {fileID: 5670316229284558920, guid: ce3fd76db7956d84ba3741c21cbc3f86, type: 3}
-  - {fileID: 2196901875379272131, guid: 2ecdba64aa9491948ab6270b6a432ed9, type: 3}
-  - {fileID: 1020889274201843700, guid: 56a59101d6ad2974483cf609964569b2, type: 3}
   - {fileID: 9049281852109597796, guid: d413a916fc5c4444cb37c7f4eb853cc4, type: 3}
-  - {fileID: 3782825800099828906, guid: bdfe76645af5dc246bf3d09ddd644905, type: 3}
-  - {fileID: 5136143642354484338, guid: 51e68e3acf3f614409f296657a535513, type: 3}
   - {fileID: 1055995863526139838, guid: fb79585ca11f5c24494a2d0d03603edb, type: 3}
-  - {fileID: 8634438994312286075, guid: 227275119845f3242bccc4f469453a23, type: 3}
-  - {fileID: 2987269882350061412, guid: 680de2db64c82584b8190c39e1cb2cde, type: 3}
   - {fileID: 7819151509790486536, guid: 30065e5ea0c8fec479d74fda54a1da89, type: 3}
-  - {fileID: 1395257158646923908, guid: ee5219410c2749f47be932ba96c43e93, type: 3}
-  - {fileID: 1775114978125867323, guid: ca2336a9cdd5e3a47956d5c29632f1da, type: 3}
   firstLayerNbTrees: 600
   nbOfLayers: 2
 --- !u!1 &215591022
