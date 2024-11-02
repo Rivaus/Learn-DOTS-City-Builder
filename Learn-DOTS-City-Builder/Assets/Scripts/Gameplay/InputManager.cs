@@ -23,6 +23,8 @@ namespace quentin.tran.gameplay
 
         public static event Action<float> OnZoom;
 
+        public static bool IsMouseMovementEnabled = false;
+
         public InputManager()
         {
             Instance = this;
@@ -34,6 +36,8 @@ namespace quentin.tran.gameplay
             this.controls.CameraMap.Click.canceled += ClickRelease;
             this.controls.CameraMap.OrbitalView.performed += OrbitalRotate;
             this.controls.CameraMap.Zoom.performed += Zoom;
+            this.controls.CameraMap.MouseMovementMode.performed += EnableMouseMovement;
+            this.controls.CameraMap.MouseMovementMode.canceled += DisableMouseMovement;
 
             this.controls.BuildingMode.ViewMode.performed += ViewMode;
             this.controls.BuildingMode.CreateRoad.performed += RoadMode;
@@ -60,6 +64,10 @@ namespace quentin.tran.gameplay
 
         private void DeleteMode(InputAction.CallbackContext context) => OnDeleteMode?.Invoke();
 
+        private void EnableMouseMovement(InputAction.CallbackContext _) => IsMouseMovementEnabled = true;
+
+        private void DisableMouseMovement(InputAction.CallbackContext _) => IsMouseMovementEnabled = false;
+
         public void Clear()
         {
             Instance = null;
@@ -68,6 +76,8 @@ namespace quentin.tran.gameplay
             this.controls.CameraMap.Click.canceled -= ClickRelease;
             this.controls.CameraMap.OrbitalView.performed -= OrbitalRotate;
             this.controls.CameraMap.Zoom.performed -= Zoom;
+            this.controls.CameraMap.MouseMovementMode.performed -= EnableMouseMovement;
+            this.controls.CameraMap.MouseMovementMode.canceled -= DisableMouseMovement;
 
             this.controls.BuildingMode.ViewMode.performed -= ViewMode;
             this.controls.BuildingMode.CreateRoad.performed -= RoadMode;
