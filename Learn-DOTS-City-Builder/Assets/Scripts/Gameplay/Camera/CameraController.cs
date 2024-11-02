@@ -1,5 +1,6 @@
 using quentin.tran.ui;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace quentin.tran.gameplay.camera
 {
@@ -25,6 +26,10 @@ namespace quentin.tran.gameplay.camera
         [SerializeField]
         private float scrollSensitivity = 10f;
 
+        private bool isMouseMovementEnabled = false;
+
+        private Vector2 lastMousePosition;
+
         private void Start()
         {
             this.transform.position = this.focusPoint.transform.position + this.defaultOffset;
@@ -45,15 +50,38 @@ namespace quentin.tran.gameplay.camera
 
         private void Update()
         {
-            Move();
+            Vector2 input = Vector2.zero;
+
+            if (InputManager.IsMouseMovementEnabled)
+            {
+                if (!this.isMouseMovementEnabled)
+                {
+                    this.lastMousePosition = Mouse.current.position.value;
+                    this.isMouseMovementEnabled = true;
+                    return;
+                }
+
+                Vector2 mousePosition = Mouse.current.position.value;
+                input = (this.lastMousePosition - mousePosition) * 0.001f;
+
+                this.lastMousePosition = mousePosition;
+            }
+            else
+            {
+                input = InputManager.GetCameraMovement() * Time.deltaTime;
+                this.isMouseMovementEnabled = false;
+            }
+
+
+            Move(input);
         }
 
-        private void Move()
+        private void Move(Vector2 input)
         {
             Vector3 offset = this.transform.position - this.focusPoint.position;
             float distanceFromFocus = offset.magnitude;
 
-            Vector2 input = InputManager.GetCameraMovement() * Time.deltaTime * this.moveSpeed * distanceFromFocus * .15f;
+            input *= this.moveSpeed * distanceFromFocus * .15f;
             this.focusPoint.transform.position += this.transform.right * input.x + Quaternion.Euler(0, -90, 0) * this.transform.right * input.y;
 
             this.transform.position = this.focusPoint.position + offset;
