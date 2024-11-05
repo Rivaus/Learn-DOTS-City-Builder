@@ -22,6 +22,8 @@ namespace quentin.tran.common
 
         public const uint SIMPLE_HOUSE_01 = 5000;
 
+        public const uint MID_HOUSE_01 = 5001;
+
         #endregion
 
         #region Job 10000 - 14999

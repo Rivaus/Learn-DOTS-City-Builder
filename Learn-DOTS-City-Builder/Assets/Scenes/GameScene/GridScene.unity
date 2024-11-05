@@ -164,6 +164,9 @@ MonoBehaviour:
   - {fileID: 7116033558767824382, guid: 686651bc4d6c12640ab218c68824abee, type: 3}
   - {fileID: 2236663810244663343, guid: c89d2cb54e100a0419c0dc0f9b184b66, type: 3}
   - {fileID: 8319900268551471646, guid: 298a8ee3b0c3cf941a60c4adea40ed05, type: 3}
+  midHouse01Prefabs:
+  - {fileID: 1914177192577019758, guid: 3e0e5a922ac63ba4fb69667027ca7c95, type: 3}
+  - {fileID: 5697283345529885110, guid: 2626ce79a3b12414084f99ee274d01e2, type: 3}
 --- !u!4 &419916451
 Transform:
   m_ObjectHideFlags: 0

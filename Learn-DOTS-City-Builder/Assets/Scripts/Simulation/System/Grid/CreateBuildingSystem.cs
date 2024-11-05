@@ -38,6 +38,7 @@ namespace quentin.tran.simulation.system.grid
             Entity shopPrefabs = SystemAPI.GetSingletonEntity<ShopBuildingPrefabs>();
 
             DynamicBuffer<LowDensityHouseCollection> lowDensityPrefabs = SystemAPI.GetBuffer<LowDensityHouseCollection>(buildingPrefabs);
+            DynamicBuffer<MiddleDensityHouseCollection> middleDensityHouses = SystemAPI.GetBuffer<MiddleDensityHouseCollection>(buildingPrefabs);
             DynamicBuffer<LowDensityShopCollection> lowDensityShops = SystemAPI.GetBuffer<LowDensityShopCollection>(shopPrefabs);
 
             EntityCommandBuffer entityCmdBuffer = new (Allocator.Temp);
@@ -48,7 +49,7 @@ namespace quentin.tran.simulation.system.grid
             {
                 CreateBuildingEntityCommand cmd = commands.Dequeue();
 
-                Create(ref state, cmd, ref entityCmdBuffer, ref roadPrefabs, lowDensityPrefabs, lowDensityShops);
+                Create(ref state, cmd, ref entityCmdBuffer, ref roadPrefabs, lowDensityPrefabs, middleDensityHouses, lowDensityShops);
                 DestroyDecoration(ref state, cmd.index, ref entityCmdBuffer);
             }
 
@@ -59,6 +60,7 @@ namespace quentin.tran.simulation.system.grid
         [BurstCompile]
         private void Create(ref SystemState _, CreateBuildingEntityCommand createCmd, ref EntityCommandBuffer entityCmdBuffer, ref RoadPrefab roadPrefabs,
             DynamicBuffer<LowDensityHouseCollection> lowDensityHouses,
+            DynamicBuffer<MiddleDensityHouseCollection> middleDensityHouses,
             DynamicBuffer<LowDensityShopCollection> lowDensityShops)
         {
             // 1. Find entity to spawn
@@ -73,6 +75,7 @@ namespace quentin.tran.simulation.system.grid
                 GridCellKeys.ROAD_2x2_T_TURN => roadPrefabs.road2x2TTurnPrefab,
 
                 GridCellKeys.SIMPLE_HOUSE_01 => lowDensityHouses[this.random.NextInt(0, lowDensityHouses.Length)].entity,
+                GridCellKeys.MID_HOUSE_01 => middleDensityHouses[this.random.NextInt(0, middleDensityHouses.Length)].entity,
 
                 GridCellKeys.SIMPLE_SHOP_01 => lowDensityShops[this.random.NextInt(0, lowDensityShops.Length)].entity,
 

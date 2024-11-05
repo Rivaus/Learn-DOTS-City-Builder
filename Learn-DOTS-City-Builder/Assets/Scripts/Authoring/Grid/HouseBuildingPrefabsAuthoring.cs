@@ -11,6 +11,8 @@ namespace quentin.tran.authoring.grid
     {
         public List<GameObject> simpleHouse01Prefabs = new();
 
+        public List<GameObject> midHouse01Prefabs = new();
+
         private class Baker : Baker<HouseBuildingPrefabsAuthoring>
         {
             public override void Bake(HouseBuildingPrefabsAuthoring authoring)
@@ -23,6 +25,11 @@ namespace quentin.tran.authoring.grid
 
                 for (int i = 0; i < authoring.simpleHouse01Prefabs.Count; i++)
                     lowDensityHouses.Add(new() { entity = GetEntity(authoring.simpleHouse01Prefabs[i], TransformUsageFlags.Renderable) });
+
+                DynamicBuffer<MiddleDensityHouseCollection> middleDensityHouses = AddBuffer<MiddleDensityHouseCollection>(e);
+
+                for (int i = 0; i < authoring.midHouse01Prefabs.Count; i++)
+                    middleDensityHouses.Add(new() { entity = GetEntity(authoring.midHouse01Prefabs[i], TransformUsageFlags.Renderable) });
             }
         }
     }
@@ -32,6 +39,11 @@ namespace quentin.tran.authoring.grid
     }
 
     public struct LowDensityHouseCollection : IBufferElementData
+    {
+        public Entity entity;
+    }
+
+    public struct MiddleDensityHouseCollection : IBufferElementData
     {
         public Entity entity;
     }
